@@ -98,4 +98,8 @@ public class Participante {
     public boolean validarApuesta(int monto){
         return (this.jugador.getSaldo() >= monto);        
     }
+    
+    public void salirDelJuego() {
+        this.estado = Estado.Inactivo;
+    }
 }

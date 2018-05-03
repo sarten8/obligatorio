@@ -123,9 +123,6 @@
           <Image iconType="3" name="/vista/utilidades/cards/6_of_clubs.png"/>
         </Property>
         <Property name="text" type="java.lang.String" value="asdasdasdasdasda"/>
-        <Property name="size" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-          <Dimension value="[110, 160]"/>
-        </Property>
       </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
@@ -139,9 +136,6 @@
           <Image iconType="3" name="/vista/utilidades/cards/jack_of_diamonds.png"/>
         </Property>
         <Property name="text" type="java.lang.String" value="asdasdasdasdasda"/>
-        <Property name="size" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-          <Dimension value="[110, 160]"/>
-        </Property>
       </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
@@ -155,9 +149,6 @@
           <Image iconType="3" name="/vista/utilidades/cards/3_of_hearts.png"/>
         </Property>
         <Property name="text" type="java.lang.String" value="asdasdasdasdasda"/>
-        <Property name="size" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-          <Dimension value="[110, 160]"/>
-        </Property>
       </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
@@ -171,9 +162,6 @@
           <Image iconType="3" name="/vista/utilidades/cards/king_of_clubs.png"/>
         </Property>
         <Property name="text" type="java.lang.String" value="asdasdasdasdasda"/>
-        <Property name="size" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-          <Dimension value="[110, 160]"/>
-        </Property>
       </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">

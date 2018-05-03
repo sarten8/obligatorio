@@ -7,6 +7,10 @@ package vista;
 
 import controlador.ControladorJuego;
 import controlador.InterfaceJuego;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import modelo.Participante;
 
 /**
@@ -31,7 +35,6 @@ public class VistaJuego extends javax.swing.JFrame implements InterfaceJuego{
     }
 
     public VistaJuego() {
-
     }
 
     /**
@@ -154,7 +157,7 @@ public class VistaJuego extends javax.swing.JFrame implements InterfaceJuego{
 
     private void lblCloseMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblCloseMousePressed
         // TODO add your handling code here:
-        dispose();
+        confirmarSalida();
     }//GEN-LAST:event_lblCloseMousePressed
 
     private void lblBarraMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblBarraMouseDragged
@@ -222,6 +225,31 @@ public class VistaJuego extends javax.swing.JFrame implements InterfaceJuego{
 
     @Override
     public void mostrarError(String mensaje) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        JOptionPane.showMessageDialog(this, mensaje);
+    }
+    
+//    private void cerrar(){
+//        try{
+//            this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+//            addWindowListener(new WindowAdapter(){
+//                public void windowsClosing(WindowEvent e){
+//                    confirmarSalida();
+//                }
+//            });
+//            this.setVisible(true);
+//        }catch(Exception ex){
+//            mostrarError(ex.getMessage());
+//        }
+//    }
+    
+    private void confirmarSalida(){
+        int valor = JOptionPane.showConfirmDialog(this, "Está seguro que desea salir?", "Advertencia!", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+        if(valor == JOptionPane.YES_OPTION){
+            // Como se tiene implementado, que cada mano obtiene la lista de
+            // participantes activos, podemos hacer que el participante se 
+            // cambia el estado y en la proxima mano ya no estará.
+            this.participante.salirDelJuego();
+            dispose();
+        }
     }
 }
