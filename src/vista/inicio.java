@@ -52,6 +52,8 @@ public class inicio {
         Juego j2 = new Juego(f.getSj().getMaxJugadores(), f.getSj().getLuz(), mazo);
         f.getSj().getJuegos().add(j2);
         new InicioPantalla().setVisible(true);
+        
+        System.out.println("Prueba Git");
     }
     
 }
