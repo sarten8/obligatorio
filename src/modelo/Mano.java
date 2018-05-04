@@ -12,14 +12,17 @@ import java.util.ArrayList;
  * @author sartre
  */
 public class Mano {
+    private Juego juego;
     private int pozo = 0;
     private Participante participanteGanador;
     private Mazo mazo;
     private ArrayList<Participante> participantes = new ArrayList<>();
     
-    public Mano(Mazo mazo, ArrayList<Participante> participantes) {
+    public Mano(Juego juego, Mazo mazo, ArrayList<Participante> participantes, int pozoParcial) {
+        this.juego = juego;
         this.mazo = mazo;
         this.participantes = participantes;
+        this.pozo = pozoParcial;
     }
 
     public int getPozo() {
@@ -53,11 +56,14 @@ public class Mano {
     public void setParticipantes(ArrayList<Participante> participantes) {
         this.participantes = participantes;
     }
-
-
     
+    public void pasaronTodos(){
+        this.juego.setPozoParcial(pozo);
+    }
+
     public void acreditarGanador(){
-        
+        this.juego.setPozoParcial(0);
+        this.participanteGanador.incrementarSaldo(pozo);
     }
     
 }

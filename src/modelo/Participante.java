@@ -17,7 +17,7 @@ public class Participante {
     private ArrayList<Carta> cartas = new ArrayList<>();
     private int saldoInicial;
     private int saldoApostado = 0;
-    private int saldoGastado = 0;
+    private int saldoGanado = 0;
     private Estado estado;
     public enum Estado{
         Activo, Inactivo;
@@ -63,12 +63,12 @@ public class Participante {
         this.saldoApostado = saldoApostado;
     }
 
-    public int getSaldoGastado() {
-        return saldoGastado;
+    public int getSaldoGanado() {
+        return saldoGanado;
     }
 
-    public void setSaldoGastado(int saldoGastado) {
-        this.saldoGastado = saldoGastado;
+    public void setSaldoGanado(int saldoGanado) {
+        this.saldoGanado = saldoGanado;
     }
 
     public Estado getEstado() {
@@ -89,10 +89,14 @@ public class Participante {
     }
     
     
-    public int apostar(int monto){
-        this.jugador.setSaldo(this.jugador.getSaldo() - monto);
+    public void apostar(int monto){
+        this.jugador.descontarSaldo(monto);
         this.saldoApostado += monto;
-        return monto;
+    }
+    
+    public void incrementarSaldo(int monto) {
+        this.jugador.incrementarSaldo(monto);
+        this.saldoGanado += monto;
     }
     
     public boolean validarApuesta(int monto){

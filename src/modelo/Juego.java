@@ -24,7 +24,7 @@ public class Juego {
     private int pozoParcial = 0;
     private Estado estado = Estado.EnEspera;
     public enum Estado{
-                    EnEspera, Activo, Inactivo;
+                    EnEspera, Activo, Finalizado;
     }
     
     public Juego(int maxJugadores, int luz, Mazo mazo){
@@ -106,12 +106,17 @@ public class Juego {
         this.estado = Estado.Activo;
         this.fechaIicio = new Date();
         // Iniciamos el juego con la primer mano
+        this.pozoParcial = maxJugadores * luz;
         this.iniciarMano();
     } 
     
     private void iniciarMano() {
         ArrayList<Participante> participantesActivos = obtenerParticipantesActivos();
-        Mano m = new Mano(this.mazo, participantesActivos);
+        this.descontarLuz();
+        this.pozoParcial += participantesActivos.size() * luz;
+        Mano m = new Mano(this, this.mazo, participantesActivos, this.pozoParcial);
+        this.pozoParcial = 0;
+        this.actualizarPozo(participantesActivos.size()*luz);
     }
     
     private ArrayList<Participante> obtenerParticipantesActivos(){
@@ -123,7 +128,7 @@ public class Juego {
     }
     
     public Participante ingresarParticipante(Jugador j) throws PokerException{
-        if(buscarJugadorEnParticipantes(j)) throw new PokerException("Ud ya se encuentra para el próximo juego");
+        if(buscarJugadorEnParticipantes(j)) throw new PokerException(j.getNombre() + " se encuentra para el próximo juego");
         if(j.getSaldo() < luz*maxJugadores) throw new PokerException("Saldo insuficiente para este juego");
         Participante p = new Participante(j, this, j.getSaldo());
         participantes.add(p);
@@ -135,5 +140,18 @@ public class Juego {
             if(p.getJugador() == j) return true;
         }
         return false;
+    }
+    
+    
+    private void descontarLuz() {
+        // Se les quita al valor de la luz a cada jugador
+        for(Participante p: participantes){
+            p.apostar(luz);
+        }
+    }
+    
+    private void actualizarPozo(int monto){
+        this.pozoTotal += monto;
+                
     }
 }

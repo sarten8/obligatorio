@@ -24,5 +24,13 @@ public class Jugador extends Usuario{
         super(user, pass, nombre);
         this.saldo = saldo;
     }
+
+    public void incrementarSaldo(int monto) {
+        saldo += monto;
+    }
+
+    public void descontarSaldo(int monto) {
+        saldo -= monto;
+    }
     
 }

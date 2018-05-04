@@ -12,6 +12,11 @@ package modelo;
 public class Carta {
     private char numero;
     private Palo palo;
+    private String imagen; 
+
+    public String getImagen() {
+        return imagen;
+    }
 
     public char getNumero() {
         return numero;
@@ -29,10 +34,9 @@ public class Carta {
         this.palo = palo;
     }
 
-    public Carta(char numero, Palo palo) {
+    public Carta(char numero, Palo palo, String imagen) {
         this.numero = numero;
         this.palo = palo;
+        this.imagen = imagen;
     }
-    
-    
 }

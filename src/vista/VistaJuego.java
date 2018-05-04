@@ -32,6 +32,11 @@ public class VistaJuego extends javax.swing.JFrame implements InterfaceJuego{
         this.controlador = new ControladorJuego(this);
         this.participante = p;
         this.lblNombre.setText(p.getJugador().getNombre());
+        this.lblCarta1.setVisible(false);
+        this.lblCarta2.setVisible(false);
+        this.lblCarta3.setVisible(false);
+        this.lblCarta4.setVisible(false);
+        this.lblCarta5.setVisible(false);
     }
 
     public VistaJuego() {
@@ -56,6 +61,7 @@ public class VistaJuego extends javax.swing.JFrame implements InterfaceJuego{
         lblCarta3 = new javax.swing.JLabel();
         lblCarta4 = new javax.swing.JLabel();
         lblCarta5 = new javax.swing.JLabel();
+        lblEspera = new javax.swing.JLabel();
         lstParticipantes = new javax.swing.JScrollPane();
         jList1 = new javax.swing.JList<>();
         lblBackground = new javax.swing.JLabel();
@@ -116,27 +122,27 @@ public class VistaJuego extends javax.swing.JFrame implements InterfaceJuego{
 
         lblCarta2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/utilidades/cards/6_of_clubs.png"))); // NOI18N
         lblCarta2.setText("asdasdasdasdasda");
-        lblCarta2.setSize(new java.awt.Dimension(110, 160));
         getContentPane().add(lblCarta2);
         lblCarta2.setBounds(300, 50, 110, 160);
 
         lblCarta3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/utilidades/cards/jack_of_diamonds.png"))); // NOI18N
         lblCarta3.setText("asdasdasdasdasda");
-        lblCarta3.setSize(new java.awt.Dimension(110, 160));
         getContentPane().add(lblCarta3);
         lblCarta3.setBounds(460, 50, 110, 160);
 
         lblCarta4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/utilidades/cards/3_of_hearts.png"))); // NOI18N
         lblCarta4.setText("asdasdasdasdasda");
-        lblCarta4.setSize(new java.awt.Dimension(110, 160));
         getContentPane().add(lblCarta4);
         lblCarta4.setBounds(390, 230, 110, 160);
 
         lblCarta5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/utilidades/cards/king_of_clubs.png"))); // NOI18N
         lblCarta5.setText("asdasdasdasdasda");
-        lblCarta5.setSize(new java.awt.Dimension(110, 160));
         getContentPane().add(lblCarta5);
         lblCarta5.setBounds(220, 230, 110, 160);
+
+        lblEspera.setForeground(new java.awt.Color(255, 255, 255));
+        getContentPane().add(lblEspera);
+        lblEspera.setBounds(80, 50, 540, 40);
 
         lstParticipantes.setViewportView(jList1);
 
@@ -208,7 +214,7 @@ public class VistaJuego extends javax.swing.JFrame implements InterfaceJuego{
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JList<String> jList1;
+    private javax.swing.JList<Participante> jList1;
     private javax.swing.JLabel lblBackground;
     private javax.swing.JLabel lblBarra;
     private javax.swing.JLabel lblCarta1;
@@ -217,6 +223,7 @@ public class VistaJuego extends javax.swing.JFrame implements InterfaceJuego{
     private javax.swing.JLabel lblCarta4;
     private javax.swing.JLabel lblCarta5;
     private javax.swing.JLabel lblClose;
+    private javax.swing.JLabel lblEspera;
     private javax.swing.JLabel lblMinimize;
     private javax.swing.JLabel lblNombre;
     private javax.swing.JLabel lblParticipantes;

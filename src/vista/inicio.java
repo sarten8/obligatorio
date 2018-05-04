@@ -26,8 +26,8 @@ public class inicio {
         Palo pt = new Palo("Trébol", 3);
         Palo pp = new Palo("Pique", 4);
         
-        Carta ac = new Carta('A', pc);
-        Carta kc = new Carta('K', pc);
+        Carta ac = new Carta('A', pc, "utilidades/cards/ace_of_hearts.png");
+        Carta kc = new Carta('K', pc, "utilidades/cards/ace_of_hearts.png");
         
         Mazo mazo = new Mazo();
         mazo.getCartas().add(ac);
