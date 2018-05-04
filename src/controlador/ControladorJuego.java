@@ -33,6 +33,7 @@ public class ControladorJuego implements Observer{
         }
         if(evento.equals(Fachada.Evento.IniciaJuego)){
             vista.iniciarJuego();
+            vista.actualizarListaParticipantes(modelo.getSj().getJuegos().get(modelo.getSj().getJuegos().size()-1).getParticipantes());
         }   
     }
 }

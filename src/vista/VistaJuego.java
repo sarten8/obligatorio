@@ -64,6 +64,8 @@ public class VistaJuego extends javax.swing.JFrame implements InterfaceJuego{
         lblCarta3 = new javax.swing.JLabel();
         lblCarta4 = new javax.swing.JLabel();
         lblCarta5 = new javax.swing.JLabel();
+        btnApostar = new javax.swing.JButton();
+        btnPasar = new javax.swing.JButton();
         contenedorParticipantes = new javax.swing.JScrollPane();
         lstParticipantes = new javax.swing.JList();
         lblBackground = new javax.swing.JLabel();
@@ -115,48 +117,65 @@ public class VistaJuego extends javax.swing.JFrame implements InterfaceJuego{
         lblParticipantes.setText("~ Participantes ~");
         lblParticipantes.setToolTipText("");
         getContentPane().add(lblParticipantes);
-        lblParticipantes.setBounds(650, 20, 120, 40);
+        lblParticipantes.setBounds(650, 30, 100, 40);
 
-        lblEspera.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        lblEspera.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
         lblEspera.setForeground(new java.awt.Color(255, 255, 255));
         getContentPane().add(lblEspera);
-        lblEspera.setBounds(80, 40, 540, 40);
+        lblEspera.setBounds(80, 210, 540, 40);
 
         lblCarta1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/utilidades/cards/10_of_diamonds.png"))); // NOI18N
         lblCarta1.setText("asdasdasdasdasda");
         getContentPane().add(lblCarta1);
-        lblCarta1.setBounds(150, 50, 110, 160);
+        lblCarta1.setBounds(170, 80, 110, 160);
 
         lblCarta2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/utilidades/cards/6_of_clubs.png"))); // NOI18N
         lblCarta2.setText("asdasdasdasdasda");
         getContentPane().add(lblCarta2);
-        lblCarta2.setBounds(300, 50, 110, 160);
+        lblCarta2.setBounds(310, 80, 110, 160);
 
         lblCarta3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/utilidades/cards/jack_of_diamonds.png"))); // NOI18N
         lblCarta3.setText("asdasdasdasdasda");
         getContentPane().add(lblCarta3);
-        lblCarta3.setBounds(460, 50, 110, 160);
+        lblCarta3.setBounds(450, 80, 110, 160);
 
         lblCarta4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/utilidades/cards/3_of_hearts.png"))); // NOI18N
         lblCarta4.setText("asdasdasdasdasda");
         getContentPane().add(lblCarta4);
-        lblCarta4.setBounds(390, 230, 110, 160);
+        lblCarta4.setBounds(380, 260, 110, 160);
 
         lblCarta5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/utilidades/cards/king_of_clubs.png"))); // NOI18N
         lblCarta5.setText("asdasdasdasdasda");
         getContentPane().add(lblCarta5);
-        lblCarta5.setBounds(220, 230, 110, 160);
+        lblCarta5.setBounds(240, 260, 110, 160);
 
+        btnApostar.setBackground(new java.awt.Color(71, 128, 51));
+        btnApostar.setForeground(new java.awt.Color(255, 255, 255));
+        btnApostar.setText("Apostar");
+        getContentPane().add(btnApostar);
+        btnApostar.setBounds(380, 460, 180, 32);
+
+        btnPasar.setBackground(new java.awt.Color(162, 52, 52));
+        btnPasar.setForeground(new java.awt.Color(255, 255, 255));
+        btnPasar.setText("Pasar");
+        getContentPane().add(btnPasar);
+        btnPasar.setBounds(170, 460, 180, 32);
+
+        contenedorParticipantes.setBackground(new java.awt.Color(51, 51, 51));
+
+        lstParticipantes.setBackground(new java.awt.Color(89, 89, 104));
+        lstParticipantes.setSelectionBackground(new java.awt.Color(215, 215, 89));
+        lstParticipantes.setSelectionForeground(new java.awt.Color(0, 0, 0));
         contenedorParticipantes.setViewportView(lstParticipantes);
 
         getContentPane().add(contenedorParticipantes);
-        contenedorParticipantes.setBounds(633, 70, 150, 380);
+        contenedorParticipantes.setBounds(623, 80, 160, 340);
 
         lblBackground.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/utilidades/background/background_table.jpg"))); // NOI18N
         getContentPane().add(lblBackground);
-        lblBackground.setBounds(-550, -150, 1400, 620);
+        lblBackground.setBounds(-550, -140, 1400, 660);
 
-        setBounds(0, 0, 811, 446);
+        setBounds(0, 0, 811, 510);
     }// </editor-fold>//GEN-END:initComponents
 
     private void lblMinimizeMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblMinimizeMousePressed
@@ -217,6 +236,8 @@ public class VistaJuego extends javax.swing.JFrame implements InterfaceJuego{
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnApostar;
+    private javax.swing.JButton btnPasar;
     private javax.swing.JScrollPane contenedorParticipantes;
     private javax.swing.JLabel lblBackground;
     private javax.swing.JLabel lblBarra;
@@ -268,6 +289,6 @@ public class VistaJuego extends javax.swing.JFrame implements InterfaceJuego{
 
     @Override
     public void actualizarListaParticipantes(ArrayList<Participante> participantes) {
-        this.lstParticipantes.setListData((Participante[]) participantes.toArray());
+        this.lstParticipantes.setListData(participantes.toArray());
     }
 }
