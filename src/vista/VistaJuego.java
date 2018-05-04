@@ -164,6 +164,7 @@ public class VistaJuego extends javax.swing.JFrame implements InterfaceJuego{
         contenedorParticipantes.setBackground(new java.awt.Color(51, 51, 51));
 
         lstParticipantes.setBackground(new java.awt.Color(89, 89, 104));
+        lstParticipantes.setForeground(new java.awt.Color(0, 0, 0));
         lstParticipantes.setSelectionBackground(new java.awt.Color(215, 215, 89));
         lstParticipantes.setSelectionForeground(new java.awt.Color(0, 0, 0));
         contenedorParticipantes.setViewportView(lstParticipantes);

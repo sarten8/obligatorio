@@ -136,6 +136,7 @@ public class Juego{
         else Fachada.getInstancia().avisar(Fachada.Evento.ParticipanteIngresado);
         return p; 
     }
+    
     private boolean buscarJugadorEnParticipantes(Jugador j){
         for(Participante p: participantes){
             if(p.getJugador() == j) return true;

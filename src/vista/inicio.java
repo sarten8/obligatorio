@@ -36,7 +36,7 @@ public class inicio {
         f.getSj().setMazo(mazo);
         
         f.getSj().setLuz(100);
-        f.getSj().setMaxJugadores(3);
+        f.getSj().setMaxJugadores(2);
         
         Juego j = new Juego(f.getSj().getMaxJugadores(), f.getSj().getLuz(), mazo);
         
@@ -45,7 +45,7 @@ public class inicio {
         f.getSu().agregarJugador(jugador1);
         f.getSu().agregarJugador(new Jugador("b", "b", "Fulano", 600));
         f.getSu().agregarJugador(new Jugador("c", "c", "Mengano", 800));
-        f.getSu().agregarJugador(new Jugador("prueba", "prueba", "Sr. Prueba", 10));
+        f.getSu().agregarJugador(new Jugador("prueba", "prueba", "Sr. Prueba", 1000));
         
         //j.ingresarParticipante(jugador1);
         //j.iniciar();
