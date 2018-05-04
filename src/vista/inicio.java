@@ -45,6 +45,7 @@ public class inicio {
         f.getSu().agregarJugador(jugador1);
         f.getSu().agregarJugador(new Jugador("b", "b", "Fulano", 600));
         f.getSu().agregarJugador(new Jugador("c", "c", "Mengano", 800));
+        f.getSu().agregarJugador(new Jugador("prueba", "prueba", "Sr. Prueba", 10));
         
         //j.ingresarParticipante(jugador1);
         //j.iniciar();

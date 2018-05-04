@@ -134,7 +134,7 @@ public class Juego{
         participantes.add(p);
         if(participantes.size() == maxJugadores) iniciar();
         else Fachada.getInstancia().avisar(Fachada.Evento.ParticipanteIngresado);
-        return p;
+        return p; 
     }
     private boolean buscarJugadorEnParticipantes(Jugador j){
         for(Participante p: participantes){

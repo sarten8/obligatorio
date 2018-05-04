@@ -29,10 +29,10 @@ public class ControladorJuego implements Observer{
             Juego juegoEnEspera = modelo.getSj().getJuegos().get(modelo.getSj().getJuegos().size()-1);
             int faltantes = juegoEnEspera.getMaxJugadores() - juegoEnEspera.getParticipantes().size();
             vista.mostrarEspera(faltantes);
+            vista.actualizarListaParticipantes(juegoEnEspera.getParticipantes());
         }
         if(evento.equals(Fachada.Evento.IniciaJuego)){
             vista.iniciarJuego();
-        }
-            
+        }   
     }
 }

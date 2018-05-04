@@ -113,4 +113,11 @@ public class Participante {
             Fachada.getInstancia().avisar(Fachada.Evento.ParticipanteRetirado);
         }
     }
+
+    @Override
+    public String toString() {
+        return this.jugador.toString();
+    }
+    
+    
 }

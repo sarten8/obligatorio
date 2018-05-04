@@ -5,6 +5,9 @@
  */
 package controlador;
 
+import java.util.ArrayList;
+import modelo.Participante;
+
 /**
  *
  * @author sartre
@@ -12,5 +15,6 @@ package controlador;
 public interface InterfaceJuego {
     public void mostrarError(String mensaje);
     public void mostrarEspera(int faltantes);
+    public void actualizarListaParticipantes(ArrayList<Participante> participantes);
     public void iniciarJuego();
 }

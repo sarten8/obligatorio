@@ -9,6 +9,7 @@ import controlador.ControladorJuego;
 import controlador.InterfaceJuego;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.ArrayList;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import modelo.Participante;
@@ -63,8 +64,8 @@ public class VistaJuego extends javax.swing.JFrame implements InterfaceJuego{
         lblCarta3 = new javax.swing.JLabel();
         lblCarta4 = new javax.swing.JLabel();
         lblCarta5 = new javax.swing.JLabel();
-        lstParticipantes = new javax.swing.JScrollPane();
-        jList1 = new javax.swing.JList<>();
+        contenedorParticipantes = new javax.swing.JScrollPane();
+        lstParticipantes = new javax.swing.JList();
         lblBackground = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -119,7 +120,7 @@ public class VistaJuego extends javax.swing.JFrame implements InterfaceJuego{
         lblEspera.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         lblEspera.setForeground(new java.awt.Color(255, 255, 255));
         getContentPane().add(lblEspera);
-        lblEspera.setBounds(80, 50, 540, 40);
+        lblEspera.setBounds(80, 40, 540, 40);
 
         lblCarta1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/utilidades/cards/10_of_diamonds.png"))); // NOI18N
         lblCarta1.setText("asdasdasdasdasda");
@@ -146,10 +147,10 @@ public class VistaJuego extends javax.swing.JFrame implements InterfaceJuego{
         getContentPane().add(lblCarta5);
         lblCarta5.setBounds(220, 230, 110, 160);
 
-        lstParticipantes.setViewportView(jList1);
+        contenedorParticipantes.setViewportView(lstParticipantes);
 
-        getContentPane().add(lstParticipantes);
-        lstParticipantes.setBounds(633, 70, 150, 380);
+        getContentPane().add(contenedorParticipantes);
+        contenedorParticipantes.setBounds(633, 70, 150, 380);
 
         lblBackground.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/utilidades/background/background_table.jpg"))); // NOI18N
         getContentPane().add(lblBackground);
@@ -216,7 +217,7 @@ public class VistaJuego extends javax.swing.JFrame implements InterfaceJuego{
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JList<Participante> jList1;
+    private javax.swing.JScrollPane contenedorParticipantes;
     private javax.swing.JLabel lblBackground;
     private javax.swing.JLabel lblBarra;
     private javax.swing.JLabel lblCarta1;
@@ -229,7 +230,7 @@ public class VistaJuego extends javax.swing.JFrame implements InterfaceJuego{
     private javax.swing.JLabel lblMinimize;
     private javax.swing.JLabel lblNombre;
     private javax.swing.JLabel lblParticipantes;
-    private javax.swing.JScrollPane lstParticipantes;
+    private javax.swing.JList lstParticipantes;
     // End of variables declaration//GEN-END:variables
 
     @Override
@@ -263,5 +264,10 @@ public class VistaJuego extends javax.swing.JFrame implements InterfaceJuego{
         this.lblCarta3.setVisible(true);
         this.lblCarta4.setVisible(true);
         this.lblCarta5.setVisible(true);
+    }
+
+    @Override
+    public void actualizarListaParticipantes(ArrayList<Participante> participantes) {
+        this.lstParticipantes.setListData((Participante[]) participantes.toArray());
     }
 }
