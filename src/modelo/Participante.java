@@ -78,8 +78,6 @@ public class Participante {
     public void setEstado(Estado estado) {
         this.estado = estado;
     }
-    
-    
 
     public Participante(Jugador jugador, Juego juego, int saldoInicial) {
         this.jugador = jugador;

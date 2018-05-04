@@ -7,10 +7,7 @@ package vista;
 
 import controlador.ControladorJuego;
 import controlador.InterfaceJuego;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 import java.util.ArrayList;
-import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import modelo.Participante;
 
@@ -32,7 +29,7 @@ public class VistaJuego extends javax.swing.JFrame implements InterfaceJuego{
         this.setResizable(false);
         this.controlador = new ControladorJuego(this);
         this.participante = p;
-        this.lblNombre.setText(p.getJugador().getNombre());
+        //this.lblNombre.setText(p.getJugador().getNombre());
         this.lblEspera.setVisible(true);
         this.lblCarta1.setVisible(false);
         this.lblCarta2.setVisible(false);
@@ -290,6 +287,26 @@ public class VistaJuego extends javax.swing.JFrame implements InterfaceJuego{
 
     @Override
     public void actualizarListaParticipantes(ArrayList<Participante> participantes) {
-        this.lstParticipantes.setListData(participantes.toArray());
+        ArrayList<Participante> participantesActualizada = new ArrayList<>();
+        for(Participante p: participantes){
+            if( this.participante != p){
+                participantesActualizada.add(p);
+            }
+        }
+        this.lstParticipantes.setListData(participantesActualizada.toArray());
+    }
+    
+    private void mostrarNombre(){
+        if(this.participante!=null){
+            this.lblNombre.setText(this.participante.getJugador().getNombre());
+        }
+    }
+    
+
+    // Esto captura el setVisible.
+    @Override
+    public boolean isShowing() {
+        mostrarNombre();
+        return super.isShowing(); //To change body of generated methods, choose Tools | Templates.
     }
 }

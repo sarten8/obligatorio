@@ -25,15 +25,19 @@ public class ControladorJuego implements Observer{
 
     @Override
     public void update(Observable o, Object evento) {
-        if(evento.equals(Fachada.Evento.ParticipanteIngresado) || evento.equals(Fachada.Evento.ParticipanteSalio)) {
-            Juego juegoEnEspera = modelo.getSj().getJuegos().get(modelo.getSj().getJuegos().size()-1);
+        Juego juegoEnEspera = modelo.getSj().getJuegos().get(modelo.getSj().getJuegos().size()-1);
+        if(evento.equals(Fachada.Evento.ParticipanteIngresado) || evento.equals(Fachada.Evento.ParticipanteSalio)){
             int faltantes = juegoEnEspera.getMaxJugadores() - juegoEnEspera.getParticipantes().size();
             vista.mostrarEspera(faltantes);
             vista.actualizarListaParticipantes(juegoEnEspera.getParticipantes());
         }
+        
+        if(evento.equals(Fachada.Evento.ParticipanteRetirado)) 
+            vista.actualizarListaParticipantes(juegoEnEspera.getParticipantes());
+        
         if(evento.equals(Fachada.Evento.IniciaJuego)){
             vista.iniciarJuego();
-            vista.actualizarListaParticipantes(modelo.getSj().getJuegos().get(modelo.getSj().getJuegos().size()-1).getParticipantes());
+            vista.actualizarListaParticipantes(juegoEnEspera.getParticipantes());
         }   
     }
 }

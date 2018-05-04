@@ -36,7 +36,7 @@ public class inicio {
         f.getSj().setMazo(mazo);
         
         f.getSj().setLuz(100);
-        f.getSj().setMaxJugadores(2);
+        f.getSj().setMaxJugadores(4);
         
         Juego j = new Juego(f.getSj().getMaxJugadores(), f.getSj().getLuz(), mazo);
         
