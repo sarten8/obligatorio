@@ -5,17 +5,25 @@
  */
 package modelo;
 
+import java.util.Observable;
+
 /**
  *
  * @author sartre
  */
-public class Fachada {
+public class Fachada extends Observable{
     SistemaUsuarios su = new SistemaUsuarios();
     SistemaJuego sj = new SistemaJuego();
     
     private static Fachada instancia = new Fachada();
     public static Fachada getInstancia() {
         return instancia;
+    }
+    
+    // El Evento ParticipanteSalio es por si el participante se retira antes de 
+    // que el juego haya iniciado. El Participante se quita de Array de participantes
+    public enum Evento{
+        ParticipanteIngresado, ParticipanteSalio, ParticipanteRetirado, IniciaJuego;
     }
 
     public SistemaUsuarios getSu() {
@@ -27,6 +35,11 @@ public class Fachada {
     }
     
     public Fachada() {
+    }
+    
+    public void avisar(Object evento){
+        setChanged();
+        notifyObservers(evento);
     }
     
     public Participante loginJugador(String user, String pass) throws PokerException{

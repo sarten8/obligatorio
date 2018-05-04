@@ -104,6 +104,13 @@ public class Participante {
     }
     
     public void salirDelJuego() {
-        this.estado = Estado.Inactivo;
+        if(this.juego.getEstado()== Juego.Estado.EnEspera) {
+            this.juego.getParticipantes().remove(this);
+            Fachada.getInstancia().avisar(Fachada.Evento.ParticipanteSalio);
+        }
+        else{
+            this.estado = Estado.Inactivo;
+            Fachada.getInstancia().avisar(Fachada.Evento.ParticipanteRetirado);
+        }
     }
 }

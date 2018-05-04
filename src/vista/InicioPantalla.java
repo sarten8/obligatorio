@@ -34,12 +34,13 @@ public class InicioPantalla extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setBackground(new java.awt.Color(102, 102, 102));
+        setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         getContentPane().setLayout(null);
 
         btnJugador.setText("Jugador");
         btnJugador.setToolTipText("Ingresar como jugador");
-        btnJugador.setCursor(new java.awt.Cursor(java.awt.Cursor.CROSSHAIR_CURSOR));
-        btnJugador.setSize(new java.awt.Dimension(171, 50));
+        btnJugador.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnJugador.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 btnJugadorMousePressed(evt);
@@ -50,20 +51,20 @@ public class InicioPantalla extends javax.swing.JFrame {
 
         btnAdministrador.setText("Administrador");
         btnAdministrador.setToolTipText("Ingresar como administrador");
-        btnAdministrador.setCursor(new java.awt.Cursor(java.awt.Cursor.CROSSHAIR_CURSOR));
+        btnAdministrador.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         getContentPane().add(btnAdministrador);
         btnAdministrador.setBounds(20, 130, 171, 50);
 
         lblDescripcion.setText("Para ingresar al sistema elija la opción que le corresponde");
         getContentPane().add(lblDescripcion);
-        lblDescripcion.setBounds(10, 50, 380, 70);
+        lblDescripcion.setBounds(30, 60, 350, 70);
 
         jLabel1.setFont(new java.awt.Font("Menlo for Powerline", 2, 24)); // NOI18N
         jLabel1.setText("P O K E R");
         getContentPane().add(jLabel1);
         jLabel1.setBounds(140, 20, 140, 40);
 
-        setBounds(0, 0, 390, 232);
+        setBounds(0, 0, 406, 232);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnJugadorMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnJugadorMousePressed

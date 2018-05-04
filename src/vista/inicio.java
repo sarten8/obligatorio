@@ -46,15 +46,16 @@ public class inicio {
         f.getSu().agregarJugador(new Jugador("b", "b", "Fulano", 600));
         f.getSu().agregarJugador(new Jugador("c", "c", "Mengano", 800));
         
-        j.ingresarParticipante(jugador1);
-        j.iniciar();
+        //j.ingresarParticipante(jugador1);
+        //j.iniciar();
         
-        Juego j2 = new Juego(f.getSj().getMaxJugadores(), f.getSj().getLuz(), mazo);
-        f.getSj().getJuegos().add(j2);
+        //Juego j2 = new Juego(f.getSj().getMaxJugadores(), f.getSj().getLuz(), mazo);
+        //f.getSj().getJuegos().add(j2);
+        
         new InicioPantalla().setVisible(true);
         
-        System.out.println("______________");
+        System.out.println("");
         System.out.println("~ Prueba Git ~");
+        System.out.println("______________");
     }
-    
 }

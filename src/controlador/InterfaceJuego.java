@@ -12,4 +12,5 @@ package controlador;
 public interface InterfaceJuego {
     public void mostrarError(String mensaje);
     public void mostrarEspera(int faltantes);
+    public void iniciarJuego();
 }

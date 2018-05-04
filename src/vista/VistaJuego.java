@@ -32,6 +32,7 @@ public class VistaJuego extends javax.swing.JFrame implements InterfaceJuego{
         this.controlador = new ControladorJuego(this);
         this.participante = p;
         this.lblNombre.setText(p.getJugador().getNombre());
+        this.lblEspera.setVisible(true);
         this.lblCarta1.setVisible(false);
         this.lblCarta2.setVisible(false);
         this.lblCarta3.setVisible(false);
@@ -56,12 +57,12 @@ public class VistaJuego extends javax.swing.JFrame implements InterfaceJuego{
         lblNombre = new javax.swing.JLabel();
         lblBarra = new javax.swing.JLabel();
         lblParticipantes = new javax.swing.JLabel();
+        lblEspera = new javax.swing.JLabel();
         lblCarta1 = new javax.swing.JLabel();
         lblCarta2 = new javax.swing.JLabel();
         lblCarta3 = new javax.swing.JLabel();
         lblCarta4 = new javax.swing.JLabel();
         lblCarta5 = new javax.swing.JLabel();
-        lblEspera = new javax.swing.JLabel();
         lstParticipantes = new javax.swing.JScrollPane();
         jList1 = new javax.swing.JList<>();
         lblBackground = new javax.swing.JLabel();
@@ -115,6 +116,11 @@ public class VistaJuego extends javax.swing.JFrame implements InterfaceJuego{
         getContentPane().add(lblParticipantes);
         lblParticipantes.setBounds(650, 20, 120, 40);
 
+        lblEspera.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        lblEspera.setForeground(new java.awt.Color(255, 255, 255));
+        getContentPane().add(lblEspera);
+        lblEspera.setBounds(80, 50, 540, 40);
+
         lblCarta1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/utilidades/cards/10_of_diamonds.png"))); // NOI18N
         lblCarta1.setText("asdasdasdasdasda");
         getContentPane().add(lblCarta1);
@@ -139,10 +145,6 @@ public class VistaJuego extends javax.swing.JFrame implements InterfaceJuego{
         lblCarta5.setText("asdasdasdasdasda");
         getContentPane().add(lblCarta5);
         lblCarta5.setBounds(220, 230, 110, 160);
-
-        lblEspera.setForeground(new java.awt.Color(255, 255, 255));
-        getContentPane().add(lblEspera);
-        lblEspera.setBounds(80, 50, 540, 40);
 
         lstParticipantes.setViewportView(jList1);
 
@@ -235,20 +237,6 @@ public class VistaJuego extends javax.swing.JFrame implements InterfaceJuego{
         JOptionPane.showMessageDialog(this, mensaje);
     }
     
-//    private void cerrar(){
-//        try{
-//            this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-//            addWindowListener(new WindowAdapter(){
-//                public void windowsClosing(WindowEvent e){
-//                    confirmarSalida();
-//                }
-//            });
-//            this.setVisible(true);
-//        }catch(Exception ex){
-//            mostrarError(ex.getMessage());
-//        }
-//    }
-    
     private void confirmarSalida(){
         int valor = JOptionPane.showConfirmDialog(this, "Está seguro que desea salir?", "Advertencia!", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
         if(valor == JOptionPane.YES_OPTION){
@@ -258,5 +246,22 @@ public class VistaJuego extends javax.swing.JFrame implements InterfaceJuego{
             this.participante.salirDelJuego();
             dispose();
         }
+    }
+
+    @Override
+    public void mostrarEspera(int faltantes) {
+        if(faltantes > 1) lblEspera.setText("Juego en espera. Aún faltan " + faltantes + " participantes");
+        else lblEspera.setText("Juego en espera. Aún falta " + faltantes + " participante");
+        lblEspera.setVisible(true);
+    }
+
+    @Override
+    public void iniciarJuego() {
+        this.lblEspera.setVisible(false);
+        this.lblCarta1.setVisible(true);
+        this.lblCarta2.setVisible(true);
+        this.lblCarta3.setVisible(true);
+        this.lblCarta4.setVisible(true);
+        this.lblCarta5.setVisible(true);
     }
 }

@@ -12,14 +12,14 @@ import java.util.Date;
  *
  * @author sartre
  */
-public class Juego {
+public class Juego{
     private int maxJugadores;
     private int luz;
     private Mazo mazo;
     private ArrayList<Mano> manos = new ArrayList<>();
     private ArrayList<Participante> participantes = new ArrayList<>();
     
-    private Date fechaIicio;
+    private Date fechaInicio;
     private int pozoTotal = 0;
     private int pozoParcial = 0;
     private Estado estado = Estado.EnEspera;
@@ -65,12 +65,12 @@ public class Juego {
         return participantes;
     }
 
-    public Date getFechaIicio() {
-        return fechaIicio;
+    public Date getFechaInicio() {
+        return fechaInicio;
     }
 
-    public void setFechaIicio(Date fechaIicio) {
-        this.fechaIicio = fechaIicio;
+    public void setFechaInicio(Date fechaInicio) {
+        this.fechaInicio = fechaInicio;
     }
 
     public int getPozoTotal() {
@@ -97,16 +97,16 @@ public class Juego {
         this.estado = estado;
     }
 
-    
+    // -------------------------------------------------------------------------
+    // -------------------------------------------------------------------------
     
 
-    // me parece que tiene que haber dos iniciar el primero que actualiza el estado y la fecha de inicio
-    // y un segundo 
     public void iniciar() {
         this.estado = Estado.Activo;
-        this.fechaIicio = new Date();
+        this.fechaInicio = new Date();
         // Iniciamos el juego con la primer mano
         this.pozoParcial = maxJugadores * luz;
+        Fachada.getInstancia().avisar(Fachada.Evento.IniciaJuego);
         this.iniciarMano();
     } 
     
@@ -133,6 +133,7 @@ public class Juego {
         Participante p = new Participante(j, this, j.getSaldo());
         participantes.add(p);
         if(participantes.size() == maxJugadores) iniciar();
+        else Fachada.getInstancia().avisar(Fachada.Evento.ParticipanteIngresado);
         return p;
     }
     private boolean buscarJugadorEnParticipantes(Jugador j){
@@ -141,8 +142,7 @@ public class Juego {
         }
         return false;
     }
-    
-    
+      
     private void descontarLuz() {
         // Se les quita al valor de la luz a cada jugador
         for(Participante p: participantes){
@@ -151,7 +151,6 @@ public class Juego {
     }
     
     private void actualizarPozo(int monto){
-        this.pozoTotal += monto;
-                
+        this.pozoTotal += monto;        
     }
 }
