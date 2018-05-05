@@ -33,6 +33,10 @@ public class Fachada extends Observable{
     public SistemaJuego getSj() {
         return sj;
     }
+
+    public void setSj(SistemaJuego sj) {
+        this.sj = sj;
+    }
     
     public Fachada() {
     }

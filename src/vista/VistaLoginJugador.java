@@ -276,6 +276,7 @@ public class VistaLoginJugador extends javax.swing.JFrame implements InterfaceLo
     }
 
     private void login() {
+
         if(validarCampoUsuario() && validarCampoPassword()) controlador.login(txtUser.getText().trim(), txtPass.getText().trim());
         if(!validarCampoUsuario()) mostrarError("Usuario vacío");
         if(!validarCampoPassword()) mostrarError("Password vacío");

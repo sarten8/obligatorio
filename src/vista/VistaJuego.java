@@ -289,7 +289,7 @@ public class VistaJuego extends javax.swing.JFrame implements InterfaceJuego{
     public void actualizarListaParticipantes(ArrayList<Participante> participantes) {
         ArrayList<Participante> participantesActualizada = new ArrayList<>();
         for(Participante p: participantes){
-            if( this.participante != p){
+            if( this.participante != p && this.participante!=null){
                 participantesActualizada.add(p);
             }
         }

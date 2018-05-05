@@ -33,16 +33,17 @@ public class inicio {
         mazo.getCartas().add(ac);
         mazo.getCartas().add(kc);
         
-        f.getSj().setMazo(mazo);
         
-        f.getSj().setLuz(100);
-        f.getSj().setMaxJugadores(4);
+        SistemaJuego sj = new SistemaJuego(mazo, 2, 100);
+        
+        f.setSj(sj);
         
         Juego j = new Juego(f.getSj().getMaxJugadores(), f.getSj().getLuz(), mazo);
         
         f.getSj().getJuegos().add(j);
-        Jugador jugador1 = new Jugador("a", "a", "Sultano", 600);
-        f.getSu().agregarJugador(jugador1);
+
+        f.getSu().agregarJugador(new Jugador("a", "a", "Sultano", 600));
+        f.getSu().agregarJugador(new Jugador("s", "s", "Señor de la S", 15000));
         f.getSu().agregarJugador(new Jugador("b", "b", "Fulano", 600));
         f.getSu().agregarJugador(new Jugador("c", "c", "Mengano", 800));
         f.getSu().agregarJugador(new Jugador("prueba", "prueba", "Sr. Prueba", 1000));

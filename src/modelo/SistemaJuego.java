@@ -6,12 +6,14 @@
 package modelo;
 
 import java.util.ArrayList;
+import java.util.Observable;
+import java.util.Observer;
 
 /**
  *
  * @author sartre
  */
-public class SistemaJuego {
+public class SistemaJuego implements Observer{
     private ArrayList<Juego> juegos = new ArrayList<>();
     private Mazo mazo;
     private int maxJugadores;
@@ -53,6 +55,7 @@ public class SistemaJuego {
         this.mazo = mazo;
         this.maxJugadores = maxJugadores;
         this.luz = luz;
+        Fachada.getInstancia().addObserver(this);
     }
         
     public SistemaJuego(){}
@@ -61,8 +64,9 @@ public class SistemaJuego {
         this.luz = luz;
     }
 
-    public void crearJuego() {
-
+    private void crearJuego() {
+        Juego j = new Juego(this.maxJugadores, this.luz, this.mazo);
+        this.juegos.add(j);
     }
 
     public static boolean validarLuz(int luz) {
@@ -76,5 +80,10 @@ public class SistemaJuego {
     public Participante ingresarParticipante(Jugador j) throws PokerException{
         if(juegos.size() <= 0) throw new PokerException("Aún no existe ningún juego");
         return juegos.get(juegos.size() - 1).ingresarParticipante(j);
+    }
+
+    @Override
+    public void update(Observable o, Object evento) {
+        if(evento == Fachada.Evento.IniciaJuego) crearJuego();
     }
 }

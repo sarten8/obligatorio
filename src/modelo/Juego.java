@@ -7,12 +7,13 @@ package modelo;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Observable;
 
 /**
  *
  * @author sartre
  */
-public class Juego{
+public class Juego extends Observable{
     private int maxJugadores;
     private int luz;
     private Mazo mazo;
@@ -119,7 +120,7 @@ public class Juego{
         this.actualizarPozo(participantesActivos.size()*luz);
     }
     
-    private ArrayList<Participante> obtenerParticipantesActivos(){
+    public ArrayList<Participante> obtenerParticipantesActivos(){
         ArrayList<Participante> aux = new ArrayList<>();
         for(Participante p: participantes){
             if(p.getEstado().equals(Participante.Estado.Activo)) aux.add(p);

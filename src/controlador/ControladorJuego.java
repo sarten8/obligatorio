@@ -5,6 +5,7 @@
  */
 package controlador;
 
+
 import java.util.Observable;
 import java.util.Observer;
 import modelo.Fachada;
@@ -26,18 +27,19 @@ public class ControladorJuego implements Observer{
     @Override
     public void update(Observable o, Object evento) {
         Juego juegoEnEspera = modelo.getSj().getJuegos().get(modelo.getSj().getJuegos().size()-1);
+
         if(evento.equals(Fachada.Evento.ParticipanteIngresado) || evento.equals(Fachada.Evento.ParticipanteSalio)){
             int faltantes = juegoEnEspera.getMaxJugadores() - juegoEnEspera.getParticipantes().size();
             vista.mostrarEspera(faltantes);
-            vista.actualizarListaParticipantes(juegoEnEspera.getParticipantes());
+            vista.actualizarListaParticipantes(juegoEnEspera.obtenerParticipantesActivos());
         }
         
         if(evento.equals(Fachada.Evento.ParticipanteRetirado)) 
-            vista.actualizarListaParticipantes(juegoEnEspera.getParticipantes());
+            vista.actualizarListaParticipantes(juegoEnEspera.obtenerParticipantesActivos());
         
         if(evento.equals(Fachada.Evento.IniciaJuego)){
             vista.iniciarJuego();
-            vista.actualizarListaParticipantes(juegoEnEspera.getParticipantes());
+            vista.actualizarListaParticipantes(juegoEnEspera.obtenerParticipantesActivos());
         }   
     }
 }
