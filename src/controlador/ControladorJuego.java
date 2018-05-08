@@ -5,11 +5,11 @@
  */
 package controlador;
 
-
 import java.util.Observable;
 import java.util.Observer;
 import modelo.Fachada;
 import modelo.Juego;
+import modelo.Participante;
 
 /**
  *
@@ -18,28 +18,47 @@ import modelo.Juego;
 public class ControladorJuego implements Observer{
     private Fachada modelo = Fachada.getInstancia();
     private InterfaceJuego vista;
+    private Participante participante;
     
-    public ControladorJuego(InterfaceJuego vista){
+    public ControladorJuego(InterfaceJuego vista, Participante p){
         this.vista = vista;
+        this.participante=p;
         modelo.addObserver(this);
+        
+        // Se actualiza el mismo la vista cuando ingresa 
+        int faltantes = this.participante.getJuego().jugadoresFaltantes();
+        if (faltantes>=1) {
+            vista.mostrarEspera(faltantes);
+            vista.actualizarListaParticipantes(this.participante.getJuego().obtenerParticipantesActivos());
+        }
+        System.out.println(this.participante.getJuego().getEstado());
+        if (this.participante.getJuego().getEstado().equals(Juego.Estado.Activo)){
+            vista.iniciarJuego();
+        }
     }
 
     @Override
     public void update(Observable o, Object evento) {
-        Juego juegoEnEspera = modelo.getSj().getJuegos().get(modelo.getSj().getJuegos().size()-1);
-
-        if(evento.equals(Fachada.Evento.ParticipanteIngresado) || evento.equals(Fachada.Evento.ParticipanteSalio)){
-            int faltantes = juegoEnEspera.getMaxJugadores() - juegoEnEspera.getParticipantes().size();
-            vista.mostrarEspera(faltantes);
-            vista.actualizarListaParticipantes(juegoEnEspera.obtenerParticipantesActivos());
+        int faltantes = this.participante.getJuego().jugadoresFaltantes();
+        
+        if(evento.equals(Fachada.Evento.ParticipanteIngresado)){
+            if (faltantes>=1) {
+                vista.mostrarEspera(faltantes);
+                vista.actualizarListaParticipantes(this.participante.getJuego().obtenerParticipantesActivos());
+            }
+        }
+        
+        if(evento.equals(Fachada.Evento.ParticipanteSalio)){
+            if (faltantes>=1) vista.mostrarEspera(faltantes);
+            vista.actualizarListaParticipantes(this.participante.getJuego().obtenerParticipantesActivos());
         }
         
         if(evento.equals(Fachada.Evento.ParticipanteRetirado)) 
-            vista.actualizarListaParticipantes(juegoEnEspera.obtenerParticipantesActivos());
+            vista.actualizarListaParticipantes(this.participante.getJuego().obtenerParticipantesActivos());
         
         if(evento.equals(Fachada.Evento.IniciaJuego)){
             vista.iniciarJuego();
-            vista.actualizarListaParticipantes(juegoEnEspera.obtenerParticipantesActivos());
+            modelo.CrearJuego();
         }   
     }
 }

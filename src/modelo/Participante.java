@@ -19,6 +19,8 @@ public class Participante {
     private int saldoApostado = 0;
     private int saldoGanado = 0;
     private Estado estado;
+
+
     public enum Estado{
         Activo, Inactivo;
     }
@@ -116,6 +118,4 @@ public class Participante {
     public String toString() {
         return this.jugador.toString();
     }
-    
-    
 }

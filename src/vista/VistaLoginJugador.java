@@ -17,7 +17,6 @@ import modelo.Participante;
  */
 public class VistaLoginJugador extends javax.swing.JFrame implements InterfaceLoginJugador{
     private ControladorLoginJugador controlador;
-    private VistaJuego vistaJuego;
     /**
      * Creates new form LoginJugador
      */
@@ -210,7 +209,6 @@ public class VistaLoginJugador extends javax.swing.JFrame implements InterfaceLo
 
     private void lblIngresarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblIngresarMousePressed
         // TODO add your handling code here:
-        iniciarPantalla();
         login();
     }//GEN-LAST:event_lblIngresarMousePressed
 
@@ -270,13 +268,7 @@ public class VistaLoginJugador extends javax.swing.JFrame implements InterfaceLo
     private javax.swing.JTextField txtUser;
     // End of variables declaration//GEN-END:variables
 
-    @Override
-    public void mostrarError(String mensaje) {
-        JOptionPane.showMessageDialog(this, mensaje);
-    }
-
     private void login() {
-
         if(validarCampoUsuario() && validarCampoPassword()) controlador.login(txtUser.getText().trim(), txtPass.getText().trim());
         if(!validarCampoUsuario()) mostrarError("Usuario vacío");
         if(!validarCampoPassword()) mostrarError("Password vacío");
@@ -289,16 +281,14 @@ public class VistaLoginJugador extends javax.swing.JFrame implements InterfaceLo
     private boolean validarCampoPassword(){
         return (txtPass.getText().trim().length()>0);
     }
+    
+    @Override
+    public void mostrarError(String mensaje) {
+        JOptionPane.showMessageDialog(this, mensaje);
+    }
 
     @Override
     public void mostrarParticipante(Participante p) {
-        this.vistaJuego.participante = p;
-        this.vistaJuego.setVisible(true);
-    }
-
-    // Esto lo hago porque el avisar del observable se ejecuta antes de que se haga el new de la pantalla porque el participante aun no llego 
-    // y el metodo avisar ya fue ejecutado, por lo tanto no se refresca la info cuando un participante ingresaba.
-    private void iniciarPantalla(){
-       this.vistaJuego = new VistaJuego(null);
+        new VistaJuego(p).setVisible(true);
     }
 }

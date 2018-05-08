@@ -101,6 +101,9 @@ public class Juego extends Observable{
     // -------------------------------------------------------------------------
     // -------------------------------------------------------------------------
     
+    public int jugadoresFaltantes() {
+        return this.maxJugadores - participantes.size();
+    }
 
     public void iniciar() {
         this.estado = Estado.Activo;
@@ -133,8 +136,11 @@ public class Juego extends Observable{
         if(j.getSaldo() < luz*maxJugadores) throw new PokerException("Saldo insuficiente para este juego");
         Participante p = new Participante(j, this, j.getSaldo());
         participantes.add(p);
-        if(participantes.size() == maxJugadores) iniciar();
-        else Fachada.getInstancia().avisar(Fachada.Evento.ParticipanteIngresado);
+        
+        Fachada.getInstancia().avisar(Fachada.Evento.ParticipanteIngresado);
+        if(participantes.size() == maxJugadores) 
+        iniciar();
+       
         return p; 
     }
     

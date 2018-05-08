@@ -5,6 +5,8 @@
  */
 package controlador;
 
+
+import modelo.Juego;
 import modelo.Participante;
 
 /**
@@ -12,6 +14,6 @@ import modelo.Participante;
  * @author sartre
  */
 public interface InterfaceLoginJugador {
-    public void mostrarError(String mensaje);
+    public void mostrarError(String mensaje); 
     public void mostrarParticipante(Participante p);
 }

@@ -13,7 +13,8 @@ import java.util.Observer;
  *
  * @author sartre
  */
-public class SistemaJuego implements Observer{
+public class SistemaJuego //implements Observer
+{
     private ArrayList<Juego> juegos = new ArrayList<>();
     private Mazo mazo;
     private int maxJugadores;
@@ -55,7 +56,7 @@ public class SistemaJuego implements Observer{
         this.mazo = mazo;
         this.maxJugadores = maxJugadores;
         this.luz = luz;
-        Fachada.getInstancia().addObserver(this);
+       // Fachada.getInstancia().addObserver(this);
     }
         
     public SistemaJuego(){}
@@ -64,7 +65,7 @@ public class SistemaJuego implements Observer{
         this.luz = luz;
     }
 
-    private void crearJuego() {
+    public void crearJuego() {
         Juego j = new Juego(this.maxJugadores, this.luz, this.mazo);
         this.juegos.add(j);
     }
@@ -82,8 +83,14 @@ public class SistemaJuego implements Observer{
         return juegos.get(juegos.size() - 1).ingresarParticipante(j);
     }
 
-    @Override
-    public void update(Observable o, Object evento) {
-        if(evento == Fachada.Evento.IniciaJuego) crearJuego();
+//    @Override
+//    public void update(Observable o, Object evento) {
+//        if(evento == Fachada.Evento.IniciaJuego) crearJuego();
+//    }
+
+   public Juego obtenerJuegoEnEspera() {
+        return juegos.get(juegos.size()-1);
     }
+
+   
 }

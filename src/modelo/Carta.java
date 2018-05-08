@@ -10,7 +10,7 @@ package modelo;
  * @author sartre
  */
 public class Carta {
-    private char numero;
+    private String numero;
     private Palo palo;
     private String imagen; 
 
@@ -18,11 +18,11 @@ public class Carta {
         return imagen;
     }
 
-    public char getNumero() {
+    public String getNumero() {
         return numero;
     }
 
-    public void setNumero(char numero) {
+    public void setNumero(String numero) {
         this.numero = numero;
     }
 
@@ -34,7 +34,7 @@ public class Carta {
         this.palo = palo;
     }
 
-    public Carta(char numero, Palo palo, String imagen) {
+    public Carta(String numero, Palo palo, String imagen) {
         this.numero = numero;
         this.palo = palo;
         this.imagen = imagen;

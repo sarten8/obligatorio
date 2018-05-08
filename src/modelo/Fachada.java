@@ -25,25 +25,33 @@ public class Fachada extends Observable{
     public enum Evento{
         ParticipanteIngresado, ParticipanteSalio, ParticipanteRetirado, IniciaJuego;
     }
-
-    public SistemaUsuarios getSu() {
-        return su;
-    }
-
-    public SistemaJuego getSj() {
-        return sj;
-    }
-
-    public void setSj(SistemaJuego sj) {
-        this.sj = sj;
-    }
     
     public Fachada() {
     }
     
-    public void avisar(Object evento){
+    protected void avisar(Object evento){
         setChanged();
         notifyObservers(evento);
+    }
+    
+    public void AgregarSistemaJuego(SistemaJuego sistemaJuego){
+        this.sj = sistemaJuego;
+    }
+    
+    public void AgregarJugador(Jugador j){
+        su.agregarJugador(j);
+    }
+    
+    public void AgregarAdministrador(Administrador a){
+        su.agregarAdministrador(a);
+    }
+    
+    public void CrearJuego(){
+        sj.crearJuego();
+    }
+    
+    public Juego ObtenerjuegoEnEspera(){
+        return sj.obtenerJuegoEnEspera();
     }
     
     public Participante loginJugador(String user, String pass) throws PokerException{

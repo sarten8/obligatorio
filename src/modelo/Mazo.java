@@ -24,4 +24,9 @@ public class Mazo {
     public void repartir(int cantidadJugadores){
         
     }
+    
+    public void agregarCarta(Carta c)
+    {
+        cartas.add(c);
+    }
 }
