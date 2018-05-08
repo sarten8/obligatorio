@@ -6,14 +6,12 @@
 package modelo;
 
 import java.util.ArrayList;
-import java.util.Observable;
-import java.util.Observer;
 
 /**
  *
  * @author sartre
  */
-public class SistemaJuego //implements Observer
+public class SistemaJuego
 {
     private ArrayList<Juego> juegos = new ArrayList<>();
     private Mazo mazo;
@@ -56,7 +54,6 @@ public class SistemaJuego //implements Observer
         this.mazo = mazo;
         this.maxJugadores = maxJugadores;
         this.luz = luz;
-       // Fachada.getInstancia().addObserver(this);
     }
         
     public SistemaJuego(){}
@@ -68,6 +65,14 @@ public class SistemaJuego //implements Observer
     public void crearJuego() {
         Juego j = new Juego(this.maxJugadores, this.luz, this.mazo);
         this.juegos.add(j);
+        System.out.println("Juegos: " + juegos.toString());
+        System.out.println("------------");
+        System.out.println("Cantidad: " + juegos.size());
+        int i = 0;
+        for (Juego ju: this.juegos){
+            i++;
+            System.out.println("Juego: " + i + "|||" + "Cantidad de jugadores: " + ju.getParticipantes().size());
+        }
     }
 
     public static boolean validarLuz(int luz) {
@@ -80,17 +85,12 @@ public class SistemaJuego //implements Observer
 
     public Participante ingresarParticipante(Jugador j) throws PokerException{
         if(juegos.size() <= 0) throw new PokerException("Aún no existe ningún juego");
-        return juegos.get(juegos.size() - 1).ingresarParticipante(j);
+        Participante p = juegos.get(juegos.size() - 1).ingresarParticipante(j);
+        if (juegos.get(juegos.size()-1).getParticipantes().size() == this.maxJugadores) crearJuego();
+        return p;
     }
-
-//    @Override
-//    public void update(Observable o, Object evento) {
-//        if(evento == Fachada.Evento.IniciaJuego) crearJuego();
-//    }
 
    public Juego obtenerJuegoEnEspera() {
         return juegos.get(juegos.size()-1);
-    }
-
-   
+    } 
 }

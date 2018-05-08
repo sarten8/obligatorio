@@ -31,7 +31,7 @@ public class ControladorJuego implements Observer{
             vista.mostrarEspera(faltantes);
             vista.actualizarListaParticipantes(this.participante.getJuego().obtenerParticipantesActivos());
         }
-        System.out.println(this.participante.getJuego().getEstado());
+        System.out.println("Estado del juego: " + this.participante.getJuego().getEstado());
         if (this.participante.getJuego().getEstado().equals(Juego.Estado.Activo)){
             vista.iniciarJuego();
         }
@@ -58,7 +58,6 @@ public class ControladorJuego implements Observer{
         
         if(evento.equals(Fachada.Evento.IniciaJuego)){
             vista.iniciarJuego();
-            modelo.CrearJuego();
         }   
     }
 }

@@ -111,7 +111,9 @@ public class Juego extends Observable{
         // Iniciamos el juego con la primer mano
         this.pozoParcial = maxJugadores * luz;
         Fachada.getInstancia().avisar(Fachada.Evento.IniciaJuego);
+        // Hay que crear el proximo juego
         this.iniciarMano();
+        
     } 
     
     private void iniciarMano() {
@@ -138,8 +140,7 @@ public class Juego extends Observable{
         participantes.add(p);
         
         Fachada.getInstancia().avisar(Fachada.Evento.ParticipanteIngresado);
-        if(participantes.size() == maxJugadores) 
-        iniciar();
+        if(participantes.size() == maxJugadores) iniciar();
        
         return p; 
     }
