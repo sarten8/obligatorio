@@ -65,5 +65,17 @@ public class Mano {
         this.juego.setPozoParcial(0);
         this.participanteGanador.incrementarSaldo(pozo);
     }
+
+    public void quitarParticipante(Participante p) {
+        this.participantes.remove(p);
+    }
     
+    public boolean verificarPasaronTodos(){
+        for(Participante p: participantes){
+            if(!p.isPaso()){
+                return false;
+            }
+        }
+        return true;
+    }
 }

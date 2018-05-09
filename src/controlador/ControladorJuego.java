@@ -24,16 +24,20 @@ public class ControladorJuego implements Observer{
         this.vista = vista;
         this.participante=p;
         modelo.addObserver(this);
+        p.getJuego().addObserver(this);
         
         // Se actualiza el mismo la vista cuando ingresa 
         int faltantes = this.participante.getJuego().jugadoresFaltantes();
+        
         if (faltantes>=1) {
             vista.mostrarEspera(faltantes);
-            vista.actualizarListaParticipantes(this.participante.getJuego().obtenerParticipantesActivos());
+            vista.actualizarListaParticipantes(this.participante.getJuego().obtenerParticipantesActivos()); 
         }
-        System.out.println("Estado del juego: " + this.participante.getJuego().getEstado());
+        
         if (this.participante.getJuego().getEstado().equals(Juego.Estado.Activo)){
+            vista.actualizarListaParticipantes(this.participante.getJuego().obtenerParticipantesActivos());
             vista.iniciarJuego();
+            vista.actualizarPozo(this.participante.getJuego().pozoActual());
         }
     }
 
@@ -44,8 +48,8 @@ public class ControladorJuego implements Observer{
         if(evento.equals(Fachada.Evento.ParticipanteIngresado)){
             if (faltantes>=1) {
                 vista.mostrarEspera(faltantes);
-                vista.actualizarListaParticipantes(this.participante.getJuego().obtenerParticipantesActivos());
             }
+            vista.actualizarListaParticipantes(this.participante.getJuego().obtenerParticipantesActivos());
         }
         
         if(evento.equals(Fachada.Evento.ParticipanteSalio)){
@@ -58,6 +62,22 @@ public class ControladorJuego implements Observer{
         
         if(evento.equals(Fachada.Evento.IniciaJuego)){
             vista.iniciarJuego();
-        }   
+        }
+        
+        if(evento.equals(Fachada.Evento.ActualizarPozo)){
+            vista.actualizarPozo(this.participante.getJuego().pozoActual());
+        }
+        
+        if(evento.equals(Juego.Evento.PasaronTodos)){
+            vista.pasaronTodos();
+        }
+    }
+
+    public void salirDeLaManoActual() {
+        this.participante.salirDeLaMano();
+    }
+
+    public void pasar() {
+       this.participante.pasar();
     }
 }

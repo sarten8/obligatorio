@@ -28,6 +28,10 @@ public class Juego extends Observable{
                     EnEspera, Activo, Finalizado;
     }
     
+    public enum Evento{
+        PasaronTodos;
+    }
+    
     public Juego(int maxJugadores, int luz, Mazo mazo){
         this.maxJugadores = maxJugadores;
         this.luz = luz;
@@ -111,7 +115,6 @@ public class Juego extends Observable{
         // Iniciamos el juego con la primer mano
         this.pozoParcial = maxJugadores * luz;
         Fachada.getInstancia().avisar(Fachada.Evento.IniciaJuego);
-        // Hay que crear el proximo juego
         this.iniciarMano();
         
     } 
@@ -121,8 +124,10 @@ public class Juego extends Observable{
         this.descontarLuz();
         this.pozoParcial += participantesActivos.size() * luz;
         Mano m = new Mano(this, this.mazo, participantesActivos, this.pozoParcial);
+        this.manos.add(m);
         this.pozoParcial = 0;
         this.actualizarPozo(participantesActivos.size()*luz);
+        Fachada.getInstancia().avisar(Fachada.Evento.ActualizarPozo);
     }
     
     public ArrayList<Participante> obtenerParticipantesActivos(){
@@ -138,7 +143,7 @@ public class Juego extends Observable{
         if(j.getSaldo() < luz*maxJugadores) throw new PokerException("Saldo insuficiente para este juego");
         Participante p = new Participante(j, this, j.getSaldo());
         participantes.add(p);
-        
+
         Fachada.getInstancia().avisar(Fachada.Evento.ParticipanteIngresado);
         if(participantes.size() == maxJugadores) iniciar();
        
@@ -161,5 +166,14 @@ public class Juego extends Observable{
     
     private void actualizarPozo(int monto){
         this.pozoTotal += monto;        
+    }
+    
+    public int pozoActual() {
+        return this.manos.get(manos.size()-1).getPozo();
+    }
+    
+    protected void avisar(Object evento){
+        setChanged();
+        notifyObservers(evento);
     }
 }

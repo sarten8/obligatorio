@@ -31,10 +31,10 @@ public class VistaJuego extends javax.swing.JFrame implements InterfaceJuego{
         this.setLocationRelativeTo(this);
         this.setResizable(false);
         this.participante = p;
-        this.controlador = new ControladorJuego(this, participante);
-        
         this.lblNombre.setText(p.getJugador().getNombre());
         this.lblEspera.setVisible(true);
+        this.lblPozo.setVisible(false);
+        this.lblPozoValor.setVisible(false);
         this.lblCarta1.setVisible(false);
         this.lblCarta2.setVisible(false);
         this.lblCarta3.setVisible(false);
@@ -42,6 +42,7 @@ public class VistaJuego extends javax.swing.JFrame implements InterfaceJuego{
         this.lblCarta5.setVisible(false);
         this.btnApostar.setVisible(false);
         this.btnPasar.setVisible(false);
+        this.controlador = new ControladorJuego(this, participante);
     }
 
     
@@ -70,6 +71,8 @@ public class VistaJuego extends javax.swing.JFrame implements InterfaceJuego{
         btnPasar = new javax.swing.JButton();
         contenedorParticipantes = new javax.swing.JScrollPane();
         lstParticipantes = new javax.swing.JList();
+        lblPozo = new javax.swing.JLabel();
+        lblPozoValor = new javax.swing.JLabel();
         btnSalir = new javax.swing.JButton();
         lblBackground = new javax.swing.JLabel();
 
@@ -156,13 +159,18 @@ public class VistaJuego extends javax.swing.JFrame implements InterfaceJuego{
         btnApostar.setForeground(new java.awt.Color(255, 255, 255));
         btnApostar.setText("Apostar");
         getContentPane().add(btnApostar);
-        btnApostar.setBounds(290, 460, 180, 23);
+        btnApostar.setBounds(290, 460, 180, 32);
 
         btnPasar.setBackground(new java.awt.Color(162, 52, 52));
         btnPasar.setForeground(new java.awt.Color(255, 255, 255));
         btnPasar.setText("Pasar");
+        btnPasar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPasarActionPerformed(evt);
+            }
+        });
         getContentPane().add(btnPasar);
-        btnPasar.setBounds(90, 460, 180, 23);
+        btnPasar.setBounds(90, 460, 180, 32);
 
         contenedorParticipantes.setBackground(new java.awt.Color(51, 51, 51));
 
@@ -173,7 +181,19 @@ public class VistaJuego extends javax.swing.JFrame implements InterfaceJuego{
         contenedorParticipantes.setViewportView(lstParticipantes);
 
         getContentPane().add(contenedorParticipantes);
-        contenedorParticipantes.setBounds(623, 80, 160, 340);
+        contenedorParticipantes.setBounds(623, 80, 160, 160);
+
+        lblPozo.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        lblPozo.setForeground(new java.awt.Color(255, 255, 255));
+        lblPozo.setText("Pozo: ");
+        getContentPane().add(lblPozo);
+        lblPozo.setBounds(630, 280, 50, 20);
+
+        lblPozoValor.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        lblPozoValor.setForeground(new java.awt.Color(255, 255, 255));
+        lblPozoValor.setText("$$$$$");
+        getContentPane().add(lblPozoValor);
+        lblPozoValor.setBounds(680, 280, 50, 20);
 
         btnSalir.setBackground(new java.awt.Color(0, 51, 255));
         btnSalir.setForeground(new java.awt.Color(255, 255, 255));
@@ -184,7 +204,7 @@ public class VistaJuego extends javax.swing.JFrame implements InterfaceJuego{
             }
         });
         getContentPane().add(btnSalir);
-        btnSalir.setBounds(490, 460, 180, 23);
+        btnSalir.setBounds(490, 460, 180, 32);
 
         lblBackground.setBackground(new java.awt.Color(0, 51, 255));
         lblBackground.setForeground(new java.awt.Color(255, 255, 255));
@@ -220,6 +240,11 @@ public class VistaJuego extends javax.swing.JFrame implements InterfaceJuego{
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
         confirmarSalida();
     }//GEN-LAST:event_btnSalirActionPerformed
+
+    private void btnPasarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPasarActionPerformed
+        // TODO add your handling code here:
+        controlador.pasar();
+    }//GEN-LAST:event_btnPasarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -273,6 +298,8 @@ public class VistaJuego extends javax.swing.JFrame implements InterfaceJuego{
     private javax.swing.JLabel lblMinimize;
     private javax.swing.JLabel lblNombre;
     private javax.swing.JLabel lblParticipantes;
+    private javax.swing.JLabel lblPozo;
+    private javax.swing.JLabel lblPozoValor;
     private javax.swing.JList lstParticipantes;
     // End of variables declaration//GEN-END:variables
 
@@ -307,6 +334,8 @@ public class VistaJuego extends javax.swing.JFrame implements InterfaceJuego{
         this.lblCarta3.setVisible(true);
         this.lblCarta4.setVisible(true);
         this.lblCarta5.setVisible(true);
+        this.lblPozo.setVisible(true);
+        this.lblPozoValor.setVisible(true);
         lblEspera.setVisible(false);
         btnApostar.setVisible(true);
         btnPasar.setVisible(true);
@@ -322,5 +351,19 @@ public class VistaJuego extends javax.swing.JFrame implements InterfaceJuego{
             }
         }
         this.lstParticipantes.setListData(participantesActualizada.toArray());
+    }
+
+    @Override
+    public void actualizarPozo(int pozo) {
+        this.lblPozoValor.setText("$ " + pozo);
+    }
+
+    @Override
+    public void pasaronTodos() {
+        int valor = JOptionPane.showConfirmDialog(this, "Pasaron todos los participantes. La mano finaliza sin ganador. Jugar la siguiente mano con pozo acumulado?", "Advertencia!", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+        if(valor == JOptionPane.NO_OPTION){
+            this.participante.salirDelJuego();
+            dispose();
+        }
     }
 }

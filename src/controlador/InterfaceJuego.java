@@ -17,4 +17,6 @@ public interface InterfaceJuego {
     public void mostrarEspera(int faltantes);
     public void actualizarListaParticipantes(ArrayList<Participante> participantes);
     public void iniciarJuego();
+    public void actualizarPozo(int pozo);
+    public void pasaronTodos();
 }

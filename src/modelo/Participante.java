@@ -18,13 +18,16 @@ public class Participante {
     private int saldoInicial;
     private int saldoApostado = 0;
     private int saldoGanado = 0;
+    private boolean paso = false;
     private Estado estado;
-
-
     public enum Estado{
         Activo, Inactivo;
     }
 
+    public boolean isPaso() {
+        return paso;
+    }
+    
     public Jugador getJugador() {
         return jugador;
     }
@@ -113,9 +116,20 @@ public class Participante {
             Fachada.getInstancia().avisar(Fachada.Evento.ParticipanteRetirado);
         }
     }
+    
+    public void salirDeLaMano(){
+        this.getJuego().getManos().get(this.getJuego().getManos().size()-1).quitarParticipante(this);
+    }
 
     @Override
     public String toString() {
         return this.jugador.toString();
+    }
+    
+    public void pasar(){
+        this.paso = true;
+        if (this.getJuego().getManos().get(this.getJuego().getManos().size()-1).verificarPasaronTodos()){
+            this.juego.avisar(Fachada.Evento.PasaronTodos);
+        }
     }
 }
