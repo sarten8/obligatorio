@@ -18,5 +18,7 @@ public interface InterfaceJuego {
     public void actualizarListaParticipantes(ArrayList<Participante> participantes);
     public void iniciarJuego();
     public void actualizarPozo(int pozo);
+    public void actualizarSaldo(int saldo);
     public void pasaronTodos();
+    public void salir();
 }

@@ -91,10 +91,13 @@ public class Participante {
         this.estado = Estado.Activo;
     }
     
-    
-    public void apostar(int monto){
-        this.jugador.descontarSaldo(monto);
-        this.saldoApostado += monto;
+    public void apostar(int monto) throws PokerException{
+            System.out.println("Intento descontar");
+            this.validarApuesta(monto);
+            System.out.println("Descontooooooooooooo");
+            this.jugador.descontarSaldo(monto);
+            this.saldoApostado += monto;
+            this.juego.incrementarPozo(monto);
     }
     
     public void incrementarSaldo(int monto) {
@@ -102,8 +105,11 @@ public class Participante {
         this.saldoGanado += monto;
     }
     
-    public boolean validarApuesta(int monto){
-        return (this.jugador.getSaldo() >= monto);        
+    private void validarApuesta(int monto) throws PokerException{
+        if (this.jugador.getSaldo() < monto) throw new PokerException("Saldo insuficiente"); 
+        
+        int apuestaMaxima = this.juego.apuestaMaxima();
+        if (apuestaMaxima < monto) throw new PokerException("La apuesta sobrepasa el máximo permitido. Debe de apostar menor o igual a " + apuestaMaxima);
     }
     
     public void salirDelJuego() {
@@ -117,19 +123,17 @@ public class Participante {
         }
     }
     
-    public void salirDeLaMano(){
-        this.getJuego().getManos().get(this.getJuego().getManos().size()-1).quitarParticipante(this);
-    }
-
-    @Override
-    public String toString() {
-        return this.jugador.toString();
+    public boolean validarSaldo(){
+        return (this.getJugador().getSaldo() >= this.juego.getLuz());
     }
     
     public void pasar(){
         this.paso = true;
-        if (this.getJuego().getManos().get(this.getJuego().getManos().size()-1).verificarPasaronTodos()){
-            this.juego.avisar(Fachada.Evento.PasaronTodos);
-        }
+        this.getJuego().quitarParticipanteDeLaMano(this);
+    }
+    
+    @Override
+    public String toString() {
+        return this.jugador.toString();
     }
 }

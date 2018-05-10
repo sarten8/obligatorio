@@ -17,7 +17,7 @@ public class Juego extends Observable{
     private int maxJugadores;
     private int luz;
     private Mazo mazo;
-    private ArrayList<Mano> manos = new ArrayList<>();
+    private Mano mano;
     private ArrayList<Participante> participantes = new ArrayList<>();
     
     private Date fechaInicio;
@@ -29,7 +29,7 @@ public class Juego extends Observable{
     }
     
     public enum Evento{
-        PasaronTodos, HayApuesta;
+        HayGanador, HayApuesta, PozoActualizado, PasaronTodos, ParticipanteSinSaldo;
     }
     
     public Juego(int maxJugadores, int luz, Mazo mazo){
@@ -62,8 +62,8 @@ public class Juego extends Observable{
         return mazo;
     }
   
-    public ArrayList<Mano> getManos() {
-        return manos;
+    public Mano getMano() {
+        return mano;
     }
 
     public ArrayList<Participante> getParticipantes() {
@@ -109,7 +109,7 @@ public class Juego extends Observable{
         return this.maxJugadores - participantes.size();
     }
 
-    public void iniciar() {
+    public void iniciar() throws PokerException {
         this.estado = Estado.Activo;
         this.fechaInicio = new Date();
         // Iniciamos el juego con la primer mano
@@ -119,15 +119,22 @@ public class Juego extends Observable{
         
     } 
     
-    private void iniciarMano() {
+    protected void iniciarMano() throws PokerException {
+        actualizarEstadoParticipantes();
         ArrayList<Participante> participantesActivos = obtenerParticipantesActivos();
         this.descontarLuz();
-        this.pozoParcial += participantesActivos.size() * luz;
-        Mano m = new Mano(this, this.mazo, participantesActivos, this.pozoParcial);
-        this.manos.add(m);
+        this.pozoTotal = this.pozoParcial + participantesActivos.size() * luz;
+        this.mano = new Mano(this, this.mazo, participantesActivos);
         this.pozoParcial = 0;
-        this.actualizarPozo(participantesActivos.size()*luz);
-        Fachada.getInstancia().avisar(Fachada.Evento.ActualizarPozo);
+        Fachada.getInstancia().avisar(Evento.PozoActualizado);
+    }
+    
+    
+    private void actualizarEstadoParticipantes() {
+        for(Participante p: participantes){
+            if(p.getJugador().getSaldo() < luz) p.setEstado(Participante.Estado.Inactivo);
+            avisar(Evento.ParticipanteSinSaldo);
+        }
     }
     
     public ArrayList<Participante> obtenerParticipantesActivos(){
@@ -157,19 +164,32 @@ public class Juego extends Observable{
         return false;
     }
       
-    private void descontarLuz() {
+    private void descontarLuz() throws PokerException {
         // Se les quita al valor de la luz a cada jugador
         for(Participante p: participantes){
             p.apostar(luz);
         }
     }
     
-    private void actualizarPozo(int monto){
-        this.pozoTotal += monto;        
+    public void quitarParticipanteDeLaMano(Participante p) {
+        this.mano.quitarParticipante(p);
+        if (this.mano.verificarPasaronTodos()){
+            this.pozoParcial = pozoTotal;
+            this.avisar(Evento.PasaronTodos);
+        }
     }
     
-    public int pozoActual() {
-        return this.manos.get(manos.size()-1).getPozo();
+    public int apuestaMaxima(){
+        int minimo = Integer.MAX_VALUE;
+        for(Participante p: participantes){
+            if(p.getEstado().equals(Participante.Estado.Activo) && p.getJugador().getSaldo() <= minimo) minimo = p.getJugador().getSaldo();
+        }
+        return minimo;
+    }
+    
+    public void incrementarPozo(int monto){
+        this.pozoTotal += monto;
+        avisar(Evento.PozoActualizado);
     }
     
     protected void avisar(Object evento){

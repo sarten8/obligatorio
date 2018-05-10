@@ -31,13 +31,14 @@ public class ControladorJuego implements Observer{
         
         if (faltantes>=1) {
             vista.mostrarEspera(faltantes);
-            vista.actualizarListaParticipantes(this.participante.getJuego().obtenerParticipantesActivos()); 
+            vista.actualizarListaParticipantes(this.participante.getJuego().obtenerParticipantesActivos());
         }
         
         if (this.participante.getJuego().getEstado().equals(Juego.Estado.Activo)){
             vista.actualizarListaParticipantes(this.participante.getJuego().obtenerParticipantesActivos());
             vista.iniciarJuego();
-            vista.actualizarPozo(this.participante.getJuego().pozoActual());
+            vista.actualizarPozo(this.participante.getJuego().getPozoTotal());
+            vista.actualizarSaldo(this.participante.getJugador().getSaldo());
         }
     }
 
@@ -64,20 +65,39 @@ public class ControladorJuego implements Observer{
             vista.iniciarJuego();
         }
         
-        if(evento.equals(Fachada.Evento.ActualizarPozo)){
-            vista.actualizarPozo(this.participante.getJuego().pozoActual());
+        if(evento.equals(Juego.Evento.PozoActualizado)){
+            vista.actualizarPozo(this.participante.getJuego().getPozoTotal());
+            vista.actualizarSaldo(this.participante.getJugador().getSaldo());
         }
         
         if(evento.equals(Juego.Evento.PasaronTodos)){
             vista.pasaronTodos();
+            vista.actualizarSaldo(this.participante.getJugador().getSaldo());
+        }
+        
+        if(evento.equals(Juego.Evento.ParticipanteSinSaldo)){
+            if(!this.participante.validarSaldo()) salirDelJuego();
         }
     }
-
-    public void salirDeLaManoActual() {
-        this.participante.salirDeLaMano();
+    
+    public void salirDelJuego(){
+        this.participante.salirDelJuego();
+        modelo.deleteObserver(this);
+        this.participante.getJuego().deleteObserver(this);
+        vista.salir();
     }
 
     public void pasar() {
        this.participante.pasar();
+       vista.actualizarSaldo(this.participante.getJugador().getSaldo());
+    }
+    
+    public void apostar(int monto){
+       try{
+           this.participante.apostar(monto);
+           vista.actualizarSaldo(this.participante.getJugador().getSaldo());
+       }catch(Exception ex){
+          vista.mostrarError(ex.getMessage());
+       }
     }
 }

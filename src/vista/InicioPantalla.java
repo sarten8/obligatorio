@@ -17,6 +17,7 @@ public class InicioPantalla extends javax.swing.JFrame {
     public InicioPantalla() {
         initComponents();
         this.setLocationRelativeTo(null);
+        this.setResizable(false);
     }
 
     /**
@@ -47,7 +48,7 @@ public class InicioPantalla extends javax.swing.JFrame {
             }
         });
         getContentPane().add(btnJugador);
-        btnJugador.setBounds(200, 130, 171, 50);
+        btnJugador.setBounds(230, 130, 171, 50);
 
         btnAdministrador.setText("Administrador");
         btnAdministrador.setToolTipText("Ingresar como administrador");
@@ -57,20 +58,19 @@ public class InicioPantalla extends javax.swing.JFrame {
 
         lblDescripcion.setText("Para ingresar al sistema elija la opción que le corresponde");
         getContentPane().add(lblDescripcion);
-        lblDescripcion.setBounds(30, 60, 350, 70);
+        lblDescripcion.setBounds(30, 60, 370, 70);
 
         jLabel1.setFont(new java.awt.Font("Menlo for Powerline", 2, 24)); // NOI18N
         jLabel1.setText("P O K E R");
         getContentPane().add(jLabel1);
         jLabel1.setBounds(140, 20, 140, 40);
 
-        setBounds(0, 0, 406, 232);
+        setBounds(0, 0, 428, 232);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnJugadorMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnJugadorMousePressed
         // TODO add your handling code here:
         new VistaLoginJugador().setVisible(true);
-        this.dispose();
     }//GEN-LAST:event_btnJugadorMousePressed
 
     /**
