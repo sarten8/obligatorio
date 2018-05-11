@@ -333,9 +333,14 @@ public class VistaJuego extends javax.swing.JFrame implements InterfaceJuego{
         try{
             int valor = Integer.parseInt(JOptionPane.showInputDialog(null, "Ingrese valor para apostar", "Apostar", JOptionPane.QUESTION_MESSAGE));
             System.out.println("APOSTAR:  " + valor);
-            controlador.apostar(valor);
+            if(valor > 0)controlador.apostar(valor);
+            else mostrarError("Ingrese valor entero mayor a 0");
+        }catch(NullPointerException ex){
+            mostrarError("No se acepta vacío");
+        }catch(NumberFormatException ex){
+            mostrarError("Solo se aceptan números enteros mayor a cero");
         }catch(Exception ex){
-            mostrarError(ex.getMessage());
+            mostrarError("Exception no controlada");
         }
     }
     
