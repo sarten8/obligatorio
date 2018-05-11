@@ -24,6 +24,7 @@ public class Juego extends Observable{
     private int pozoTotal = 0;
     private int pozoParcial = 0;
     private Estado estado = Estado.EnEspera;
+
     public enum Estado{
                     EnEspera, Activo, Finalizado;
     }
@@ -120,10 +121,13 @@ public class Juego extends Observable{
     } 
     
     protected void iniciarMano() throws PokerException {
+        this.actualizarPasaronParticipantes();
+        this.descontarLuz();
         actualizarEstadoParticipantes();
         ArrayList<Participante> participantesActivos = obtenerParticipantesActivos();
-        this.descontarLuz();
+        
         this.pozoTotal = this.pozoParcial + participantesActivos.size() * luz;
+        
         this.mano = new Mano(this, this.mazo, participantesActivos);
         this.pozoParcial = 0;
         Fachada.getInstancia().avisar(Evento.PozoActualizado);
@@ -190,6 +194,12 @@ public class Juego extends Observable{
     public void incrementarPozo(int monto){
         this.pozoTotal += monto;
         avisar(Evento.PozoActualizado);
+    }
+    
+    private void actualizarPasaronParticipantes() {
+        for(Participante p: participantes){
+            p.setPaso(false);
+        }
     }
     
     protected void avisar(Object evento){

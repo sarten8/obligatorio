@@ -24,6 +24,10 @@ public class Participante {
         Activo, Inactivo;
     }
 
+    public void setPaso(boolean paso) {
+        this.paso = paso;
+    }
+
     public boolean isPaso() {
         return paso;
     }
