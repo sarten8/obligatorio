@@ -107,7 +107,7 @@ public class VistaJuego extends javax.swing.JFrame implements InterfaceJuego{
         lblNombre.setFont(new java.awt.Font("Fira Code", 1, 14)); // NOI18N
         lblNombre.setForeground(new java.awt.Color(255, 255, 255));
         getContentPane().add(lblNombre);
-        lblNombre.setBounds(110, 0, 330, 30);
+        lblNombre.setBounds(60, 0, 280, 30);
 
         lblBarra.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
             public void mouseDragged(java.awt.event.MouseEvent evt) {
@@ -120,51 +120,51 @@ public class VistaJuego extends javax.swing.JFrame implements InterfaceJuego{
             }
         });
         getContentPane().add(lblBarra);
-        lblBarra.setBounds(0, 0, 850, 40);
+        lblBarra.setBounds(0, 0, 340, 40);
 
         lblParticipantes.setFont(new java.awt.Font("Fira Code", 1, 12)); // NOI18N
         lblParticipantes.setForeground(new java.awt.Color(255, 255, 204));
         lblParticipantes.setText("~ Participantes ~");
         lblParticipantes.setToolTipText("");
         getContentPane().add(lblParticipantes);
-        lblParticipantes.setBounds(440, 20, 110, 40);
+        lblParticipantes.setBounds(210, 30, 120, 40);
 
-        lblEspera.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
+        lblEspera.setFont(new java.awt.Font("Dialog", 1, 10)); // NOI18N
         lblEspera.setForeground(new java.awt.Color(255, 255, 255));
         getContentPane().add(lblEspera);
-        lblEspera.setBounds(80, 210, 540, 40);
+        lblEspera.setBounds(10, 80, 180, 170);
 
         lblCarta1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/utilidades/cards/10_of_diamonds.png"))); // NOI18N
         getContentPane().add(lblCarta1);
-        lblCarta1.setBounds(200, 60, 55, 80);
+        lblCarta1.setBounds(10, 80, 55, 80);
 
         lblCarta2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/utilidades/cards/6_of_clubs.png"))); // NOI18N
         getContentPane().add(lblCarta2);
-        lblCarta2.setBounds(270, 60, 55, 80);
+        lblCarta2.setBounds(70, 80, 55, 80);
 
         lblCarta3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/utilidades/cards/jack_of_diamonds.png"))); // NOI18N
         getContentPane().add(lblCarta3);
-        lblCarta3.setBounds(340, 60, 55, 80);
+        lblCarta3.setBounds(130, 80, 55, 80);
 
         lblCarta4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/utilidades/cards/3_of_hearts.png"))); // NOI18N
         getContentPane().add(lblCarta4);
-        lblCarta4.setBounds(310, 150, 55, 80);
+        lblCarta4.setBounds(100, 170, 55, 80);
 
         lblCarta5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/utilidades/cards/king_of_clubs.png"))); // NOI18N
         getContentPane().add(lblCarta5);
-        lblCarta5.setBounds(230, 150, 55, 80);
+        lblCarta5.setBounds(40, 170, 55, 80);
 
         lblSaldo.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         lblSaldo.setForeground(new java.awt.Color(255, 255, 255));
         lblSaldo.setText("Saldo: ");
         getContentPane().add(lblSaldo);
-        lblSaldo.setBounds(10, 70, 50, 20);
+        lblSaldo.setBounds(10, 50, 50, 20);
 
         lblSaldoValor.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         lblSaldoValor.setForeground(new java.awt.Color(255, 255, 255));
         lblSaldoValor.setText("$$$$$");
         getContentPane().add(lblSaldoValor);
-        lblSaldoValor.setBounds(70, 70, 120, 20);
+        lblSaldoValor.setBounds(70, 50, 120, 20);
 
         btnApostar.setBackground(new java.awt.Color(71, 128, 51));
         btnApostar.setFont(new java.awt.Font("Menlo", 0, 14)); // NOI18N
@@ -176,7 +176,7 @@ public class VistaJuego extends javax.swing.JFrame implements InterfaceJuego{
             }
         });
         getContentPane().add(btnApostar);
-        btnApostar.setBounds(30, 270, 100, 40);
+        btnApostar.setBounds(10, 290, 90, 30);
 
         btnPasar.setBackground(new java.awt.Color(158, 158, 15));
         btnPasar.setFont(new java.awt.Font("Menlo", 0, 14)); // NOI18N
@@ -188,30 +188,31 @@ public class VistaJuego extends javax.swing.JFrame implements InterfaceJuego{
             }
         });
         getContentPane().add(btnPasar);
-        btnPasar.setBounds(150, 270, 120, 40);
+        btnPasar.setBounds(120, 290, 90, 30);
 
         contenedorParticipantes.setBackground(new java.awt.Color(51, 51, 51));
 
         lstParticipantes.setBackground(new java.awt.Color(89, 89, 104));
+        lstParticipantes.setFont(new java.awt.Font("Dialog", 1, 10)); // NOI18N
         lstParticipantes.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         lstParticipantes.setSelectionBackground(new java.awt.Color(215, 215, 89));
         lstParticipantes.setSelectionForeground(new java.awt.Color(0, 0, 0));
         contenedorParticipantes.setViewportView(lstParticipantes);
 
         getContentPane().add(contenedorParticipantes);
-        contenedorParticipantes.setBounds(410, 60, 160, 170);
+        contenedorParticipantes.setBounds(200, 80, 130, 170);
 
         lblPozo.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         lblPozo.setForeground(new java.awt.Color(255, 255, 255));
         lblPozo.setText("Pozo: ");
         getContentPane().add(lblPozo);
-        lblPozo.setBounds(410, 250, 50, 20);
+        lblPozo.setBounds(200, 260, 50, 20);
 
         lblPozoValor.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         lblPozoValor.setForeground(new java.awt.Color(255, 255, 255));
         lblPozoValor.setText("$$$$$");
         getContentPane().add(lblPozoValor);
-        lblPozoValor.setBounds(470, 250, 100, 20);
+        lblPozoValor.setBounds(250, 260, 110, 20);
 
         btnSalir.setBackground(new java.awt.Color(162, 43, 34));
         btnSalir.setFont(new java.awt.Font("Menlo", 0, 14)); // NOI18N
@@ -223,7 +224,7 @@ public class VistaJuego extends javax.swing.JFrame implements InterfaceJuego{
             }
         });
         getContentPane().add(btnSalir);
-        btnSalir.setBounds(290, 270, 110, 40);
+        btnSalir.setBounds(230, 290, 90, 30);
 
         lblBackground.setBackground(new java.awt.Color(0, 51, 255));
         lblBackground.setForeground(new java.awt.Color(255, 255, 255));
@@ -231,7 +232,7 @@ public class VistaJuego extends javax.swing.JFrame implements InterfaceJuego{
         getContentPane().add(lblBackground);
         lblBackground.setBounds(-570, -140, 1400, 660);
 
-        setBounds(0, 0, 591, 333);
+        setBounds(0, 0, 336, 333);
     }// </editor-fold>//GEN-END:initComponents
 
     private void lblMinimizeMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblMinimizeMousePressed
