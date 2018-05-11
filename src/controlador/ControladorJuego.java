@@ -78,6 +78,10 @@ public class ControladorJuego implements Observer{
         if(evento.equals(Juego.Evento.ParticipanteSinSaldo)){
             if(!this.participante.validarSaldo()) salirDelJuego();
         }
+        
+        if(evento.equals(Juego.Evento.ActualizarSaldo)){
+            vista.actualizarSaldo(this.participante.getJugador().getSaldo());
+        }
     }
     
     public void salirDelJuego(){

@@ -32,5 +32,4 @@ public class Jugador extends Usuario{
     public void descontarSaldo(int monto) {
         saldo -= monto;
     }
-    
 }

@@ -30,7 +30,7 @@ public class Juego extends Observable{
     }
     
     public enum Evento{
-        HayGanador, HayApuesta, PozoActualizado, PasaronTodos, ParticipanteSinSaldo;
+        HayGanador, HayApuesta, PozoActualizado, PasaronTodos, ParticipanteSinSaldo, ActualizarSaldo;
     }
     
     public Juego(int maxJugadores, int luz, Mazo mazo){

@@ -100,6 +100,7 @@ public class Participante {
             this.validarApuesta(monto);
             System.out.println("Descontooooooooooooo");
             this.jugador.descontarSaldo(monto);
+            this.juego.avisar(Juego.Evento.ActualizarSaldo);
             this.saldoApostado += monto;
             this.juego.incrementarPozo(monto);
     }
