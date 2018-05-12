@@ -30,7 +30,7 @@ public class Juego extends Observable{
     }
     
     public enum Evento{
-        HayGanador, HayApuesta, PozoActualizado, PasaronTodos, ParticipanteSinSaldo, ActualizarSaldo;
+        HayGanador, HayApuesta, PozoActualizado, PasaronTodos, ParticipanteSinSaldo;
     }
     
     public Juego(int maxJugadores, int luz, Mazo mazo){
@@ -122,9 +122,11 @@ public class Juego extends Observable{
     
     protected void iniciarMano() throws PokerException {
         this.actualizarPasaronParticipantes();
+        this.actualizarEstadoParticipantes();
+        
+        ArrayList<Participante> participantesActivos = this.obtenerParticipantesActivos();
+        
         this.descontarLuz();
-        actualizarEstadoParticipantes();
-        ArrayList<Participante> participantesActivos = obtenerParticipantesActivos();
         
         this.pozoTotal = this.pozoParcial + participantesActivos.size() * luz;
         
@@ -137,7 +139,7 @@ public class Juego extends Observable{
     private void actualizarEstadoParticipantes() {
         for(Participante p: participantes){
             if(p.getJugador().getSaldo() < luz) p.setEstado(Participante.Estado.Inactivo);
-            avisar(Evento.ParticipanteSinSaldo);
+            this.avisar(Evento.ParticipanteSinSaldo);
         }
     }
     
@@ -171,11 +173,12 @@ public class Juego extends Observable{
     private void descontarLuz() throws PokerException {
         // Se les quita al valor de la luz a cada jugador
         for(Participante p: participantes){
-            p.apostar(luz);
+            if(p.getEstado()==Participante.Estado.Activo) p.apostar(luz);
         }
     }
     
     public void quitarParticipanteDeLaMano(Participante p) {
+        p.setPaso(true);
         this.mano.quitarParticipante(p);
         if (this.mano.verificarPasaronTodos()){
             this.pozoParcial = pozoTotal;

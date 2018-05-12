@@ -96,11 +96,10 @@ public class Participante {
     }
     
     public void apostar(int monto) throws PokerException{
-            System.out.println("Intento descontar");
             this.validarApuesta(monto);
-            System.out.println("Descontooooooooooooo");
             this.jugador.descontarSaldo(monto);
-            this.juego.avisar(Juego.Evento.ActualizarSaldo);
+            // Utilizo en fachada este evento para actualizar en otros juegos que el jugador este y se le actualice el saldo
+            Fachada.getInstancia().avisar(Fachada.Evento.ActualizarSaldo);
             this.saldoApostado += monto;
             this.juego.incrementarPozo(monto);
     }
@@ -111,6 +110,8 @@ public class Participante {
     }
     
     private void validarApuesta(int monto) throws PokerException{
+        if(monto <= 0) throw new PokerException("La apuesta debe ser entero mayor a cero");
+        
         if (this.jugador.getSaldo() < monto) throw new PokerException("Saldo insuficiente"); 
         
         int apuestaMaxima = this.juego.apuestaMaxima();

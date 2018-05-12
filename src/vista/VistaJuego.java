@@ -73,11 +73,11 @@ public class VistaJuego extends javax.swing.JFrame implements InterfaceJuego{
         lblSaldoValor = new javax.swing.JLabel();
         btnApostar = new javax.swing.JButton();
         btnPasar = new javax.swing.JButton();
+        btnSalir = new javax.swing.JButton();
         contenedorParticipantes = new javax.swing.JScrollPane();
         lstParticipantes = new javax.swing.JList();
         lblPozo = new javax.swing.JLabel();
         lblPozoValor = new javax.swing.JLabel();
-        btnSalir = new javax.swing.JButton();
         lblBackground = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -168,8 +168,10 @@ public class VistaJuego extends javax.swing.JFrame implements InterfaceJuego{
 
         btnApostar.setBackground(new java.awt.Color(71, 128, 51));
         btnApostar.setFont(new java.awt.Font("Menlo", 0, 14)); // NOI18N
-        btnApostar.setForeground(new java.awt.Color(255, 255, 255));
+        btnApostar.setForeground(new java.awt.Color(204, 204, 204));
         btnApostar.setText("Apostar");
+        btnApostar.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        btnApostar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnApostar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnApostarActionPerformed(evt);
@@ -180,8 +182,10 @@ public class VistaJuego extends javax.swing.JFrame implements InterfaceJuego{
 
         btnPasar.setBackground(new java.awt.Color(158, 158, 15));
         btnPasar.setFont(new java.awt.Font("Menlo", 0, 14)); // NOI18N
-        btnPasar.setForeground(new java.awt.Color(255, 255, 255));
+        btnPasar.setForeground(new java.awt.Color(204, 204, 204));
         btnPasar.setText("Pasar");
+        btnPasar.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        btnPasar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnPasar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnPasarActionPerformed(evt);
@@ -189,6 +193,20 @@ public class VistaJuego extends javax.swing.JFrame implements InterfaceJuego{
         });
         getContentPane().add(btnPasar);
         btnPasar.setBounds(120, 290, 90, 30);
+
+        btnSalir.setBackground(new java.awt.Color(162, 43, 34));
+        btnSalir.setFont(new java.awt.Font("Menlo", 0, 14)); // NOI18N
+        btnSalir.setForeground(new java.awt.Color(204, 204, 204));
+        btnSalir.setText("Salir");
+        btnSalir.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        btnSalir.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnSalir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalirActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnSalir);
+        btnSalir.setBounds(230, 290, 90, 30);
 
         contenedorParticipantes.setBackground(new java.awt.Color(51, 51, 51));
 
@@ -213,18 +231,6 @@ public class VistaJuego extends javax.swing.JFrame implements InterfaceJuego{
         lblPozoValor.setText("$$$$$");
         getContentPane().add(lblPozoValor);
         lblPozoValor.setBounds(250, 260, 110, 20);
-
-        btnSalir.setBackground(new java.awt.Color(162, 43, 34));
-        btnSalir.setFont(new java.awt.Font("Menlo", 0, 14)); // NOI18N
-        btnSalir.setForeground(new java.awt.Color(255, 255, 255));
-        btnSalir.setText("Salir");
-        btnSalir.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSalirActionPerformed(evt);
-            }
-        });
-        getContentPane().add(btnSalir);
-        btnSalir.setBounds(230, 290, 90, 30);
 
         lblBackground.setBackground(new java.awt.Color(0, 51, 255));
         lblBackground.setForeground(new java.awt.Color(255, 255, 255));
