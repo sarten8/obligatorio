@@ -15,6 +15,7 @@ import modelo.Participante;
 public interface InterfaceJuego {
     public void mostrarError(String mensaje);
     public void mostrarEspera(int faltantes);
+    public void mostrarNombre(String nombre);
     public void actualizarListaParticipantes(ArrayList<Participante> participantes);
     public void iniciarJuego();
     public void actualizarPozo(int pozo);

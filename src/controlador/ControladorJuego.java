@@ -19,6 +19,10 @@ public class ControladorJuego implements Observer{
     private Fachada modelo = Fachada.getInstancia();
     private InterfaceJuego vista;
     private Participante participante;
+
+    public Participante getParticipante() {
+        return participante;
+    }
     
     public ControladorJuego(InterfaceJuego vista, Participante p){
         this.vista = vista;
@@ -67,12 +71,12 @@ public class ControladorJuego implements Observer{
         
         if(evento.equals(Juego.Evento.PozoActualizado)){
             vista.actualizarPozo(this.participante.getJuego().getPozoTotal());
-            vista.actualizarSaldo(this.participante.getJugador().getSaldo());
         }
-        
+             
         if(evento.equals(Juego.Evento.PasaronTodos)){
             vista.pasaronTodos();
             vista.actualizarSaldo(this.participante.getJugador().getSaldo());
+            vista.actualizarPozo(this.participante.getJuego().getPozoTotal());
         }
         
         if(evento.equals(Juego.Evento.ParticipanteSinSaldo)){
@@ -90,18 +94,27 @@ public class ControladorJuego implements Observer{
         this.participante.getJuego().deleteObserver(this);
         vista.salir();
     }
+    
+    public void incrementarRespuesta() {
+        try{
+            this.participante.getJuego().restarCantidadRespuestas();
+        }catch(Exception ex){
+            vista.mostrarError(ex.getMessage());
+        }
+        
+    }
 
     public void pasar() {
        this.participante.pasar();
-       vista.actualizarSaldo(this.participante.getJugador().getSaldo());
     }
     
     public void apostar(int monto){
        try{
            this.participante.apostar(monto);
-           vista.actualizarSaldo(this.participante.getJugador().getSaldo());
        }catch(Exception ex){
           vista.mostrarError(ex.getMessage());
        }
     }
+    
+
 }

@@ -20,18 +20,26 @@ public class VistaJuego extends javax.swing.JFrame implements InterfaceJuego{
     /**
      * Creates new form VistaJuego
      */
-    protected Participante participante;
+    
+    // SACAR LOS ATRIBUTOS DEL MODELO DE ACA, SOLO EL CONTROLADOR PUEDE TENER EL ESTADO DEL MODELO
+    //protected Participante participante;
     private ControladorJuego controlador;
     
     
-    public VistaJuego(){}
+    //public VistaJuego(){}
     
     public VistaJuego(Participante p) {
         initComponents();
+        this.controlador = new ControladorJuego(this, p);
         this.setLocationRelativeTo(this);
         this.setResizable(false);
-        this.participante = p;
-        this.lblNombre.setText(p.getJugador().getNombre());
+        
+        // No se puede tener en la vista el estado del modelo. solo el controlador debe tener el estado del modelo.
+        //this.participante = p;
+        
+        // Aca tengo que tener un metodo de interfaz que lo llame el controlador en su constructor 
+        //this.lblNombre.setText(p.getJugador().getNombre());
+        
         this.lblEspera.setVisible(true);
         this.lblSaldo.setVisible(false);
         this.lblSaldoValor.setVisible(false);
@@ -44,7 +52,6 @@ public class VistaJuego extends javax.swing.JFrame implements InterfaceJuego{
         this.lblCarta5.setVisible(false);
         this.btnApostar.setVisible(false);
         this.btnPasar.setVisible(false);
-        this.controlador = new ControladorJuego(this, participante);
     }
 
     
@@ -277,40 +284,6 @@ public class VistaJuego extends javax.swing.JFrame implements InterfaceJuego{
         apostar();
     }//GEN-LAST:event_btnApostarActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(VistaJuego.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(VistaJuego.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(VistaJuego.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(VistaJuego.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new VistaJuego().setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnApostar;
@@ -400,7 +373,7 @@ public class VistaJuego extends javax.swing.JFrame implements InterfaceJuego{
     public void actualizarListaParticipantes(ArrayList<Participante> participantes) {
         ArrayList<Participante> participantesActualizada = new ArrayList<>();
         for(Participante p: participantes){
-            if( this.participante != p && this.participante!=null){
+            if( this.controlador.getParticipante() != p && this.controlador.getParticipante() != null){
                 participantesActualizada.add(p);
             }
         }
@@ -415,10 +388,12 @@ public class VistaJuego extends javax.swing.JFrame implements InterfaceJuego{
     @Override
     public void pasaronTodos() {
         int valor = JOptionPane.showConfirmDialog(this, "Pasaron todos los participantes. La mano finaliza sin ganador. Jugar la siguiente mano con pozo acumulado?", "Advertencia!", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
-        if(valor == JOptionPane.NO_OPTION){
+
+        if(valor == JOptionPane.NO_OPTION || valor == JOptionPane.YES_NO_CANCEL_OPTION){
             controlador.salirDelJuego();
-            dispose();
         }
+        
+        controlador.incrementarRespuesta();
     }
 
     @Override
@@ -429,5 +404,10 @@ public class VistaJuego extends javax.swing.JFrame implements InterfaceJuego{
     @Override
     public void salir() {
         dispose();
+    }
+
+    @Override
+    public void mostrarNombre(String nombre) {
+        this.lblNombre.setText(nombre);
     }
 }

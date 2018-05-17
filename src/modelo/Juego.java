@@ -15,6 +15,8 @@ import java.util.Observable;
  */
 public class Juego extends Observable{
     private int maxJugadores;
+    private int cantidadRespuestas;
+
     private int luz;
     private Mazo mazo;
     private Mano mano;
@@ -46,6 +48,14 @@ public class Juego extends Observable{
     public void setMaxJugadores(int maxJugadores) {
         this.maxJugadores = maxJugadores;
     }
+    public int getCantidadRespuestas() {
+        return cantidadRespuestas;
+    }
+
+    public void restarCantidadRespuestas() throws PokerException {
+        this.cantidadRespuestas --;
+        if (this.cantidadRespuestas == 0) this.iniciarMano();
+    }    
 
     public int getLuz() {
         return luz;
@@ -114,25 +124,22 @@ public class Juego extends Observable{
         this.estado = Estado.Activo;
         this.fechaInicio = new Date();
         // Iniciamos el juego con la primer mano
-        this.pozoParcial = maxJugadores * luz;
+        this.pozoTotal = maxJugadores * luz;
         Fachada.getInstancia().avisar(Fachada.Evento.IniciaJuego);
         this.iniciarMano();
         
     } 
     
     protected void iniciarMano() throws PokerException {
+        this.pozoTotal += this.pozoParcial;
         this.actualizarPasaronParticipantes();
         this.actualizarEstadoParticipantes();
-        
-        ArrayList<Participante> participantesActivos = this.obtenerParticipantesActivos();
-        
         this.descontarLuz();
-        
-        this.pozoTotal = this.pozoParcial + participantesActivos.size() * luz;
-        
+        ArrayList<Participante> participantesActivos = this.obtenerParticipantesActivos(); 
+        this.cantidadRespuestas = participantesActivos.size();
         this.mano = new Mano(this, this.mazo, participantesActivos);
         this.pozoParcial = 0;
-        Fachada.getInstancia().avisar(Evento.PozoActualizado);
+        this.avisar(Evento.PozoActualizado);
     }
     
     
@@ -173,15 +180,15 @@ public class Juego extends Observable{
     private void descontarLuz() throws PokerException {
         // Se les quita al valor de la luz a cada jugador
         for(Participante p: participantes){
-            if(p.getEstado()==Participante.Estado.Activo) p.apostar(luz);
+            if(p.getEstado()==Participante.Estado.Activo) p.descontar(luz);
         }
     }
     
     public void quitarParticipanteDeLaMano(Participante p) {
-        p.setPaso(true);
         this.mano.quitarParticipante(p);
         if (this.mano.verificarPasaronTodos()){
             this.pozoParcial = pozoTotal;
+            
             this.avisar(Evento.PasaronTodos);
         }
     }
