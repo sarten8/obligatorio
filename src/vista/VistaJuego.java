@@ -30,7 +30,7 @@ public class VistaJuego extends javax.swing.JFrame implements InterfaceJuego{
     
     public VistaJuego(Participante p) {
         initComponents();
-        this.controlador = new ControladorJuego(this, p);
+        
         this.setLocationRelativeTo(this);
         this.setResizable(false);
         
@@ -52,6 +52,8 @@ public class VistaJuego extends javax.swing.JFrame implements InterfaceJuego{
         this.lblCarta5.setVisible(false);
         this.btnApostar.setVisible(false);
         this.btnPasar.setVisible(false);
+        
+        this.controlador = new ControladorJuego(this, p);
     }
 
     
@@ -372,10 +374,8 @@ public class VistaJuego extends javax.swing.JFrame implements InterfaceJuego{
     @Override
     public void actualizarListaParticipantes(ArrayList<Participante> participantes) {
         ArrayList<Participante> participantesActualizada = new ArrayList<>();
-        for(Participante p: participantes){
-            if( this.controlador.getParticipante() != p && this.controlador.getParticipante() != null){
+        for(Participante p: participantes){        
                 participantesActualizada.add(p);
-            }
         }
         this.lstParticipantes.setListData(participantesActualizada.toArray());
     }

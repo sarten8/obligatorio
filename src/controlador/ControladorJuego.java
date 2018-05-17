@@ -5,6 +5,7 @@
  */
 package controlador;
 
+import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
 import modelo.Fachada;
@@ -31,15 +32,17 @@ public class ControladorJuego implements Observer{
         p.getJuego().addObserver(this);
         
         // Se actualiza el mismo la vista cuando ingresa 
+        vista.mostrarNombre(p.getJugador().getNombre());
+        
         int faltantes = this.participante.getJuego().jugadoresFaltantes();
         
         if (faltantes>=1) {
             vista.mostrarEspera(faltantes);
-            vista.actualizarListaParticipantes(this.participante.getJuego().obtenerParticipantesActivos());
+            vista.actualizarListaParticipantes(obtenerContrincantes());
         }
         
         if (this.participante.getJuego().getEstado().equals(Juego.Estado.Activo)){
-            vista.actualizarListaParticipantes(this.participante.getJuego().obtenerParticipantesActivos());
+            vista.actualizarListaParticipantes(obtenerContrincantes());
             vista.iniciarJuego();
             vista.actualizarPozo(this.participante.getJuego().getPozoTotal());
             vista.actualizarSaldo(this.participante.getJugador().getSaldo());
@@ -54,16 +57,16 @@ public class ControladorJuego implements Observer{
             if (faltantes>=1) {
                 vista.mostrarEspera(faltantes);
             }
-            vista.actualizarListaParticipantes(this.participante.getJuego().obtenerParticipantesActivos());
+            vista.actualizarListaParticipantes(obtenerContrincantes());
         }
         
         if(evento.equals(Fachada.Evento.ParticipanteSalio)){
             if (faltantes>=1) vista.mostrarEspera(faltantes);
-            vista.actualizarListaParticipantes(this.participante.getJuego().obtenerParticipantesActivos());
+            vista.actualizarListaParticipantes(obtenerContrincantes());
         }
         
         if(evento.equals(Fachada.Evento.ParticipanteRetirado)) 
-            vista.actualizarListaParticipantes(this.participante.getJuego().obtenerParticipantesActivos());
+            vista.actualizarListaParticipantes(obtenerContrincantes());
         
         if(evento.equals(Fachada.Evento.IniciaJuego)){
             vista.iniciarJuego();
@@ -86,6 +89,13 @@ public class ControladorJuego implements Observer{
         if(evento.equals(Fachada.Evento.ActualizarSaldo)){
             vista.actualizarSaldo(this.participante.getJugador().getSaldo());
         }
+    }
+    
+    // metodo auxiliar para pasar los participantes menos el participante mismo.
+    private ArrayList<Participante> obtenerContrincantes(){
+        ArrayList<Participante> aux = this.participante.getJuego().obtenerParticipantesActivos();
+        aux.remove(this.participante);
+        return aux;
     }
     
     public void salirDelJuego(){
@@ -115,6 +125,4 @@ public class ControladorJuego implements Observer{
           vista.mostrarError(ex.getMessage());
        }
     }
-    
-
 }
