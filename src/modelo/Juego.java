@@ -124,14 +124,14 @@ public class Juego extends Observable{
         this.estado = Estado.Activo;
         this.fechaInicio = new Date();
         // Iniciamos el juego con la primer mano
-        this.pozoTotal = maxJugadores * luz;
+        // this.pozoTotal = maxJugadores * luz;
         Fachada.getInstancia().avisar(Fachada.Evento.IniciaJuego);
         this.iniciarMano();
         
     } 
     
     protected void iniciarMano() throws PokerException {
-        this.pozoTotal += this.pozoParcial;
+        //this.pozoTotal += this.pozoParcial;
         this.actualizarPasaronParticipantes();
         this.actualizarEstadoParticipantes();
         this.descontarLuz();
@@ -180,7 +180,10 @@ public class Juego extends Observable{
     private void descontarLuz() throws PokerException {
         // Se les quita al valor de la luz a cada jugador
         for(Participante p: participantes){
-            if(p.getEstado()==Participante.Estado.Activo) p.descontar(luz);
+            if(p.getEstado()==Participante.Estado.Activo){
+                p.descontar(luz);
+                this.pozoTotal += luz;
+            }
         }
     }
     
@@ -188,7 +191,6 @@ public class Juego extends Observable{
         this.mano.quitarParticipante(p);
         if (this.mano.verificarPasaronTodos()){
             this.pozoParcial = pozoTotal;
-            
             this.avisar(Evento.PasaronTodos);
         }
     }
