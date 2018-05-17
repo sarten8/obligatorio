@@ -48,7 +48,7 @@ public class Mano {
     }
 
     public void acreditarGanador(){
-        this.juego.setPozoParcial(0);
+        this.juego.setPozoTotal(0);
         this.participanteGanador.incrementarSaldo(this.juego.getPozoTotal());
     }
 
