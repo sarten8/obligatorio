@@ -153,6 +153,7 @@ public class inicio {
         f.AgregarJugador(new Jugador("b", "b", "Fulano", 600));
         f.AgregarJugador(new Jugador("c", "c", "Mengano", 800));
         f.AgregarJugador(new Jugador("prueba", "prueba", "Sr. Prueba", 1000));
+        f.AgregarJugador(new Jugador("sarten", "sarten", "Filo de sarten", 299));
         
         f.AgregarAdministrador(new Administrador("z","z","zorro"));
 

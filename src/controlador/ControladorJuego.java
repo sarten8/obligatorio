@@ -11,6 +11,7 @@ import java.util.Observer;
 import modelo.Fachada;
 import modelo.Juego;
 import modelo.Participante;
+import modelo.PokerException;
 
 /**
  *
@@ -84,7 +85,7 @@ public class ControladorJuego implements Observer{
         }
         
         if(evento.equals(Juego.Evento.ParticipanteSinSaldo)){
-            if(!this.participante.validarSaldo()) salirDelJuego();
+            if(!this.participante.validarSaldo()) salirPorFaltaSaldo();
         }
         
         if(evento.equals(Fachada.Evento.ActualizarSaldo)){
@@ -103,11 +104,29 @@ public class ControladorJuego implements Observer{
         return aux;
     }
     
-    public void salirDelJuego(){
+    private void salir() throws PokerException{
         this.participante.salirDelJuego();
         modelo.deleteObserver(this);
         this.participante.getJuego().deleteObserver(this);
-        vista.salir();
+        System.out.println( participante.getJugador().getSaldo() + ". Saldo de + " + participante.getJugador().getNombre());
+    }
+    
+    private void salirPorFaltaSaldo() {
+        try{
+            salir();
+            vista.salirPorFaltaSaldo(participante.getJugador().getNombre(), participante.getJuego().getLuz());
+        }catch(Exception ex){
+            vista.mostrarError(ex.getMessage());
+        }
+    }
+    
+    public void salirDelJuego(){
+        try{
+            salir();
+            vista.salir();
+        }catch(Exception ex){
+            vista.mostrarError(ex.getMessage());
+        }
     }
     
     public void incrementarRespuesta() {

@@ -58,7 +58,8 @@ public class Mano {
     }
     
     public boolean verificarPasaronTodos(){
-        for(Participante p: participantes){
+        ArrayList<Participante> aux = juego.obtenerParticipantesActivos();
+        for(Participante p: aux){
             if(!p.isPaso()){
                 return false;
             }

@@ -24,4 +24,5 @@ public interface InterfaceJuego {
     public void pasaronTodos(String nombreJugador);
     public void mostrarCartas(ArrayList<Carta> cartas);
     public void salir();
+    public void salirPorFaltaSaldo(String nombre, int luz);
 }

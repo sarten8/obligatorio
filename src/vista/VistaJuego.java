@@ -8,6 +8,7 @@ package vista;
 import controlador.ControladorJuego;
 import controlador.InterfaceJuego;
 import java.util.ArrayList;
+import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import modelo.Carta;
@@ -42,7 +43,8 @@ public class VistaJuego extends javax.swing.JFrame implements InterfaceJuego{
         // Aca tengo que tener un metodo de interfaz que lo llame el controlador en su constructor 
         //this.lblNombre.setText(p.getJugador().getNombre());
         
-        this.lblEspera.setVisible(true);
+        this.lblEspera1.setVisible(true);
+        this.lblEspera2.setVisible(true);
         this.lblSaldo.setVisible(false);
         this.lblSaldoValor.setVisible(false);
         this.lblPozo.setVisible(false);
@@ -74,7 +76,8 @@ public class VistaJuego extends javax.swing.JFrame implements InterfaceJuego{
         lblNombre = new javax.swing.JLabel();
         lblBarra = new javax.swing.JLabel();
         lblParticipantes = new javax.swing.JLabel();
-        lblEspera = new javax.swing.JLabel();
+        lblEspera1 = new javax.swing.JLabel();
+        lblEspera2 = new javax.swing.JLabel();
         lblCarta1 = new javax.swing.JLabel();
         lblCarta2 = new javax.swing.JLabel();
         lblCarta3 = new javax.swing.JLabel();
@@ -140,10 +143,13 @@ public class VistaJuego extends javax.swing.JFrame implements InterfaceJuego{
         getContentPane().add(lblParticipantes);
         lblParticipantes.setBounds(210, 30, 120, 40);
 
-        lblEspera.setFont(new java.awt.Font("Dialog", 1, 10)); // NOI18N
-        lblEspera.setForeground(new java.awt.Color(255, 255, 255));
-        getContentPane().add(lblEspera);
-        lblEspera.setBounds(0, 80, 200, 170);
+        lblEspera1.setForeground(new java.awt.Color(255, 255, 204));
+        getContentPane().add(lblEspera1);
+        lblEspera1.setBounds(10, 80, 190, 30);
+
+        lblEspera2.setForeground(new java.awt.Color(255, 255, 204));
+        getContentPane().add(lblEspera2);
+        lblEspera2.setBounds(30, 110, 170, 30);
         getContentPane().add(lblCarta1);
         lblCarta1.setBounds(10, 80, 55, 80);
         getContentPane().add(lblCarta2);
@@ -292,7 +298,8 @@ public class VistaJuego extends javax.swing.JFrame implements InterfaceJuego{
     private javax.swing.JLabel lblCarta4;
     private javax.swing.JLabel lblCarta5;
     private javax.swing.JLabel lblClose;
-    private javax.swing.JLabel lblEspera;
+    private javax.swing.JLabel lblEspera1;
+    private javax.swing.JLabel lblEspera2;
     private javax.swing.JLabel lblMinimize;
     private javax.swing.JLabel lblNombre;
     private javax.swing.JLabel lblParticipantes;
@@ -328,6 +335,7 @@ public class VistaJuego extends javax.swing.JFrame implements InterfaceJuego{
             // participantes activos, podemos hacer que el participante se 
             // cambia el estado y en la proxima mano ya no estará.
             controlador.salirDelJuego();
+            controlador.incrementarRespuesta();
             dispose();
         }
     }
@@ -340,14 +348,19 @@ public class VistaJuego extends javax.swing.JFrame implements InterfaceJuego{
 
     @Override
     public void mostrarEspera(int faltantes) {
-        if(faltantes > 1) lblEspera.setText("Juego en espera. Aún faltan " + faltantes + " participantes");
-        else lblEspera.setText("Juego en espera. Aún falta " + faltantes + " participante");
-        lblEspera.setVisible(true);
+        //if(faltantes > 1) {
+            lblEspera1.setText("Esperando inicio del juego."); 
+            lblEspera2.setText("Aún faltan " + faltantes + " participantes"); 
+        //}
+        //else lblEspera1.setText("Juego en espera. Aún falta " + faltantes + " participante");
+        lblEspera1.setVisible(true);
+        lblEspera2.setVisible(true);
     }
 
     @Override
     public void iniciarJuego() {
-        this.lblEspera.setVisible(false);
+        this.lblEspera1.setVisible(false);
+        this.lblEspera2.setVisible(false);
         this.lblCarta1.setVisible(true);
         this.lblCarta2.setVisible(true);
         this.lblCarta3.setVisible(true);
@@ -357,7 +370,6 @@ public class VistaJuego extends javax.swing.JFrame implements InterfaceJuego{
         this.lblSaldoValor.setVisible(true);
         this.lblPozo.setVisible(true);
         this.lblPozoValor.setVisible(true);
-        lblEspera.setVisible(false);
         btnApostar.setVisible(true);
         btnPasar.setVisible(true);
     }
@@ -384,7 +396,6 @@ public class VistaJuego extends javax.swing.JFrame implements InterfaceJuego{
         if(valor == JOptionPane.NO_OPTION || valor == JOptionPane.YES_NO_CANCEL_OPTION){
             controlador.salirDelJuego();
         }
-        
         controlador.incrementarRespuesta();
     }
 
@@ -395,6 +406,12 @@ public class VistaJuego extends javax.swing.JFrame implements InterfaceJuego{
 
     @Override
     public void salir() {
+        dispose();
+    } 
+    
+    @Override
+    public void salirPorFaltaSaldo(String nombre, int luz) {
+        JOptionPane.showMessageDialog(rootPane, nombre + ", no tiene saldo para continuar en el juego. La apuesta base es de: $" + luz + " por cantidad de participantes activos", "Saldo", WIDTH, null);
         dispose();
     }
 
@@ -422,4 +439,5 @@ public class VistaJuego extends javax.swing.JFrame implements InterfaceJuego{
         ico = new ImageIcon(getClass().getResource(cartas.get(4).getImagen()));
         this.lblCarta5.setIcon(ico);
     }
+
 }

@@ -54,7 +54,11 @@ public class Juego extends Observable{
     public void restarCantidadRespuestas() throws PokerException {
         this.cantidadRespuestas --;
         if (this.cantidadRespuestas == 0) this.iniciarMano();
-    }    
+    }
+
+    public void restablecerCantidadRespuestas() throws PokerException{
+        this.cantidadRespuestas = obtenerParticipantesActivos().size();
+    }
 
     public int getLuz() {
         return luz;

@@ -123,7 +123,7 @@ public class Participante {
         if (apuestaMaxima < monto) throw new PokerException("La apuesta sobrepasa el máximo permitido. Debe de apostar menor o igual a " + apuestaMaxima);
     }
     
-    public void salirDelJuego() {
+    public void salirDelJuego() throws PokerException {
         if(this.juego.getEstado()== Juego.Estado.EnEspera) {
             this.juego.getParticipantes().remove(this);
             Fachada.getInstancia().avisar(Fachada.Evento.ParticipanteSalio);
