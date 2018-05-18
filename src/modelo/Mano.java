@@ -21,6 +21,7 @@ public class Mano {
         this.juego = juego;
         this.mazo = mazo;
         this.participantes = participantes;
+        this.repartirCartas();
     }
 
     public Participante getParticipanteGanador() {
@@ -63,5 +64,17 @@ public class Mano {
             }
         }
         return true;
+    }
+
+    private void repartirCartas(){
+        ArrayList<Carta> cartas = mazo.repartir(participantes.size());
+        int pos = 0;
+        for (Participante p: participantes){
+            int top = pos;
+            for (int i = pos; i < top+5; i++){
+                p.getCartas().add(cartas.get(i));
+                pos++;
+            }
+        }
     }
 }

@@ -6,6 +6,7 @@
 package modelo;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 /**
  *
@@ -21,8 +22,20 @@ public class Mazo {
     public Mazo() {
     }
     
-    public void repartir(int cantidadJugadores){
-        
+    private ArrayList<Carta> barajar(){
+        ArrayList<Carta> aux = cartas;
+        Collections.shuffle(aux);
+        return aux;
+    }
+    
+    public ArrayList<Carta> repartir(int cantidadJugadores){
+        ArrayList<Carta> aux = new ArrayList<>();
+        ArrayList<Carta> cartasBarajadas = barajar();
+        int cantidad = cantidadJugadores * 5;
+        for( int i = 0; i < cantidad; i++){
+            aux.add(cartasBarajadas.get(i));
+        }
+        return aux;
     }
     
     public void agregarCarta(Carta c)

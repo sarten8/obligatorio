@@ -97,9 +97,9 @@ public class Participante {
     
     public void descontar(int monto){
         this.jugador.descontarSaldo(monto);
+        this.saldoApostado += monto;
         // Utilizo en fachada este evento para actualizar en otros juegos que el jugador este y se le actualice el saldo
         Fachada.getInstancia().avisar(Fachada.Evento.ActualizarSaldo);
-        this.saldoApostado += monto;
     }
 
     public void apostar(int monto) throws PokerException{
@@ -111,6 +111,7 @@ public class Participante {
     public void incrementarSaldo(int monto) {
         this.jugador.incrementarSaldo(monto);
         this.saldoGanado += monto;
+        Fachada.getInstancia().avisar(Fachada.Evento.ActualizarSaldo);
     }
     
     private void validarApuesta(int monto) throws PokerException{
@@ -145,5 +146,9 @@ public class Participante {
     @Override
     public String toString() {
         return this.jugador.toString();
+    }
+    
+    public void limpiarCartas(){
+        this.cartas.clear();
     }
 }

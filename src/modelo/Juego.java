@@ -31,7 +31,7 @@ public class Juego extends Observable{
     }
     
     public enum Evento{
-        HayGanador, HayApuesta, PozoActualizado, PasaronTodos, ParticipanteSinSaldo;
+        CartasRepartidas, HayGanador, HayApuesta, PozoActualizado, PasaronTodos, ParticipanteSinSaldo;
     }
     
     public Juego(int maxJugadores, int luz, Mazo mazo){
@@ -120,6 +120,7 @@ public class Juego extends Observable{
     } 
     
     protected void iniciarMano() throws PokerException {
+        retirarCartas();
         this.actualizarPasaronParticipantes();
         this.actualizarEstadoParticipantes();
         this.descontarLuz();
@@ -127,6 +128,7 @@ public class Juego extends Observable{
         this.cantidadRespuestas = participantesActivos.size();
         this.mano = new Mano(this, this.mazo, participantesActivos);
         this.avisar(Evento.PozoActualizado);
+        this.avisar(Evento.CartasRepartidas);
     }
     
     
@@ -203,5 +205,11 @@ public class Juego extends Observable{
     protected void avisar(Object evento){
         setChanged();
         notifyObservers(evento);
+    }
+    
+    private void retirarCartas(){
+        for(Participante p: participantes){
+            p.limpiarCartas();
+        }
     }
 }

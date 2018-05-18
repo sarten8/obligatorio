@@ -8,7 +8,9 @@ package vista;
 import controlador.ControladorJuego;
 import controlador.InterfaceJuego;
 import java.util.ArrayList;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
+import modelo.Carta;
 import modelo.Participante;
 
 /**
@@ -141,25 +143,15 @@ public class VistaJuego extends javax.swing.JFrame implements InterfaceJuego{
         lblEspera.setFont(new java.awt.Font("Dialog", 1, 10)); // NOI18N
         lblEspera.setForeground(new java.awt.Color(255, 255, 255));
         getContentPane().add(lblEspera);
-        lblEspera.setBounds(10, 80, 180, 170);
-
-        lblCarta1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/utilidades/cards/10_of_diamonds.png"))); // NOI18N
+        lblEspera.setBounds(0, 80, 200, 170);
         getContentPane().add(lblCarta1);
         lblCarta1.setBounds(10, 80, 55, 80);
-
-        lblCarta2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/utilidades/cards/6_of_clubs.png"))); // NOI18N
         getContentPane().add(lblCarta2);
         lblCarta2.setBounds(70, 80, 55, 80);
-
-        lblCarta3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/utilidades/cards/jack_of_diamonds.png"))); // NOI18N
         getContentPane().add(lblCarta3);
         lblCarta3.setBounds(130, 80, 55, 80);
-
-        lblCarta4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/utilidades/cards/3_of_hearts.png"))); // NOI18N
         getContentPane().add(lblCarta4);
         lblCarta4.setBounds(100, 170, 55, 80);
-
-        lblCarta5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/utilidades/cards/king_of_clubs.png"))); // NOI18N
         getContentPane().add(lblCarta5);
         lblCarta5.setBounds(40, 170, 55, 80);
 
@@ -180,7 +172,7 @@ public class VistaJuego extends javax.swing.JFrame implements InterfaceJuego{
         btnApostar.setForeground(new java.awt.Color(204, 204, 204));
         btnApostar.setText("Apostar");
         btnApostar.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        btnApostar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnApostar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnApostar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnApostarActionPerformed(evt);
@@ -194,7 +186,7 @@ public class VistaJuego extends javax.swing.JFrame implements InterfaceJuego{
         btnPasar.setForeground(new java.awt.Color(204, 204, 204));
         btnPasar.setText("Pasar");
         btnPasar.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        btnPasar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnPasar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnPasar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnPasarActionPerformed(evt);
@@ -208,7 +200,7 @@ public class VistaJuego extends javax.swing.JFrame implements InterfaceJuego{
         btnSalir.setForeground(new java.awt.Color(204, 204, 204));
         btnSalir.setText("Salir");
         btnSalir.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        btnSalir.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnSalir.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnSalir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSalirActionPerformed(evt);
@@ -386,8 +378,8 @@ public class VistaJuego extends javax.swing.JFrame implements InterfaceJuego{
     }
 
     @Override
-    public void pasaronTodos() {
-        int valor = JOptionPane.showConfirmDialog(this, "Pasaron todos los participantes. La mano finaliza sin ganador. Jugar la siguiente mano con pozo acumulado?", "Advertencia!", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+    public void pasaronTodos(String nombreJugador) {
+        int valor = JOptionPane.showConfirmDialog(this, "Pasaron todos los participantes. La mano finaliza sin ganador. Jugar la siguiente mano con pozo acumulado?", nombreJugador + "  ·  Advertencia!", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
 
         if(valor == JOptionPane.NO_OPTION || valor == JOptionPane.YES_NO_CANCEL_OPTION){
             controlador.salirDelJuego();
@@ -409,5 +401,25 @@ public class VistaJuego extends javax.swing.JFrame implements InterfaceJuego{
     @Override
     public void mostrarNombre(String nombre) {
         this.lblNombre.setText(nombre);
+    }
+
+    @Override
+    public void mostrarCartas(ArrayList<Carta> cartas) {
+        ImageIcon ico;
+        
+        ico = new ImageIcon(getClass().getResource(cartas.get(0).getImagen()));
+        this.lblCarta1.setIcon(ico);
+        
+        ico = new ImageIcon(getClass().getResource(cartas.get(1).getImagen()));
+        this.lblCarta2.setIcon(ico);
+        
+        ico = new ImageIcon(getClass().getResource(cartas.get(2).getImagen()));
+        this.lblCarta3.setIcon(ico);
+        
+        ico = new ImageIcon(getClass().getResource(cartas.get(3).getImagen()));
+        this.lblCarta4.setIcon(ico);
+        
+        ico = new ImageIcon(getClass().getResource(cartas.get(4).getImagen()));
+        this.lblCarta5.setIcon(ico);
     }
 }

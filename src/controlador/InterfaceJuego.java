@@ -6,6 +6,7 @@
 package controlador;
 
 import java.util.ArrayList;
+import modelo.Carta;
 import modelo.Participante;
 
 /**
@@ -20,6 +21,7 @@ public interface InterfaceJuego {
     public void iniciarJuego();
     public void actualizarPozo(int pozo);
     public void actualizarSaldo(int saldo);
-    public void pasaronTodos();
+    public void pasaronTodos(String nombreJugador);
+    public void mostrarCartas(ArrayList<Carta> cartas);
     public void salir();
 }

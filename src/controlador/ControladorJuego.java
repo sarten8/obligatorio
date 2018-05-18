@@ -46,6 +46,7 @@ public class ControladorJuego implements Observer{
             vista.iniciarJuego();
             vista.actualizarPozo(this.participante.getJuego().getPozoTotal());
             vista.actualizarSaldo(this.participante.getJugador().getSaldo());
+            vista.mostrarCartas(participante.getCartas());
         }
     }
 
@@ -77,7 +78,7 @@ public class ControladorJuego implements Observer{
         }
              
         if(evento.equals(Juego.Evento.PasaronTodos)){
-            vista.pasaronTodos();
+            vista.pasaronTodos(this.participante.getJugador().getNombre());
             vista.actualizarSaldo(this.participante.getJugador().getSaldo());
             vista.actualizarPozo(this.participante.getJuego().getPozoTotal());
         }
@@ -88,6 +89,10 @@ public class ControladorJuego implements Observer{
         
         if(evento.equals(Fachada.Evento.ActualizarSaldo)){
             vista.actualizarSaldo(this.participante.getJugador().getSaldo());
+        }
+        
+        if(evento.equals(Juego.Evento.CartasRepartidas)){
+            vista.mostrarCartas(participante.getCartas());
         }
     }
     
