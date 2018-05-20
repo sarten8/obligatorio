@@ -25,4 +25,8 @@ public interface InterfaceJuego {
     public void mostrarCartas(ArrayList<Carta> cartas);
     public void salir();
     public void salirPorFaltaSaldo(String nombre, int luz);
+    public void mostrarApuesta(String nombre, int monto);
+    public void esperarRespuesta();
+    public void mostrarGanador(String ganador, Carta carta, int pozo);
+    public void mostrarMensajAlGanador(int pozo);
 }

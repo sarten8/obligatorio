@@ -49,23 +49,35 @@ public class Mano {
     }
 
     public void acreditarGanador(){
-        this.juego.setPozoTotal(0);
+        buscarGanador();
         this.participanteGanador.incrementarSaldo(this.juego.getPozoTotal());
+        this.juego.avisar(Juego.Evento.HayGanador);
+        this.juego.setPozoTotal(0);
+    }
+    
+    private void buscarGanador(){
+        if(participantes.size() == 1) this.participanteGanador = participantes.get(0);
+        else{
+            Participante p_aux = participantes.get(0);
+            for(Participante p: participantes){
+                if(p.mejorCarta().getNumero() > p_aux.mejorCarta().getNumero()){
+                    p_aux = p;
+                }
+                else if(p.mejorCarta().getNumero() == p_aux.mejorCarta().getNumero()){
+                    if(p.mejorCarta().getPalo().getValor() > p_aux.mejorCarta().getPalo().getValor()){
+                        p_aux = p;
+                    }
+                }
+            }
+            this.participanteGanador = p_aux;
+        }
     }
 
     public void quitarParticipante(Participante p) {
         this.participantes.remove(p);
     }
     
-    public boolean verificarPasaronTodos(){
-        ArrayList<Participante> aux = juego.obtenerParticipantesActivos();
-        for(Participante p: aux){
-            if(!p.isPaso()){
-                return false;
-            }
-        }
-        return true;
-    }
+
 
     private void repartirCartas(){
         ArrayList<Carta> cartas = mazo.repartir(participantes.size());
@@ -77,5 +89,12 @@ public class Mano {
                 pos++;
             }
         }
+    }
+    
+    public Participante quienAposto(){
+        for(Participante p: participantes){
+            if(p.isAposto()) return p;
+        }
+        return null;
     }
 }

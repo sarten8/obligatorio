@@ -95,6 +95,25 @@ public class ControladorJuego implements Observer{
         if(evento.equals(Juego.Evento.CartasRepartidas)){
             vista.mostrarCartas(participante.getCartas());
         }
+        
+        if(evento.equals(Juego.Evento.HayApuesta)){
+
+            if(participante.isAposto()) {
+                vista.esperarRespuesta();
+            }
+            else {
+                Participante apostador = participante.getJuego().getMano().quienAposto();
+                vista.mostrarApuesta(apostador.getJugador().getNombre(), apostador.getApuesta());
+            }
+        }
+        
+        if(evento.equals(Juego.Evento.HayGanador)){
+            if(participante.equals(participante.getJuego().getMano().getParticipanteGanador())){
+                vista.mostrarMensajAlGanador(participante.getJuego().getPozoTotal());
+            }else{
+                vista.mostrarGanador(participante.getJuego().getMano().getParticipanteGanador().getJugador().getNombre(), participante.getJuego().getMano().getParticipanteGanador().mejorCarta(), participante.getJuego().getPozoTotal());
+            }
+        }
     }
     
     // metodo auxiliar para pasar los participantes menos el participante mismo.
@@ -134,19 +153,35 @@ public class ControladorJuego implements Observer{
             this.participante.getJuego().restarCantidadRespuestas();
         }catch(Exception ex){
             vista.mostrarError(ex.getMessage());
-        }
-        
+        }   
+    }
+    
+    public void incrementarRespuestaApuestas() {
+        try{
+            this.participante.getJuego().restarCantidadRespuestasApuestas();
+        }catch(Exception ex){
+            vista.mostrarError(ex.getMessage());
+        }   
     }
 
     public void pasar() {
        this.participante.pasar();
     }
     
+    public void descontarApuesta(int monto){
+        this.participante.descontar(monto);
+    }
+    
     public void apostar(int monto){
        try{
+           this.incrementarRespuestaApuestas();
            this.participante.apostar(monto);
        }catch(Exception ex){
           vista.mostrarError(ex.getMessage());
        }
+    }
+    
+    public void quitarParticipanteDeLaMano(){
+        participante.getJuego().quitarParticipanteDeLaMano(participante);
     }
 }

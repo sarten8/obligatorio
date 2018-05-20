@@ -19,6 +19,8 @@ public class Participante {
     private int saldoApostado = 0;
     private int saldoGanado = 0;
     private boolean paso = false;
+    private boolean aposto = false;
+    private int apuesta = 0;
     private Estado estado;
     public enum Estado{
         Activo, Inactivo;
@@ -88,6 +90,23 @@ public class Participante {
         this.estado = estado;
     }
 
+    public boolean isAposto() {
+        return aposto;
+    }
+
+    public void setAposto(boolean aposto) {
+        this.aposto = aposto;
+    }
+
+    public int getApuesta() {
+        return apuesta;
+    }
+
+    public void setApuesta(int apuesta) {
+        this.apuesta = apuesta;
+    }
+    
+
     public Participante(Jugador jugador, Juego juego, int saldoInicial) {
         this.jugador = jugador;
         this.juego = juego;
@@ -98,6 +117,7 @@ public class Participante {
     public void descontar(int monto){
         this.jugador.descontarSaldo(monto);
         this.saldoApostado += monto;
+        this.juego.incrementarPozo(monto);
         // Utilizo en fachada este evento para actualizar en otros juegos que el jugador este y se le actualice el saldo
         Fachada.getInstancia().avisar(Fachada.Evento.ActualizarSaldo);
     }
@@ -106,6 +126,10 @@ public class Participante {
             this.validarApuesta(monto);
             descontar(monto);
             this.juego.incrementarPozo(monto);
+            aposto = true;
+            apuesta = monto;
+            this.juego.avisar(Juego.Evento.HayApuesta);
+            Fachada.getInstancia().avisar(Fachada.Evento.ActualizarSaldo);
     }
     
     public void incrementarSaldo(int monto) {
@@ -140,7 +164,7 @@ public class Participante {
     
     public void pasar(){
         this.paso = true;
-        this.getJuego().quitarParticipanteDeLaMano(this);
+        this.getJuego().pasarParticipanteDeLaMano(this);
     }
     
     @Override
@@ -150,5 +174,20 @@ public class Participante {
     
     public void limpiarCartas(){
         this.cartas.clear();
+    }
+    
+    public Carta mejorCarta(){
+        Carta aux = new Carta(1, null, "");
+        for (Carta c: cartas){
+            if(c.getNumero() > aux.getNumero()){
+                aux = c;
+            }
+            else if(c.getNumero() == aux.getNumero()){
+                if(c.getPalo().getValor() > aux.getPalo().getValor()){
+                    aux = c;
+                }
+            }
+        }
+        return aux;
     }
 }

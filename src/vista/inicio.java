@@ -21,70 +21,70 @@ public class inicio {
         
         Fachada f = Fachada.getInstancia();
         
-        Palo pc = new Palo("Corazón", 1);
-        Palo pd = new Palo("Diamanete", 2);
-        Palo pt = new Palo("Trébol", 3);
-        Palo pp = new Palo("Pique", 4);
+        Palo pc = new Palo("Corazón", 4);
+        Palo pd = new Palo("Diamanete", 3);
+        Palo pt = new Palo("Trébol", 2);
+        Palo pp = new Palo("Pique", 1);
         
         //cartas corazones
-        Carta ac = new Carta("A", pc, "utilidades/cards/ace_of_hearts.png");
-        Carta kc = new Carta("K", pc, "utilidades/cards/king_of_hearts.png");
-        Carta qc = new Carta("Q", pc, "utilidades/cards/queen_of_hearts.png");
-        Carta jc = new Carta("J", pc, "utilidades/cards/jack_of_hearts.png");
-        Carta diezc = new Carta("DIEZ", pc, "utilidades/cards/10_of_hearts.png");
-        Carta nuevec = new Carta("NUEVE", pc, "utilidades/cards/9_of_hearts.png");
-        Carta ochoc = new Carta("OCHO", pc, "utilidades/cards/8_of_hearts.png");
-        Carta sietec = new Carta("SIETE", pc, "utilidades/cards/7_of_hearts.png");
-        Carta seisc = new Carta("SEIS", pc, "utilidades/cards/6_of_hearts.png");
-        Carta cincoc = new Carta("CINCO", pc, "utilidades/cards/5_of_hearts.png");
-        Carta cuatroc = new Carta("CUATRO", pc, "utilidades/cards/4_of_hearts.png");
-        Carta tresc = new Carta("TRES", pc, "utilidades/cards/3_of_hearts.png");
-        Carta dosc = new Carta("DOS", pc, "utilidades/cards/2_of_hearts.png");
+        Carta ac = new Carta(14, pc, "utilidades/cards/ace_of_hearts.png");
+        Carta kc = new Carta(13, pc, "utilidades/cards/king_of_hearts.png");
+        Carta qc = new Carta(12, pc, "utilidades/cards/queen_of_hearts.png");
+        Carta jc = new Carta(11, pc, "utilidades/cards/jack_of_hearts.png");
+        Carta diezc = new Carta(10, pc, "utilidades/cards/10_of_hearts.png");
+        Carta nuevec = new Carta(9, pc, "utilidades/cards/9_of_hearts.png");
+        Carta ochoc = new Carta(8, pc, "utilidades/cards/8_of_hearts.png");
+        Carta sietec = new Carta(7, pc, "utilidades/cards/7_of_hearts.png");
+        Carta seisc = new Carta(6, pc, "utilidades/cards/6_of_hearts.png");
+        Carta cincoc = new Carta(5, pc, "utilidades/cards/5_of_hearts.png");
+        Carta cuatroc = new Carta(4, pc, "utilidades/cards/4_of_hearts.png");
+        Carta tresc = new Carta(3, pc, "utilidades/cards/3_of_hearts.png");
+        Carta dosc = new Carta(2, pc, "utilidades/cards/2_of_hearts.png");
         
         //cartas diamante
-        Carta ad = new Carta("A", pd, "utilidades/cards/ace_of_diamonds.png");
-        Carta kd = new Carta("K", pd, "utilidades/cards/king_of_diamonds.png");
-        Carta qd = new Carta("Q", pd, "utilidades/cards/queen_of_diamonds.png");
-        Carta jd = new Carta("J", pd, "utilidades/cards/jack_of_diamonds.png");
-        Carta diezd = new Carta("DIEZ", pd, "utilidades/cards/10_of_diamonds.png");
-        Carta nueved = new Carta("NUEVE", pd, "utilidades/cards/9_of_diamonds.png");
-        Carta ochod= new Carta("OCHO", pd, "utilidades/cards/8_of_diamonds.png");
-        Carta sieted = new Carta("SIETE", pd, "utilidades/cards/7_of_diamonds.png");
-        Carta seisd = new Carta("SEIS", pd, "utilidades/cards/6_of_diamonds.png");
-        Carta cincod = new Carta("CINCO", pd, "utilidades/cards/5_of_diamonds.png");
-        Carta cuatrod = new Carta("CUATRO", pd, "utilidades/cards/4_of_diamonds.png");
-        Carta tresd = new Carta("TRES", pd, "utilidades/cards/3_of_diamonds.png");
-        Carta dosd = new Carta("DOS", pd, "utilidades/cards/2_of_diamonds.png");
+        Carta ad = new Carta(14, pd, "utilidades/cards/ace_of_diamonds.png");
+        Carta kd = new Carta(13, pd, "utilidades/cards/king_of_diamonds.png");
+        Carta qd = new Carta(12, pd, "utilidades/cards/queen_of_diamonds.png");
+        Carta jd = new Carta(11, pd, "utilidades/cards/jack_of_diamonds.png");
+        Carta diezd = new Carta(10, pd, "utilidades/cards/10_of_diamonds.png");
+        Carta nueved = new Carta(9, pd, "utilidades/cards/9_of_diamonds.png");
+        Carta ochod= new Carta(8, pd, "utilidades/cards/8_of_diamonds.png");
+        Carta sieted = new Carta(7, pd, "utilidades/cards/7_of_diamonds.png");
+        Carta seisd = new Carta(6, pd, "utilidades/cards/6_of_diamonds.png");
+        Carta cincod = new Carta(5, pd, "utilidades/cards/5_of_diamonds.png");
+        Carta cuatrod = new Carta(4, pd, "utilidades/cards/4_of_diamonds.png");
+        Carta tresd = new Carta(3, pd, "utilidades/cards/3_of_diamonds.png");
+        Carta dosd = new Carta(2, pd, "utilidades/cards/2_of_diamonds.png");
         
         //cartas pique
-        Carta ap = new Carta("A", pp, "utilidades/cards/ace_of_spades.png");
-        Carta kp = new Carta("K", pp, "utilidades/cards/king_of_spades.png");
-        Carta qp = new Carta("Q", pp, "utilidades/cards/queen_of_spades.png");
-        Carta jp = new Carta("J", pp, "utilidades/cards/jack_of_spades.png");
-        Carta diezp = new Carta("DIEZ", pp, "utilidades/cards/10_of_spades.png");
-        Carta nuevep = new Carta("NUEVE", pp, "utilidades/cards/9_of_spades.png");
-        Carta ochop= new Carta("OCHO", pp, "utilidades/cards/8_of_spades.png");
-        Carta sietep = new Carta("SIETE", pp, "utilidades/cards/7_of_spades.png");
-        Carta seisp = new Carta("SEIS", pp, "utilidades/cards/6_of_spades.png");
-        Carta cincop = new Carta("CINCO", pp, "utilidades/cards/5_of_spades.png");
-        Carta cuatrop = new Carta("CUATRO", pp, "utilidades/cards/4_of_spades.png");
-        Carta tresp = new Carta("TRES", pp, "utilidades/cards/3_of_spades.png");
-        Carta dosp = new Carta("DOS", pp, "utilidades/cards/2_of_spades.png");
+        Carta ap = new Carta(14, pp, "utilidades/cards/ace_of_spades.png");
+        Carta kp = new Carta(13, pp, "utilidades/cards/king_of_spades.png");
+        Carta qp = new Carta(12, pp, "utilidades/cards/queen_of_spades.png");
+        Carta jp = new Carta(11, pp, "utilidades/cards/jack_of_spades.png");
+        Carta diezp = new Carta(10, pp, "utilidades/cards/10_of_spades.png");
+        Carta nuevep = new Carta(9, pp, "utilidades/cards/9_of_spades.png");
+        Carta ochop= new Carta(8, pp, "utilidades/cards/8_of_spades.png");
+        Carta sietep = new Carta(7, pp, "utilidades/cards/7_of_spades.png");
+        Carta seisp = new Carta(6, pp, "utilidades/cards/6_of_spades.png");
+        Carta cincop = new Carta(5, pp, "utilidades/cards/5_of_spades.png");
+        Carta cuatrop = new Carta(4, pp, "utilidades/cards/4_of_spades.png");
+        Carta tresp = new Carta(3, pp, "utilidades/cards/3_of_spades.png");
+        Carta dosp = new Carta(2, pp, "utilidades/cards/2_of_spades.png");
         
         //cartas trebol
-        Carta at = new Carta("A", pt, "utilidades/cards/ace_of_clubs.png");
-        Carta kt = new Carta("K", pt, "utilidades/cards/king_of_clubs.png");
-        Carta qt = new Carta("Q", pt, "utilidades/cards/queen_of_clubs.png");
-        Carta jt = new Carta("J", pt, "utilidades/cards/jack_of_clubs.png");
-        Carta diezt = new Carta("DIEZ", pt, "utilidades/cards/10_of_clubs.png");
-        Carta nuevet = new Carta("NUEVE", pt, "utilidades/cards/9_of_clubs.png");
-        Carta ochot= new Carta("OCHO", pt, "utilidades/cards/8_of_clubs.png");
-        Carta sietet = new Carta("SIETE", pt, "utilidades/cards/7_of_clubs.png");
-        Carta seist = new Carta("SEIS", pt, "utilidades/cards/6_of_clubs.png");
-        Carta cincot = new Carta("CINCO", pt, "utilidades/cards/5_of_clubs.png");
-        Carta cuatrot = new Carta("CUATRO", pt, "utilidades/cards/4_of_clubs.png");
-        Carta trest = new Carta("TRES", pt, "utilidades/cards/3_of_clubs.png");
-        Carta dost = new Carta("DOS", pt, "utilidades/cards/2_of_clubs.png");
+        Carta at = new Carta(14, pt, "utilidades/cards/ace_of_clubs.png");
+        Carta kt = new Carta(13, pt, "utilidades/cards/king_of_clubs.png");
+        Carta qt = new Carta(12, pt, "utilidades/cards/queen_of_clubs.png");
+        Carta jt = new Carta(11, pt, "utilidades/cards/jack_of_clubs.png");
+        Carta diezt = new Carta(10, pt, "utilidades/cards/10_of_clubs.png");
+        Carta nuevet = new Carta(9, pt, "utilidades/cards/9_of_clubs.png");
+        Carta ochot= new Carta(8, pt, "utilidades/cards/8_of_clubs.png");
+        Carta sietet = new Carta(7, pt, "utilidades/cards/7_of_clubs.png");
+        Carta seist = new Carta(6, pt, "utilidades/cards/6_of_clubs.png");
+        Carta cincot = new Carta(5, pt, "utilidades/cards/5_of_clubs.png");
+        Carta cuatrot = new Carta(4, pt, "utilidades/cards/4_of_clubs.png");
+        Carta trest = new Carta(3, pt, "utilidades/cards/3_of_clubs.png");
+        Carta dost = new Carta(2, pt, "utilidades/cards/2_of_clubs.png");
         
         
         Mazo mazo = new Mazo();

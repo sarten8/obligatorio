@@ -16,6 +16,7 @@ import java.util.Observable;
 public class Juego extends Observable{
     private int maxJugadores;
     private int cantidadRespuestas;
+    private int cantidadRespuestasApuestas;
 
     private int luz;
     private Mazo mazo;
@@ -25,6 +26,7 @@ public class Juego extends Observable{
     private Date fechaInicio;
     private int pozoTotal = 0;
     private Estado estado = Estado.EnEspera;
+
 
     public enum Estado{
                     EnEspera, Activo, Finalizado;
@@ -58,6 +60,19 @@ public class Juego extends Observable{
 
     public void restablecerCantidadRespuestas() throws PokerException{
         this.cantidadRespuestas = obtenerParticipantesActivos().size();
+    }
+    
+    public int getCantidadRespuestasApuestas() {
+        return cantidadRespuestasApuestas;
+    }
+
+    public void restarCantidadRespuestasApuestas() throws PokerException {
+        this.cantidadRespuestasApuestas --;
+        if (this.cantidadRespuestasApuestas == 0) this.getMano().acreditarGanador();
+    }
+
+    public void restablecerCantidadRespuestasApuestas() throws PokerException{
+        this.cantidadRespuestasApuestas = obtenerParticipantesActivos().size();
     }
 
     public int getLuz() {
@@ -125,11 +140,12 @@ public class Juego extends Observable{
     
     protected void iniciarMano() throws PokerException {
         retirarCartas();
-        this.actualizarPasaronParticipantes();
+        this.resetParticipantes();
         this.actualizarEstadoParticipantes();
         this.descontarLuz();
         ArrayList<Participante> participantesActivos = this.obtenerParticipantesActivos(); 
-        this.cantidadRespuestas = participantesActivos.size();
+        this.restablecerCantidadRespuestas();
+        this.restablecerCantidadRespuestasApuestas();
         this.mano = new Mano(this, this.mazo, participantesActivos);
         this.avisar(Evento.PozoActualizado);
         this.avisar(Evento.CartasRepartidas);
@@ -182,9 +198,20 @@ public class Juego extends Observable{
     
     public void quitarParticipanteDeLaMano(Participante p) {
         this.mano.quitarParticipante(p);
-        if (this.mano.verificarPasaronTodos()){
-            this.avisar(Evento.PasaronTodos);
+    }
+    
+    public void pasarParticipanteDeLaMano(Participante aThis) {
+        if(verificarPasaronTodos()) this.avisar(Evento.PasaronTodos);
+    }
+    
+    private boolean verificarPasaronTodos(){
+        ArrayList<Participante> aux = this.obtenerParticipantesActivos();
+        for(Participante p: aux){
+            if(!p.isPaso()){
+                return false;
+            }
         }
+        return true;
     }
     
     public int apuestaMaxima(){
@@ -200,12 +227,14 @@ public class Juego extends Observable{
         avisar(Evento.PozoActualizado);
     }
     
-    private void actualizarPasaronParticipantes() {
+    private void resetParticipantes() {
         for(Participante p: participantes){
             p.setPaso(false);
+            p.setAposto(false);
+            p.setApuesta(0);
         }
     }
-    
+ 
     protected void avisar(Object evento){
         setChanged();
         notifyObservers(evento);
