@@ -6,12 +6,9 @@
 package vista;
 
 import controlador.ControladorLoginAdmin;
-import controlador.ControladorLoginJugador;
 import controlador.InterfaceLoginAdmin;
-import controlador.InterfaceLoginJugador;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
-import modelo.Participante;
 
 /**
  *

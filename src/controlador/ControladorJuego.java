@@ -181,8 +181,8 @@ public class ControladorJuego implements Observer{
     
     public void apostar(int monto){
        try{
-           this.incrementarRespuestaApuestas();
            this.participante.apostar(monto);
+           this.incrementarRespuestaApuestas();
        }catch(Exception ex){
           vista.mostrarError(ex.getMessage());
        }

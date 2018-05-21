@@ -7,8 +7,6 @@ package vista;
 
 import controlador.ControladorAdmin;
 import controlador.InterfaceAdmin;
-import controlador.ControladorJuego;
-import controlador.InterfaceJuego;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import modelo.Juego;

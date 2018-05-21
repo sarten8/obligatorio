@@ -65,7 +65,9 @@ public class Juego extends Observable{
 
     public void restarCantidadRespuestas() throws PokerException {
         this.cantidadRespuestas --;
-        if (this.cantidadRespuestas == 0) this.iniciarMano();
+        if (this.cantidadRespuestas == 0) {
+            this.iniciarMano();
+        }
     }
 
     public void restablecerCantidadRespuestas() throws PokerException{
@@ -78,7 +80,11 @@ public class Juego extends Observable{
 
     public void restarCantidadRespuestasApuestas() throws PokerException {
         this.cantidadRespuestasApuestas --;
-        if (this.cantidadRespuestasApuestas == 0) this.getMano().acreditarGanador();
+        if (this.cantidadRespuestasApuestas == 0) {
+            this.getMano().acreditarGanador();
+            this.avisar(Juego.Evento.HayGanador);
+            this.setPozoTotal(0);
+        }
     }
 
     public void restablecerCantidadRespuestasApuestas() throws PokerException{
@@ -166,6 +172,7 @@ public class Juego extends Observable{
     } 
     
     protected void iniciarMano() throws PokerException {
+        System.out.println("POZO TOTAL antes de iniciar mano: $"+pozoTotal);
         retirarCartas();
         this.cantidadManos++;
         this.resetParticipantes();
@@ -178,6 +185,7 @@ public class Juego extends Observable{
         this.mano = new Mano(this, this.mazo, participantesActivos);
         this.avisar(Evento.PozoActualizado);
         this.avisar(Evento.CartasRepartidas);
+        System.out.println("POZO TOTAL despues de iniciar mano: $"+pozoTotal);
     }
     
     

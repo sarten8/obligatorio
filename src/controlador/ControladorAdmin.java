@@ -5,12 +5,10 @@
  */
 package controlador;
 
-import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
 import modelo.Fachada;
 import modelo.Juego;
-import modelo.Participante;
 import modelo.PokerException;
 
 /**
