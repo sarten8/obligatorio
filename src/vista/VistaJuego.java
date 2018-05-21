@@ -382,10 +382,10 @@ public class VistaJuego extends javax.swing.JFrame implements InterfaceJuego{
     }
     
     private void pasar() {
-        controlador.pasar();
         this.lblEsperarNuevaMano.setText("Esperando nueva mano...");
         this.lblEsperarNuevaMano.setVisible(true);
         this.lblEsperarNuevaMano1.setVisible(true);
+        controlador.pasar();
     }
 
     private void confirmarSalida(){
@@ -421,6 +421,10 @@ public class VistaJuego extends javax.swing.JFrame implements InterfaceJuego{
         this.lblMostrarGanadorFondo.setVisible(false);
         this.lblMostrarGanadorTexto.setVisible(false);
         this.lblMostrarGanadorCarta.setVisible(false);
+        this.lblEsperarNuevaMano.setVisible(false);
+        this.lblEsperarNuevaMano1.setVisible(false);
+        this.lblEsperaRespuesta.setVisible(false);
+        this.lblEsperaRespuesta1.setVisible(false);
         this.lblCarta1.setVisible(true);
         this.lblCarta2.setVisible(true);
         this.lblCarta3.setVisible(true);
@@ -504,16 +508,16 @@ public class VistaJuego extends javax.swing.JFrame implements InterfaceJuego{
     public void mostrarApuesta(String nombre, int monto) {
         int valor = JOptionPane.showConfirmDialog(this, nombre + " apostó: $ " + monto + ". Acepta pagar?", "  ·  Apuesta!", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
 
-        if(valor == JOptionPane.NO_OPTION || valor == JOptionPane.YES_NO_CANCEL_OPTION){
-            controlador.quitarParticipanteDeLaMano();
+        if(valor == JOptionPane.NO_OPTION || valor == JOptionPane.YES_NO_CANCEL_OPTION){  
             this.lblEsperarNuevaMano.setText("Esperando nueva mano...");
             this.lblEsperarNuevaMano.setVisible(true);
             this.lblEsperarNuevaMano1.setVisible(true);
+            controlador.quitarParticipanteDeLaMano();
         }
         else {
-            controlador.descontarApuesta(monto);
             btnApostar.setVisible(false);
             btnPasar.setVisible(false);
+            controlador.descontarApuesta(monto);
         }
         
         controlador.incrementarRespuestaApuestas();
@@ -531,7 +535,6 @@ public class VistaJuego extends javax.swing.JFrame implements InterfaceJuego{
         this.lblMostrarGanadorTexto.setText("Ganador "+ ganador + ", se lleva el pozo $" + pozo + ". Carta:");
         ImageIcon ico = new ImageIcon(getClass().getResource(carta.getImagen()));
         this.lblMostrarGanadorCarta.setIcon(ico);
-
         this.lblMostrarGanadorFondo.setVisible(true);
         this.lblMostrarGanadorTexto.setVisible(true);
         this.lblMostrarGanadorCarta.setVisible(true);
@@ -542,6 +545,12 @@ public class VistaJuego extends javax.swing.JFrame implements InterfaceJuego{
         this.lblMostrarGanadorTexto.setText("Ganaste!!! Te llevaste el pozo $" + pozo);
         this.lblMostrarGanadorFondo.setVisible(true);
         this.lblMostrarGanadorTexto.setVisible(true);
+    }
+
+    @Override
+    public void mostrarTerminoJuego(String msj) {
+        JOptionPane.showMessageDialog(rootPane, msj);
+        dispose();
     }
 
 }

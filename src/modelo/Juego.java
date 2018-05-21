@@ -17,7 +17,7 @@ public class Juego extends Observable{
     private int maxJugadores;
     private int cantidadRespuestas;
     private int cantidadRespuestasApuestas;
-
+    private int cantidadManos;
     private int luz;
     private Mazo mazo;
     private Mano mano;
@@ -33,7 +33,16 @@ public class Juego extends Observable{
     }
     
     public enum Evento{
-        CartasRepartidas, HayGanador, HayApuesta, PozoActualizado, PasaronTodos, ParticipanteSinSaldo;
+        CartasRepartidas, TerminoJuego,HayGanador, HayApuesta, PozoActualizado, PasaronTodos, ParticipanteSinSaldo;
+    }
+    
+    public boolean TeminoJuego(){
+    
+    if(this.obtenerParticipantesActivos().size()==1){
+        this.estado=Estado.Finalizado;
+        return true;
+    }
+    return false;
     }
     
     public Juego(int maxJugadores, int luz, Mazo mazo){
@@ -134,12 +143,14 @@ public class Juego extends Observable{
         this.estado = Estado.Activo;
         this.fechaInicio = new Date();
         Fachada.getInstancia().avisar(Fachada.Evento.IniciaJuego);
+         Fachada.getInstancia().avisar(Fachada.Evento.ListarPartidas);
         this.iniciarMano();
         
     } 
     
     protected void iniciarMano() throws PokerException {
         retirarCartas();
+        this.cantidadManos++;
         this.resetParticipantes();
         this.actualizarEstadoParticipantes();
         this.descontarLuz();
@@ -191,7 +202,7 @@ public class Juego extends Observable{
         for(Participante p: participantes){
             if(p.getEstado()==Participante.Estado.Activo){
                 p.descontar(luz);
-                this.pozoTotal += luz;
+                //this.pozoTotal += luz;
             }
         }
     }
@@ -244,5 +255,11 @@ public class Juego extends Observable{
         for(Participante p: participantes){
             p.limpiarCartas();
         }
+    }
+    
+        @Override
+    public String toString() {
+        
+        return "Inicio Juego: " + this.fechaInicio + ",jugadores: " + this.participantes.size()+" total apostado:"+this.pozoTotal+" cantidad de manos: "+this.cantidadManos;
     }
 }

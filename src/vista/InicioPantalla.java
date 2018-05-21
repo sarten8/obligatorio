@@ -53,6 +53,11 @@ public class InicioPantalla extends javax.swing.JFrame {
         btnAdministrador.setText("Administrador");
         btnAdministrador.setToolTipText("Ingresar como administrador");
         btnAdministrador.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnAdministrador.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAdministradorActionPerformed(evt);
+            }
+        });
         getContentPane().add(btnAdministrador);
         btnAdministrador.setBounds(20, 130, 171, 50);
 
@@ -72,6 +77,10 @@ public class InicioPantalla extends javax.swing.JFrame {
         // TODO add your handling code here:
         new VistaLoginJugador().setVisible(true);
     }//GEN-LAST:event_btnJugadorMousePressed
+
+    private void btnAdministradorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdministradorActionPerformed
+          new VistaLoginAdmin().setVisible(true);
+    }//GEN-LAST:event_btnAdministradorActionPerformed
 
     /**
      * @param args the command line arguments

@@ -66,6 +66,11 @@ public class ControladorJuego implements Observer{
             if (faltantes>=1) vista.mostrarEspera(faltantes);
             vista.actualizarListaParticipantes(obtenerContrincantes());
         }
+        if(evento.equals(Juego.Evento.TerminoJuego)){
+            if(this.participante.getEstado()==Participante.Estado.Activo){
+            vista.mostrarTerminoJuego("El juego termina por falta de participantes");
+            }
+        }
         
         if(evento.equals(Fachada.Evento.ParticipanteRetirado)) 
             vista.actualizarListaParticipantes(obtenerContrincantes());
@@ -94,6 +99,7 @@ public class ControladorJuego implements Observer{
         
         if(evento.equals(Juego.Evento.CartasRepartidas)){
             vista.mostrarCartas(participante.getCartas());
+            vista.iniciarJuego();
         }
         
         if(evento.equals(Juego.Evento.HayApuesta)){

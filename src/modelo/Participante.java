@@ -125,7 +125,6 @@ public class Participante {
     public void apostar(int monto) throws PokerException{
             this.validarApuesta(monto);
             descontar(monto);
-            this.juego.incrementarPozo(monto);
             aposto = true;
             apuesta = monto;
             this.juego.avisar(Juego.Evento.HayApuesta);
@@ -153,8 +152,14 @@ public class Participante {
             Fachada.getInstancia().avisar(Fachada.Evento.ParticipanteSalio);
         }
         else{
-            this.estado = Estado.Inactivo;
+            
+            this.estado = Estado.Inactivo;          
             Fachada.getInstancia().avisar(Fachada.Evento.ParticipanteRetirado);
+            if(juego.TeminoJuego()){
+            juego.avisar(Juego.Evento.TerminoJuego);
+            Fachada.getInstancia().avisar(Fachada.Evento.ListarPartidas);
+            }
+            
         }
     }
     
@@ -167,9 +172,10 @@ public class Participante {
         this.getJuego().pasarParticipanteDeLaMano(this);
     }
     
-    @Override
+  @Override
     public String toString() {
-        return this.jugador.toString();
+        //return this.jugador.toString()+" -total apostado:"+this.saldoApostado+" saldo iniical:"+this.saldoInicial+" total ganado:"+this.saldoGanado;
+        return jugador.toString();
     }
     
     public void limpiarCartas(){

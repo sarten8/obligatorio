@@ -93,4 +93,16 @@ public class SistemaJuego
    public Juego obtenerJuegoEnEspera() {
         return juegos.get(juegos.size()-1);
     } 
+   
+      public ArrayList<Juego> JuegosActivos() {
+        ArrayList<Juego> listajuegos=new ArrayList();
+        for(Juego j: juegos){
+            if(j.getEstado()==Juego.Estado.Activo)
+            {
+                listajuegos.add(j);
+            }
+        
+        }
+        return listajuegos;
+    }
 }

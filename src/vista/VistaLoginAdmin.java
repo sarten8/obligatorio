@@ -5,7 +5,9 @@
  */
 package vista;
 
+import controlador.ControladorLoginAdmin;
 import controlador.ControladorLoginJugador;
+import controlador.InterfaceLoginAdmin;
 import controlador.InterfaceLoginJugador;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
@@ -15,17 +17,17 @@ import modelo.Participante;
  *
  * @author sartre
  */
-public class VistaLoginJugador extends javax.swing.JFrame implements InterfaceLoginJugador{
-    private ControladorLoginJugador controlador;
+public class VistaLoginAdmin extends javax.swing.JFrame implements InterfaceLoginAdmin{
+    private ControladorLoginAdmin controlador;
     /**
      * Creates new form LoginJugador
      */
-    public VistaLoginJugador() {
+    public VistaLoginAdmin() {
         initComponents();
         this.setLocation(10, 25);
         this.setResizable(false);
         this.txtUser.requestFocus();
-        this.controlador = new ControladorLoginJugador(this);
+        this.controlador = new ControladorLoginAdmin(this);
     }
     
     private void limpiarPantalla(){
@@ -47,7 +49,6 @@ public class VistaLoginJugador extends javax.swing.JFrame implements InterfaceLo
         lblClose = new javax.swing.JLabel();
         lblTitulo1 = new javax.swing.JLabel();
         lblBarra = new javax.swing.JLabel();
-        lblTitulo = new javax.swing.JLabel();
         lblUser = new javax.swing.JLabel();
         lblPass = new javax.swing.JLabel();
         txtUser = new javax.swing.JTextField();
@@ -55,6 +56,7 @@ public class VistaLoginJugador extends javax.swing.JFrame implements InterfaceLo
         txtPass = new javax.swing.JPasswordField();
         jSeparator2 = new javax.swing.JSeparator();
         lblIngresar = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
         lblBackground = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -86,7 +88,7 @@ public class VistaLoginJugador extends javax.swing.JFrame implements InterfaceLo
         lblTitulo1.setText("P O K E R");
         lblTitulo1.setToolTipText("");
         getContentPane().add(lblTitulo1);
-        lblTitulo1.setBounds(90, 30, 70, 30);
+        lblTitulo1.setBounds(90, 20, 70, 30);
 
         lblBarra.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
             public void mouseDragged(java.awt.event.MouseEvent evt) {
@@ -100,13 +102,6 @@ public class VistaLoginJugador extends javax.swing.JFrame implements InterfaceLo
         });
         getContentPane().add(lblBarra);
         lblBarra.setBounds(0, 0, 390, 40);
-
-        lblTitulo.setFont(new java.awt.Font("Fira Code", 1, 12)); // NOI18N
-        lblTitulo.setForeground(new java.awt.Color(255, 255, 204));
-        lblTitulo.setText("~ Nuevo juego ~");
-        lblTitulo.setToolTipText("");
-        getContentPane().add(lblTitulo);
-        lblTitulo.setBounds(70, 50, 120, 40);
 
         lblUser.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/utilidades/iconos/user.png"))); // NOI18N
         getContentPane().add(lblUser);
@@ -145,7 +140,7 @@ public class VistaLoginJugador extends javax.swing.JFrame implements InterfaceLo
 
         lblIngresar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/utilidades/iconos/btnIngresar_1.png"))); // NOI18N
         lblIngresar.setToolTipText("Ingresar al próximo juego ");
-        lblIngresar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lblIngresar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         lblIngresar.setPreferredSize(new java.awt.Dimension(150, 26));
         lblIngresar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
@@ -165,6 +160,12 @@ public class VistaLoginJugador extends javax.swing.JFrame implements InterfaceLo
         });
         getContentPane().add(lblIngresar);
         lblIngresar.setBounds(50, 210, 150, 24);
+
+        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel2.setText("Admnistrador");
+        getContentPane().add(jLabel2);
+        jLabel2.setBounds(80, 50, 100, 14);
 
         lblBackground.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/utilidades/background/background_login.jpg"))); // NOI18N
         getContentPane().add(lblBackground);
@@ -253,6 +254,7 @@ public class VistaLoginJugador extends javax.swing.JFrame implements InterfaceLo
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JLabel lblBackground;
@@ -261,7 +263,6 @@ public class VistaLoginJugador extends javax.swing.JFrame implements InterfaceLo
     private javax.swing.JLabel lblIngresar;
     private javax.swing.JLabel lblMinimize;
     private javax.swing.JLabel lblPass;
-    private javax.swing.JLabel lblTitulo;
     private javax.swing.JLabel lblTitulo1;
     private javax.swing.JLabel lblUser;
     private javax.swing.JPasswordField txtPass;
@@ -269,7 +270,7 @@ public class VistaLoginJugador extends javax.swing.JFrame implements InterfaceLo
     // End of variables declaration//GEN-END:variables
 
     private void login() {
-        if(validarCampoUsuario() && validarCampoPassword()) controlador.login(txtUser.getText().trim(), txtPass.getText().trim());
+        if(validarCampoUsuario() && validarCampoPassword()) controlador.loginAdmin(txtUser.getText().trim(), txtPass.getText().trim());
         if(!validarCampoUsuario()) mostrarError("Usuario vacío");
         if(!validarCampoPassword()) mostrarError("Password vacío");
         limpiarPantalla();
@@ -287,8 +288,10 @@ public class VistaLoginJugador extends javax.swing.JFrame implements InterfaceLo
         JOptionPane.showMessageDialog(this, mensaje);
     }
 
+   
+
     @Override
-    public void mostrarParticipante(Participante p) {
-        new VistaJuego(p).setVisible(true);
+    public void MostrarMonitor() {
+       new VistaAdministrador().setVisible(true);
     }
 }

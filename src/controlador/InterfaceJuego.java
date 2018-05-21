@@ -29,4 +29,6 @@ public interface InterfaceJuego {
     public void esperarRespuesta();
     public void mostrarGanador(String ganador, Carta carta, int pozo);
     public void mostrarMensajAlGanador(int pozo);
+
+    public void mostrarTerminoJuego(String msj);
 }

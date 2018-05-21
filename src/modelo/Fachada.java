@@ -5,6 +5,7 @@
  */
 package modelo;
 
+import java.util.ArrayList;
 import java.util.Observable;
 
 /**
@@ -23,7 +24,7 @@ public class Fachada extends Observable{
     // El Evento ParticipanteSalio es por si el participante se retira antes de 
     // que el juego haya iniciado. El Participante se quita de Array de participantes
     public enum Evento{
-        ParticipanteIngresado, ParticipanteSalio, ParticipanteRetirado, IniciaJuego, ActualizarSaldo;;
+        ParticipanteIngresado,ListarPartidas, ParticipanteSalio, ParticipanteRetirado, IniciaJuego, ActualizarSaldo;;
     }
     
     public Fachada() {
@@ -48,6 +49,30 @@ public class Fachada extends Observable{
     
     public void CrearJuego(){
         sj.crearJuego();
+    }
+    
+       public int Verluz() {
+       return sj.getLuz();
+    }
+         public int VerMaximo() {
+       return sj.getMaxJugadores();
+    }
+
+    public void SetearMaximo(int max) throws PokerException  {
+      sj.setMaxJugadores(max);
+    }
+
+    public void setearLuz(int luz)  throws PokerException {
+        sj.setLuz(luz);
+    }
+    public ArrayList<Juego> actualizarPartidas() {
+        
+       return  sj.JuegosActivos();
+    }
+    
+    
+    public boolean loginAdmin(String user, String pass) throws PokerException {
+       return  su.loginAdmin(user,pass);
     }
     
     public Juego ObtenerjuegoEnEspera(){
