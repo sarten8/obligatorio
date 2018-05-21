@@ -128,7 +128,7 @@ public class Participante {
             aposto = true;
             apuesta = monto;
             this.juego.avisar(Juego.Evento.HayApuesta);
-            Fachada.getInstancia().avisar(Fachada.Evento.ActualizarSaldo);
+            //Fachada.getInstancia().avisar(Fachada.Evento.ActualizarSaldo);
     }
     
     public void incrementarSaldo(int monto) {

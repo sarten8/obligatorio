@@ -17,6 +17,7 @@ public class Juego extends Observable{
     private int maxJugadores;
     private int cantidadRespuestas;
     private int cantidadRespuestasApuestas;
+    private int cantidadRespuestasNuevaMano;
     private int cantidadManos;
     private int luz;
     private Mazo mazo;
@@ -83,6 +84,22 @@ public class Juego extends Observable{
     public void restablecerCantidadRespuestasApuestas() throws PokerException{
         this.cantidadRespuestasApuestas = obtenerParticipantesActivos().size();
     }
+    
+   public int getCantidadRespuestasNuevaMano() {
+        return cantidadRespuestasNuevaMano;
+    }
+    
+    public void restarCantidadRespuestasNuevaMano() throws PokerException{
+        this.cantidadRespuestasNuevaMano --;
+        if (this.cantidadRespuestasNuevaMano == 0) {
+            this.pozoTotal = 0;
+            this.iniciarMano();
+        }
+    }
+    
+    public void restablecerCantidadRespuestasNuevaMano() throws PokerException{
+        this.cantidadRespuestasNuevaMano = obtenerParticipantesActivos().size();
+    }
 
     public int getLuz() {
         return luz;
@@ -143,7 +160,7 @@ public class Juego extends Observable{
         this.estado = Estado.Activo;
         this.fechaInicio = new Date();
         Fachada.getInstancia().avisar(Fachada.Evento.IniciaJuego);
-         Fachada.getInstancia().avisar(Fachada.Evento.ListarPartidas);
+        Fachada.getInstancia().avisar(Fachada.Evento.ListarPartidas);
         this.iniciarMano();
         
     } 
@@ -157,6 +174,7 @@ public class Juego extends Observable{
         ArrayList<Participante> participantesActivos = this.obtenerParticipantesActivos(); 
         this.restablecerCantidadRespuestas();
         this.restablecerCantidadRespuestasApuestas();
+        this.restablecerCantidadRespuestasNuevaMano();
         this.mano = new Mano(this, this.mazo, participantesActivos);
         this.avisar(Evento.PozoActualizado);
         this.avisar(Evento.CartasRepartidas);
@@ -202,7 +220,6 @@ public class Juego extends Observable{
         for(Participante p: participantes){
             if(p.getEstado()==Participante.Estado.Activo){
                 p.descontar(luz);
-                //this.pozoTotal += luz;
             }
         }
     }

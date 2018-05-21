@@ -30,5 +30,6 @@ public interface InterfaceJuego {
     public void mostrarGanador(String ganador, Carta carta, int pozo);
     public void mostrarMensajAlGanador(int pozo);
 
+    public void comenzarNuevaMano();
     public void mostrarTerminoJuego(String msj);
 }

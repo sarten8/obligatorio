@@ -119,6 +119,7 @@ public class ControladorJuego implements Observer{
             }else{
                 vista.mostrarGanador(participante.getJuego().getMano().getParticipanteGanador().getJugador().getNombre(), participante.getJuego().getMano().getParticipanteGanador().mejorCarta(), participante.getJuego().getPozoTotal());
             }
+            vista.comenzarNuevaMano();
         }
     }
     
@@ -189,5 +190,13 @@ public class ControladorJuego implements Observer{
     
     public void quitarParticipanteDeLaMano(){
         participante.getJuego().quitarParticipanteDeLaMano(participante);
+    }
+
+    public void incrementarRespuestaNuevaMano() {
+        try{
+            this.participante.getJuego().restarCantidadRespuestasNuevaMano();
+        }catch(Exception ex){
+            vista.mostrarError(ex.getMessage());
+        }   
     }
 }

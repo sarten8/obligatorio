@@ -57,9 +57,7 @@ public class VistaJuego extends javax.swing.JFrame implements InterfaceJuego{
         this.btnPasar.setVisible(false);
         this.lblEsperaRespuesta.setVisible(false);
         this.lblEsperarNuevaMano.setVisible(false);
-        this.lblEsperaRespuesta1.setVisible(false);
-        this.lblEsperarNuevaMano1.setVisible(false);
-        this.lblMostrarGanadorFondo.setVisible(false);
+        this.lblMostrarFondoMensajes.setVisible(false);
         this.lblMostrarGanadorTexto.setVisible(false);
         this.lblMostrarGanadorCarta.setVisible(false);
         
@@ -83,11 +81,9 @@ public class VistaJuego extends javax.swing.JFrame implements InterfaceJuego{
         lblBarra = new javax.swing.JLabel();
         lblMostrarGanadorCarta = new javax.swing.JLabel();
         lblMostrarGanadorTexto = new javax.swing.JLabel();
-        lblMostrarGanadorFondo = new javax.swing.JLabel();
         lblEsperarNuevaMano = new javax.swing.JLabel();
-        lblEsperarNuevaMano1 = new javax.swing.JLabel();
         lblEsperaRespuesta = new javax.swing.JLabel();
-        lblEsperaRespuesta1 = new javax.swing.JLabel();
+        lblMostrarFondoMensajes = new javax.swing.JLabel();
         lblParticipantes = new javax.swing.JLabel();
         lblEspera1 = new javax.swing.JLabel();
         lblEspera2 = new javax.swing.JLabel();
@@ -159,32 +155,21 @@ public class VistaJuego extends javax.swing.JFrame implements InterfaceJuego{
         getContentPane().add(lblMostrarGanadorTexto);
         lblMostrarGanadorTexto.setBounds(10, 80, 320, 80);
 
-        lblMostrarGanadorFondo.setFont(new java.awt.Font("Monaco", 1, 12)); // NOI18N
-        lblMostrarGanadorFondo.setForeground(new java.awt.Color(255, 255, 204));
-        getContentPane().add(lblMostrarGanadorFondo);
-        lblMostrarGanadorFondo.setBounds(10, 80, 320, 240);
-
         lblEsperarNuevaMano.setFont(new java.awt.Font("Monaco", 1, 12)); // NOI18N
         lblEsperarNuevaMano.setForeground(new java.awt.Color(255, 255, 204));
         getContentPane().add(lblEsperarNuevaMano);
         lblEsperarNuevaMano.setBounds(10, 80, 320, 240);
-
-        lblEsperarNuevaMano1.setFont(new java.awt.Font("Monaco", 0, 12)); // NOI18N
-        lblEsperarNuevaMano1.setForeground(new java.awt.Color(255, 255, 204));
-        lblEsperarNuevaMano1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/utilidades/background/background_table.jpg"))); // NOI18N
-        getContentPane().add(lblEsperarNuevaMano1);
-        lblEsperarNuevaMano1.setBounds(10, 80, 320, 240);
 
         lblEsperaRespuesta.setFont(new java.awt.Font("Menlo", 1, 12)); // NOI18N
         lblEsperaRespuesta.setForeground(new java.awt.Color(255, 255, 204));
         getContentPane().add(lblEsperaRespuesta);
         lblEsperaRespuesta.setBounds(10, 80, 320, 240);
 
-        lblEsperaRespuesta1.setFont(new java.awt.Font("Menlo for Powerline", 1, 10)); // NOI18N
-        lblEsperaRespuesta1.setForeground(new java.awt.Color(255, 255, 204));
-        lblEsperaRespuesta1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/utilidades/background/background_table.jpg"))); // NOI18N
-        getContentPane().add(lblEsperaRespuesta1);
-        lblEsperaRespuesta1.setBounds(10, 80, 320, 240);
+        lblMostrarFondoMensajes.setFont(new java.awt.Font("Monaco", 1, 12)); // NOI18N
+        lblMostrarFondoMensajes.setForeground(new java.awt.Color(255, 255, 204));
+        lblMostrarFondoMensajes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/utilidades/background/background_table.jpg"))); // NOI18N
+        getContentPane().add(lblMostrarFondoMensajes);
+        lblMostrarFondoMensajes.setBounds(10, 80, 320, 240);
 
         lblParticipantes.setFont(new java.awt.Font("Fira Code", 1, 12)); // NOI18N
         lblParticipantes.setForeground(new java.awt.Color(255, 255, 204));
@@ -351,12 +336,10 @@ public class VistaJuego extends javax.swing.JFrame implements InterfaceJuego{
     private javax.swing.JLabel lblEspera1;
     private javax.swing.JLabel lblEspera2;
     private javax.swing.JLabel lblEsperaRespuesta;
-    private javax.swing.JLabel lblEsperaRespuesta1;
     private javax.swing.JLabel lblEsperarNuevaMano;
-    private javax.swing.JLabel lblEsperarNuevaMano1;
     private javax.swing.JLabel lblMinimize;
+    private javax.swing.JLabel lblMostrarFondoMensajes;
     private javax.swing.JLabel lblMostrarGanadorCarta;
-    private javax.swing.JLabel lblMostrarGanadorFondo;
     private javax.swing.JLabel lblMostrarGanadorTexto;
     private javax.swing.JLabel lblNombre;
     private javax.swing.JLabel lblParticipantes;
@@ -384,7 +367,7 @@ public class VistaJuego extends javax.swing.JFrame implements InterfaceJuego{
     private void pasar() {
         this.lblEsperarNuevaMano.setText("Esperando nueva mano...");
         this.lblEsperarNuevaMano.setVisible(true);
-        this.lblEsperarNuevaMano1.setVisible(true);
+        this.lblMostrarFondoMensajes.setVisible(true);
         controlador.pasar();
     }
 
@@ -418,13 +401,11 @@ public class VistaJuego extends javax.swing.JFrame implements InterfaceJuego{
     public void iniciarJuego() {
         this.lblEspera1.setVisible(false);
         this.lblEspera2.setVisible(false);
-        this.lblMostrarGanadorFondo.setVisible(false);
+        this.lblMostrarFondoMensajes.setVisible(false);
         this.lblMostrarGanadorTexto.setVisible(false);
         this.lblMostrarGanadorCarta.setVisible(false);
         this.lblEsperarNuevaMano.setVisible(false);
-        this.lblEsperarNuevaMano1.setVisible(false);
         this.lblEsperaRespuesta.setVisible(false);
-        this.lblEsperaRespuesta1.setVisible(false);
         this.lblCarta1.setVisible(true);
         this.lblCarta2.setVisible(true);
         this.lblCarta3.setVisible(true);
@@ -434,8 +415,8 @@ public class VistaJuego extends javax.swing.JFrame implements InterfaceJuego{
         this.lblSaldoValor.setVisible(true);
         this.lblPozo.setVisible(true);
         this.lblPozoValor.setVisible(true);
-        btnApostar.setVisible(true);
-        btnPasar.setVisible(true);
+        this.btnApostar.setVisible(true);
+        this.btnPasar.setVisible(true);
     }
     
 
@@ -511,10 +492,10 @@ public class VistaJuego extends javax.swing.JFrame implements InterfaceJuego{
         if(valor == JOptionPane.NO_OPTION || valor == JOptionPane.YES_NO_CANCEL_OPTION){  
             this.lblEsperarNuevaMano.setText("Esperando nueva mano...");
             this.lblEsperarNuevaMano.setVisible(true);
-            this.lblEsperarNuevaMano1.setVisible(true);
+            this.lblMostrarFondoMensajes.setVisible(true);
             controlador.quitarParticipanteDeLaMano();
         }
-        else {
+        if(valor == JOptionPane.YES_OPTION) {
             btnApostar.setVisible(false);
             btnPasar.setVisible(false);
             controlador.descontarApuesta(monto);
@@ -527,7 +508,7 @@ public class VistaJuego extends javax.swing.JFrame implements InterfaceJuego{
     public void esperarRespuesta() {
         this.lblEsperaRespuesta.setText("Esperando respuesta...");
         this.lblEsperaRespuesta.setVisible(true);
-        this.lblEsperaRespuesta1.setVisible(true);
+        this.lblMostrarFondoMensajes.setVisible(true);
     }
 
     @Override
@@ -535,7 +516,7 @@ public class VistaJuego extends javax.swing.JFrame implements InterfaceJuego{
         this.lblMostrarGanadorTexto.setText("Ganador "+ ganador + ", se lleva el pozo $" + pozo + ". Carta:");
         ImageIcon ico = new ImageIcon(getClass().getResource(carta.getImagen()));
         this.lblMostrarGanadorCarta.setIcon(ico);
-        this.lblMostrarGanadorFondo.setVisible(true);
+        this.lblMostrarFondoMensajes.setVisible(true);
         this.lblMostrarGanadorTexto.setVisible(true);
         this.lblMostrarGanadorCarta.setVisible(true);
     }
@@ -543,7 +524,7 @@ public class VistaJuego extends javax.swing.JFrame implements InterfaceJuego{
     @Override
     public void mostrarMensajAlGanador(int pozo) {
         this.lblMostrarGanadorTexto.setText("Ganaste!!! Te llevaste el pozo $" + pozo);
-        this.lblMostrarGanadorFondo.setVisible(true);
+        this.lblMostrarFondoMensajes.setVisible(true);
         this.lblMostrarGanadorTexto.setVisible(true);
     }
 
@@ -551,6 +532,17 @@ public class VistaJuego extends javax.swing.JFrame implements InterfaceJuego{
     public void mostrarTerminoJuego(String msj) {
         JOptionPane.showMessageDialog(rootPane, msj);
         dispose();
+    }
+
+    @Override
+    public void comenzarNuevaMano() {
+        int valor = JOptionPane.showConfirmDialog(this, "Desea continuar jugando?", "  ·  Próxima mano!", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+
+        if(valor == JOptionPane.NO_OPTION || valor == JOptionPane.YES_NO_CANCEL_OPTION){
+            controlador.salirDelJuego();
+        }
+        
+        controlador.incrementarRespuestaNuevaMano();
     }
 
 }
