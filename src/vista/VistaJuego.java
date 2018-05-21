@@ -23,8 +23,6 @@ public class VistaJuego extends javax.swing.JFrame implements InterfaceJuego{
      * Creates new form VistaJuego
      */
     
-    // SACAR LOS ATRIBUTOS DEL MODELO DE ACA, SOLO EL CONTROLADOR PUEDE TENER EL ESTADO DEL MODELO
-    //protected Participante participante;
     private ControladorJuego controlador;
     
     
@@ -417,6 +415,7 @@ public class VistaJuego extends javax.swing.JFrame implements InterfaceJuego{
         this.lblPozoValor.setVisible(true);
         this.btnApostar.setVisible(true);
         this.btnPasar.setVisible(true);
+        this.contenedorParticipantes.setVisible(true);
     }
     
 
@@ -487,17 +486,19 @@ public class VistaJuego extends javax.swing.JFrame implements InterfaceJuego{
 
     @Override
     public void mostrarApuesta(String nombre, int monto) {
+        esperarRespuesta();
         int valor = JOptionPane.showConfirmDialog(this, nombre + " apostó: $ " + monto + ". Acepta pagar?", "  ·  Apuesta!", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
 
         if(valor == JOptionPane.NO_OPTION || valor == JOptionPane.YES_NO_CANCEL_OPTION){  
             this.lblEsperarNuevaMano.setText("Esperando nueva mano...");
             this.lblEsperarNuevaMano.setVisible(true);
             this.lblMostrarFondoMensajes.setVisible(true);
+            this.contenedorParticipantes.setVisible(false);
             controlador.quitarParticipanteDeLaMano();
         }
         if(valor == JOptionPane.YES_OPTION) {
-            btnApostar.setVisible(false);
-            btnPasar.setVisible(false);
+            this.btnApostar.setVisible(false);
+            this.btnPasar.setVisible(false);
             controlador.descontarApuesta(monto);
         }
         
@@ -509,6 +510,7 @@ public class VistaJuego extends javax.swing.JFrame implements InterfaceJuego{
         this.lblEsperaRespuesta.setText("Esperando respuesta...");
         this.lblEsperaRespuesta.setVisible(true);
         this.lblMostrarFondoMensajes.setVisible(true);
+        this.contenedorParticipantes.setVisible(false);
     }
 
     @Override
@@ -519,6 +521,7 @@ public class VistaJuego extends javax.swing.JFrame implements InterfaceJuego{
         this.lblMostrarFondoMensajes.setVisible(true);
         this.lblMostrarGanadorTexto.setVisible(true);
         this.lblMostrarGanadorCarta.setVisible(true);
+        this.contenedorParticipantes.setVisible(false);
     }
 
     @Override
@@ -526,6 +529,7 @@ public class VistaJuego extends javax.swing.JFrame implements InterfaceJuego{
         this.lblMostrarGanadorTexto.setText("Ganaste!!! Te llevaste el pozo $" + pozo);
         this.lblMostrarFondoMensajes.setVisible(true);
         this.lblMostrarGanadorTexto.setVisible(true);
+        this.contenedorParticipantes.setVisible(false);
     }
 
     @Override
