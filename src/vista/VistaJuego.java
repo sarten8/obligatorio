@@ -366,6 +366,8 @@ public class VistaJuego extends javax.swing.JFrame implements InterfaceJuego{
         this.lblEsperarNuevaMano.setText("Esperando nueva mano...");
         this.lblEsperarNuevaMano.setVisible(true);
         this.lblMostrarFondoMensajes.setVisible(true);
+        this.btnApostar.setVisible(false);
+        this.btnPasar.setVisible(false);
         controlador.pasar();
     }
 
@@ -514,6 +516,8 @@ public class VistaJuego extends javax.swing.JFrame implements InterfaceJuego{
         this.lblEsperaRespuesta.setVisible(true);
         this.lblMostrarFondoMensajes.setVisible(true);
         this.contenedorParticipantes.setVisible(false);
+        this.btnApostar.setVisible(false);
+        this.btnPasar.setVisible(false);
     }
 
     @Override

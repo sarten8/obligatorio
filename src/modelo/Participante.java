@@ -164,7 +164,7 @@ public class Participante {
     }
     
     public boolean validarSaldo(){
-        return (this.getJugador().getSaldo() >= this.juego.getLuz());
+        return (this.getJugador().getSaldo() >= this.juego.getLuz() + 1);
     }
     
     public void pasar(){
