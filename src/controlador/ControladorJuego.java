@@ -176,6 +176,7 @@ public class ControladorJuego implements Observer{
     }
     
     public void descontarApuesta(int monto){
+        incrementarRespuestaApuestas();
         this.participante.descontar(monto);
     }
     
@@ -188,7 +189,7 @@ public class ControladorJuego implements Observer{
        }
     }
     
-    public void quitarParticipanteDeLaMano(){
+    public void quitarParticipanteDeLaMano() throws PokerException{
         participante.getJuego().quitarParticipanteDeLaMano(participante);
     }
 

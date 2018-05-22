@@ -146,7 +146,7 @@ public class VistaJuego extends javax.swing.JFrame implements InterfaceJuego{
         lblMostrarGanadorCarta.setFont(new java.awt.Font("Monaco", 1, 12)); // NOI18N
         lblMostrarGanadorCarta.setForeground(new java.awt.Color(255, 255, 204));
         getContentPane().add(lblMostrarGanadorCarta);
-        lblMostrarGanadorCarta.setBounds(250, 210, 80, 110);
+        lblMostrarGanadorCarta.setBounds(250, 140, 80, 110);
 
         lblMostrarGanadorTexto.setFont(new java.awt.Font("Monaco", 1, 12)); // NOI18N
         lblMostrarGanadorTexto.setForeground(new java.awt.Color(255, 255, 204));
@@ -156,18 +156,18 @@ public class VistaJuego extends javax.swing.JFrame implements InterfaceJuego{
         lblEsperarNuevaMano.setFont(new java.awt.Font("Monaco", 1, 12)); // NOI18N
         lblEsperarNuevaMano.setForeground(new java.awt.Color(255, 255, 204));
         getContentPane().add(lblEsperarNuevaMano);
-        lblEsperarNuevaMano.setBounds(10, 80, 320, 240);
+        lblEsperarNuevaMano.setBounds(10, 80, 320, 170);
 
         lblEsperaRespuesta.setFont(new java.awt.Font("Menlo", 1, 12)); // NOI18N
         lblEsperaRespuesta.setForeground(new java.awt.Color(255, 255, 204));
         getContentPane().add(lblEsperaRespuesta);
-        lblEsperaRespuesta.setBounds(10, 80, 320, 240);
+        lblEsperaRespuesta.setBounds(10, 80, 320, 170);
 
         lblMostrarFondoMensajes.setFont(new java.awt.Font("Monaco", 1, 12)); // NOI18N
         lblMostrarFondoMensajes.setForeground(new java.awt.Color(255, 255, 204));
         lblMostrarFondoMensajes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/utilidades/background/background_table.jpg"))); // NOI18N
         getContentPane().add(lblMostrarFondoMensajes);
-        lblMostrarFondoMensajes.setBounds(10, 80, 320, 240);
+        lblMostrarFondoMensajes.setBounds(10, 80, 320, 170);
 
         lblParticipantes.setFont(new java.awt.Font("Fira Code", 1, 12)); // NOI18N
         lblParticipantes.setForeground(new java.awt.Color(255, 255, 204));
@@ -486,23 +486,26 @@ public class VistaJuego extends javax.swing.JFrame implements InterfaceJuego{
 
     @Override
     public void mostrarApuesta(String nombre, int monto) {
-        esperarRespuesta();
-        int valor = JOptionPane.showConfirmDialog(this, nombre + " apostó: $ " + monto + ". Acepta pagar?", "  ·  Apuesta!", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+        try{
+            esperarRespuesta();
+            int valor = JOptionPane.showConfirmDialog(this, nombre + " apostó: $ " + monto + ". Acepta pagar?", "  ·  Apuesta!", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
 
-        if(valor == JOptionPane.NO_OPTION || valor == JOptionPane.YES_NO_CANCEL_OPTION){  
-            this.lblEsperarNuevaMano.setText("Esperando nueva mano...");
-            this.lblEsperarNuevaMano.setVisible(true);
-            this.lblMostrarFondoMensajes.setVisible(true);
-            this.contenedorParticipantes.setVisible(false);
-            controlador.quitarParticipanteDeLaMano();
+            if(valor == JOptionPane.NO_OPTION || valor == JOptionPane.YES_NO_CANCEL_OPTION){  
+                this.lblEsperarNuevaMano.setText("Esperando nueva mano...");
+                this.lblEsperarNuevaMano.setVisible(true);
+                this.lblMostrarFondoMensajes.setVisible(true);
+                this.contenedorParticipantes.setVisible(false);
+                controlador.quitarParticipanteDeLaMano();
+            }
+            if(valor == JOptionPane.YES_OPTION) {
+                this.btnApostar.setVisible(false);
+                this.btnPasar.setVisible(false);
+                controlador.descontarApuesta(monto);
+            }
+        }catch(Exception ex){
+            mostrarError(ex.getMessage());
         }
-        if(valor == JOptionPane.YES_OPTION) {
-            this.btnApostar.setVisible(false);
-            this.btnPasar.setVisible(false);
-            controlador.descontarApuesta(monto);
-        }
-        
-        controlador.incrementarRespuestaApuestas();
+        //controlador.incrementarRespuestaApuestas();
     }
 
     @Override

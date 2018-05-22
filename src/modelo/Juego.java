@@ -83,7 +83,6 @@ public class Juego extends Observable{
         if (this.cantidadRespuestasApuestas == 0) {
             this.getMano().acreditarGanador();
             this.avisar(Juego.Evento.HayGanador);
-            this.setPozoTotal(0);
         }
     }
 
@@ -232,8 +231,9 @@ public class Juego extends Observable{
         }
     }
     
-    public void quitarParticipanteDeLaMano(Participante p) {
+    public void quitarParticipanteDeLaMano(Participante p) throws PokerException {
         this.mano.quitarParticipante(p);
+        restarCantidadRespuestasApuestas();
     }
     
     public void pasarParticipanteDeLaMano(Participante aThis) {
@@ -285,6 +285,6 @@ public class Juego extends Observable{
         @Override
     public String toString() {
         
-        return "Inicio Juego: " + this.fechaInicio + ",jugadores: " + this.participantes.size()+" total apostado:"+this.pozoTotal+" cantidad de manos: "+this.cantidadManos;
+        return "Inicio Juego: " + this.fechaInicio + ", jugadores: " + this.participantes.size()+" total apostado:"+this.pozoTotal+" cantidad de manos: "+this.cantidadManos;
     }
 }
