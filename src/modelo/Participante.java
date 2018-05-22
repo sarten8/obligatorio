@@ -155,6 +155,9 @@ public class Participante {
             
             this.estado = Estado.Inactivo;          
             Fachada.getInstancia().avisar(Fachada.Evento.ParticipanteRetirado);
+            this.juego.setCantidadRespuestas(juego.obtenerParticipantesActivos().size());
+            this.juego.setCantidadRespuestasApuestas(juego.obtenerParticipantesActivos().size());
+            this.juego.setCantidadRespuestasNuevaMano(juego.obtenerParticipantesActivos().size());
             if(juego.TeminoJuego()){
             juego.avisar(Juego.Evento.TerminoJuego);
             Fachada.getInstancia().avisar(Fachada.Evento.ListarPartidas);

@@ -24,7 +24,7 @@ public class Fachada extends Observable{
     // El Evento ParticipanteSalio es por si el participante se retira antes de 
     // que el juego haya iniciado. El Participante se quita de Array de participantes
     public enum Evento{
-        ParticipanteIngresado,ListarPartidas, ParticipanteSalio, ParticipanteRetirado, IniciaJuego, ActualizarSaldo;;
+        ParticipanteIngresado, ListarPartidas, ParticipanteSalio, ParticipanteRetirado, IniciaJuego, ActualizarSaldo, ParticipanteSinSaldo;
     }
     
     public Fachada() {

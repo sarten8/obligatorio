@@ -89,7 +89,7 @@ public class ControladorJuego implements Observer{
             vista.actualizarPozo(this.participante.getJuego().getPozoTotal());
         }
         
-        if(evento.equals(Juego.Evento.ParticipanteSinSaldo)){
+        if(evento.equals(Fachada.Evento.ParticipanteSinSaldo)){
             if(!this.participante.validarSaldo()) salirPorFaltaSaldo();
         }
         
