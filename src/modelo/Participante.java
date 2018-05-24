@@ -118,17 +118,19 @@ public class Participante {
         this.jugador.descontarSaldo(monto);
         this.saldoApostado += monto;
         this.juego.incrementarPozo(monto);
+        this.juego.setTotalApostado(monto);
         // Utilizo en fachada este evento para actualizar en otros juegos que el jugador este y se le actualice el saldo
         Fachada.getInstancia().avisar(Fachada.Evento.ActualizarSaldo);
     }
 
     public void apostar(int monto) throws PokerException{
-            this.validarApuesta(monto);
-            descontar(monto);
-            aposto = true;
-            apuesta = monto;
-            this.juego.avisar(Juego.Evento.HayApuesta);
+        this.validarApuesta(monto);
+        descontar(monto);
+        aposto = true;
+        apuesta = monto;
+        this.juego.avisar(Juego.Evento.HayApuesta);
     }
+    
     
     public void incrementarSaldo(int monto) {
         this.jugador.incrementarSaldo(monto);

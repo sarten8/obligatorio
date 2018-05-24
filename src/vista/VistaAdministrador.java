@@ -24,10 +24,7 @@ public class VistaAdministrador extends javax.swing.JFrame implements InterfaceA
      */
    
     private ControladorAdmin controlador;
-    
-    
-    
-    
+
     public VistaAdministrador(Administrador a) {
         initComponents();
         this.setLocationRelativeTo(this);
@@ -264,7 +261,7 @@ public class VistaAdministrador extends javax.swing.JFrame implements InterfaceA
     }//GEN-LAST:event_btnPozoActionPerformed
 
     private void btnDetalleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDetalleActionPerformed
-       controlador.listarParticipantes((Juego)lstJuegos.getSelectedValue());
+       listarParticipantes();
     }//GEN-LAST:event_btnDetalleActionPerformed
 
     private void lblBarraMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblBarraMouseDragged
@@ -312,7 +309,7 @@ public class VistaAdministrador extends javax.swing.JFrame implements InterfaceA
         }
     }
     
-        private void actualizarLuz() {
+    private void actualizarLuz() {
         try{
             controlador.actualizarLuz(Integer.parseInt(this.txtluz.getText()));
         }catch(NullPointerException ex){
@@ -332,6 +329,9 @@ public class VistaAdministrador extends javax.swing.JFrame implements InterfaceA
         }
     }
     
+    private void listarParticipantes() {
+        controlador.listarParticipantes(lstJuegos.getSelectedIndex());
+    }
     
     @Override
     public void mostrarmensaje(String msg){
@@ -355,16 +355,31 @@ public class VistaAdministrador extends javax.swing.JFrame implements InterfaceA
 
     @Override
     public void mostrarListaJuegos(ArrayList<Juego> juegos) {
-        this.lstJuegos.setListData(juegos.toArray());
+        ArrayList<String> lineas = new ArrayList();
+        for(Juego j: juegos){
+            lineas.add(formatoJuegos(j));
+        }
+        this.lstJuegos.setListData(lineas.toArray());
+    }
+        
+    private String formatoJuegos(Juego j) {
+        return "Iniciado: " + j.getFechaInicio() + " | " + "Jugadores: " + j.obtenerParticipantesActivos().size() + " | " + "Total apostado: " + j.getTotalApostado() + " | " + "Manos: " + j.getCantidadManos();
     }
 
     @Override
     public void mostrarParticipantes(ArrayList<Participante> participantes) {
-        lstParticipantes.removeAll();
-        lstParticipantes.setListData(participantes.toArray());
+        ArrayList<String> lineas = new ArrayList();
+        for(Participante p: participantes){
+            lineas.add(formatoParticipantes(p));
+        }
+        this.lstParticipantes.setListData(lineas.toArray());
         lstParticipantes.setVisible(true);
         lblpart.setVisible(true);
         contenedorParticipantes.setVisible(true);
+    }
+    
+    private String formatoParticipantes(Participante p) {
+        return p.toString() + " | " + "Total apostado: " + p.getSaldoApostado() + " | " + "Saldo inicial: " + p.getSaldoInicial() + " | " + "Total ganado: " + p.getSaldoGanado();
     }
     
     @Override

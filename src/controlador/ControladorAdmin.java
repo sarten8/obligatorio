@@ -5,6 +5,7 @@
  */
 package controlador;
 
+import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
 import modelo.Administrador;
@@ -28,6 +29,10 @@ public class ControladorAdmin implements Observer{
 
     @Override
     public void update(Observable o, Object evento) {
+        
+        if(evento.equals(Fachada.Evento.ActualizarSaldo)){
+            vista.mostrarListaJuegos(this.modelo.actualizarPartidas());
+        }
         
         if(evento.equals(Fachada.Evento.ListarPartidas)){
             vista.mostrarListaJuegos(this.modelo.actualizarPartidas());
@@ -71,9 +76,10 @@ public class ControladorAdmin implements Observer{
         }
     }
 
-    public void listarParticipantes(Juego j) {
-        if (j!=null){
-            vista.mostrarParticipantes(j.getParticipantes());
+    public void listarParticipantes(int i) {
+        if ( i >= 0 ){
+            ArrayList<Juego> juegos = modelo.actualizarPartidas();
+            vista.mostrarParticipantes(juegos.get(i).getParticipantes());
         }
         else{
             vista.mostrarmensaje("Debe seleccionar un juego");

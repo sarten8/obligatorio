@@ -23,6 +23,17 @@ public class Juego extends Observable{
     private Mazo mazo;
     private Mano mano;
     private ArrayList<Participante> participantes = new ArrayList<>();
+    private Date fechaInicio;
+    private int pozoTotal = 0;
+    private int totalApostado = 0;
+    private Estado estado = Estado.EnEspera;
+    public enum Estado{
+                    EnEspera, Activo, Finalizado;
+    }
+    
+    public enum Evento{
+        CartasRepartidas, TerminoJuego, HayGanador, HayApuesta, PozoActualizado, PasaronTodos;
+    }
 
     public void setCantidadRespuestas(int cantidadRespuestas) {
         this.cantidadRespuestas = cantidadRespuestas;
@@ -34,19 +45,6 @@ public class Juego extends Observable{
 
     public void setCantidadRespuestasNuevaMano(int cantidadRespuestasNuevaMano) {
         this.cantidadRespuestasNuevaMano = cantidadRespuestasNuevaMano;
-    }
-    
-    private Date fechaInicio;
-    private int pozoTotal = 0;
-    private Estado estado = Estado.EnEspera;
-
-
-    public enum Estado{
-                    EnEspera, Activo, Finalizado;
-    }
-    
-    public enum Evento{
-        CartasRepartidas, TerminoJuego, HayGanador, HayApuesta, PozoActualizado, PasaronTodos;
     }
     
     public boolean TeminoJuego(){
@@ -65,6 +63,18 @@ public class Juego extends Observable{
         this.maxJugadores = maxJugadores;
         this.luz = luz;
         this.mazo = mazo;
+    }
+
+    public int getCantidadManos() {
+        return cantidadManos;
+    }
+
+    public int getTotalApostado() {
+        return totalApostado;
+    }
+
+    public void setTotalApostado(int totalApostado) {
+        this.totalApostado += totalApostado;
     }
 
     public int getMaxJugadores() {

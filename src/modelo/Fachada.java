@@ -70,14 +70,9 @@ public class Fachada extends Observable{
     public ArrayList<Juego> actualizarPartidas() {
         return  sj.JuegosActivos();
     }
-    
-    
+       
     public Administrador loginAdmin(String user, String pass) throws PokerException {
        return  su.loginAdmin(user,pass);
-    }
-    
-    public Juego ObtenerjuegoEnEspera(){
-        return sj.obtenerJuegoEnEspera();
     }
     
     public Participante loginJugador(String user, String pass) throws PokerException{
