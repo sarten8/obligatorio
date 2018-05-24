@@ -9,6 +9,7 @@ import controlador.ControladorAdmin;
 import controlador.InterfaceAdmin;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
+import modelo.Administrador;
 import modelo.Juego;
 import modelo.Participante;
 
@@ -27,7 +28,7 @@ public class VistaAdministrador extends javax.swing.JFrame implements InterfaceA
     
     
     
-    public VistaAdministrador() {
+    public VistaAdministrador(Administrador a) {
         initComponents();
         this.setLocationRelativeTo(this);
         this.setResizable(false);
@@ -35,7 +36,7 @@ public class VistaAdministrador extends javax.swing.JFrame implements InterfaceA
         
        
        
-        this.controlador = new ControladorAdmin(this);
+        this.controlador = new ControladorAdmin(this,a);
         this.controlador.ActualizarDatos();
         btnDetalle.setVisible(true);
         lblpart.setVisible(false);
@@ -72,6 +73,7 @@ public class VistaAdministrador extends javax.swing.JFrame implements InterfaceA
         contenedorParticipantes = new javax.swing.JScrollPane();
         lstParticipantes = new javax.swing.JList();
         lblBackground = new javax.swing.JLabel();
+        lblBarra = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -100,7 +102,7 @@ public class VistaAdministrador extends javax.swing.JFrame implements InterfaceA
         lblNombre.setFont(new java.awt.Font("Fira Code", 1, 14)); // NOI18N
         lblNombre.setForeground(new java.awt.Color(255, 255, 255));
         getContentPane().add(lblNombre);
-        lblNombre.setBounds(110, 0, 330, 30);
+        lblNombre.setBounds(60, 0, 330, 30);
 
         btnPozo.setBackground(new java.awt.Color(71, 128, 51));
         btnPozo.setFont(new java.awt.Font("Menlo", 0, 14)); // NOI18N
@@ -146,7 +148,7 @@ public class VistaAdministrador extends javax.swing.JFrame implements InterfaceA
         contenedorjuegos.setViewportView(lstJuegos);
 
         getContentPane().add(contenedorjuegos);
-        contenedorjuegos.setBounds(410, 60, 390, 190);
+        contenedorjuegos.setBounds(410, 60, 620, 190);
 
         lblLuz.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         lblLuz.setForeground(new java.awt.Color(255, 255, 255));
@@ -219,49 +221,65 @@ public class VistaAdministrador extends javax.swing.JFrame implements InterfaceA
         contenedorParticipantes.setViewportView(lstParticipantes);
 
         getContentPane().add(contenedorParticipantes);
-        contenedorParticipantes.setBounds(410, 340, 390, 160);
+        contenedorParticipantes.setBounds(410, 340, 610, 160);
 
         lblBackground.setBackground(new java.awt.Color(0, 51, 255));
         lblBackground.setForeground(new java.awt.Color(255, 255, 255));
         lblBackground.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/utilidades/background/background_table.jpg"))); // NOI18N
         getContentPane().add(lblBackground);
-        lblBackground.setBounds(-200, -150, 1400, 660);
+        lblBackground.setBounds(-110, -150, 1400, 660);
 
-        setBounds(0, 0, 811, 510);
+        lblBarra.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseDragged(java.awt.event.MouseEvent evt) {
+                lblBarraMouseDragged(evt);
+            }
+        });
+        lblBarra.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                lblBarraMousePressed(evt);
+            }
+        });
+        getContentPane().add(lblBarra);
+        lblBarra.setBounds(0, 0, 810, 30);
+
+        setBounds(0, 0, 1039, 510);
     }// </editor-fold>//GEN-END:initComponents
 
     private void lblMinimizeMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblMinimizeMousePressed
-        // TODO add your handling code here:
         this.setExtendedState(ICONIFIED);
     }//GEN-LAST:event_lblMinimizeMousePressed
 
     private void lblCloseMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblCloseMousePressed
-        // TODO add your handling code here:
-        confirmarSalida();
+        salir();
     }//GEN-LAST:event_lblCloseMousePressed
     int x1;
     int y1;
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
-        confirmarSalida();
+        salir();
     }//GEN-LAST:event_btnSalirActionPerformed
 
     private void btnMaximoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMaximoActionPerformed
-        // TODO add your handling code here:
-        controlador.SetearMaximo(Integer.parseInt(this.txtMax.getText()));
-        
+        actualizarMax();  
     }//GEN-LAST:event_btnMaximoActionPerformed
 
     private void btnPozoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPozoActionPerformed
-        // TODO add your handling code here:
-       
-         controlador.SetearLuz(Integer.parseInt(this.txtluz.getText()));
+        actualizarLuz();
     }//GEN-LAST:event_btnPozoActionPerformed
 
     private void btnDetalleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDetalleActionPerformed
        controlador.listarParticipantes((Juego)lstJuegos.getSelectedValue());
-        
-       
     }//GEN-LAST:event_btnDetalleActionPerformed
+
+    private void lblBarraMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblBarraMouseDragged
+        int x = evt.getXOnScreen();
+        int y = evt.getYOnScreen();
+        this.setLocation(x-x1, y-y1);
+    }//GEN-LAST:event_lblBarraMouseDragged
+
+    private void lblBarraMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblBarraMousePressed
+        x1 = evt.getX();
+        y1 = evt.getY();
+    }//GEN-LAST:event_lblBarraMousePressed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -272,6 +290,7 @@ public class VistaAdministrador extends javax.swing.JFrame implements InterfaceA
     private javax.swing.JScrollPane contenedorParticipantes;
     private javax.swing.JScrollPane contenedorjuegos;
     private javax.swing.JLabel lblBackground;
+    private javax.swing.JLabel lblBarra;
     private javax.swing.JLabel lblClose;
     private javax.swing.JLabel lblLuz;
     private javax.swing.JLabel lblMinimize;
@@ -285,36 +304,28 @@ public class VistaAdministrador extends javax.swing.JFrame implements InterfaceA
     private javax.swing.JTextField txtluz;
     // End of variables declaration//GEN-END:variables
  
-    
-    
+    private void salir() {
+        confirmarSalida();
+    }  
 
     private void confirmarSalida(){
         int valor = JOptionPane.showConfirmDialog(this, "Está seguro que desea salir?", "Advertencia!", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
         if(valor == JOptionPane.YES_OPTION){
-            // Como se tiene implementado, que cada mano obtiene la lista de
-            // participantes activos, podemos hacer que el participante se 
-            // cambia el estado y en la proxima mano ya no estará.
-           // controlador.salirDelJuego();
             dispose();
         }
     }
     
+    
     public void listarParticipantes(ArrayList<Participante> participantes){
-            lstParticipantes.removeAll();
-            lstParticipantes.setListData(participantes.toArray());
-            lstParticipantes.setVisible(true);
-            lblpart.setVisible(true);
-            contenedorParticipantes.setVisible(true);
+        lstParticipantes.removeAll();
+        lstParticipantes.setListData(participantes.toArray());
+        lstParticipantes.setVisible(true);
+        lblpart.setVisible(true);
+        contenedorParticipantes.setVisible(true);
     }
     
    
-
-    
-
-
-   
     public void actualizarListaJuegos(ArrayList<Juego> juegos) {
-      
         this.lstJuegos.setListData(juegos.toArray());
     }
 
@@ -329,25 +340,38 @@ public class VistaAdministrador extends javax.swing.JFrame implements InterfaceA
     }
 
     public void mostrarmensaje(String msg){
-
         JOptionPane.showMessageDialog(this, msg);
     }
 
-   
+    @Override
+    public void BorrarParticipantes() {
+       ArrayList<Participante> participantes=new ArrayList();
+       lstParticipantes.removeAll();
+       lstParticipantes.setListData(participantes.toArray());
+    }
 
-   
-    public void salir() {
-        int valor = JOptionPane.showConfirmDialog(this, "Está seguro que desea salir?", "Advertencia!", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
-        if(valor == JOptionPane.YES_OPTION){
-            // Como se tiene implementado, que cada mano obtiene la lista de
-            // participantes activos, podemos hacer que el participante se 
-            // cambia el estado y en la proxima mano ya no estará.
-           // controlador.salirDelJuego();
-            dispose();
+    @Override
+    public void mostrarNombre(String nombre) {
+        lblNombre.setText(nombre);
+    }
+
+    private void actualizarLuz() {
+        try{
+            controlador.actualizarLuz(Integer.parseInt(this.txtluz.getText()));
+        }catch(NullPointerException ex){
+            mostrarmensaje("No se acepta vacío");
+        }catch(NumberFormatException ex){
+            mostrarmensaje("Solo se aceptan números enteros mayor a cero");
         }
     }
 
-    
-
-   
+    private void actualizarMax() {
+        try{
+            controlador.actualizarMaximoJugadores(Integer.parseInt(this.txtMax.getText()));   
+        }catch(NullPointerException ex){
+            mostrarmensaje("No se acepta vacío");
+        }catch(NumberFormatException ex){
+            mostrarmensaje("Solo se aceptan números enteros mayor a cero");
+        }
+    }
 }

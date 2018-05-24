@@ -9,6 +9,7 @@ import controlador.ControladorLoginAdmin;
 import controlador.InterfaceLoginAdmin;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
+import modelo.Administrador;
 
 /**
  *
@@ -288,7 +289,7 @@ public class VistaLoginAdmin extends javax.swing.JFrame implements InterfaceLogi
    
 
     @Override
-    public void MostrarMonitor() {
-       new VistaAdministrador().setVisible(true);
+    public void MostrarMonitor(Administrador a) {
+       new VistaAdministrador(a).setVisible(true);
     }
 }

@@ -5,6 +5,7 @@
  */
 package controlador;
 
+import modelo.Administrador;
 import modelo.Fachada;
 import modelo.PokerException;
 
@@ -22,8 +23,9 @@ public class ControladorLoginAdmin {
      
       public void loginAdmin(String user, String pass) {
           try{
-       if(modelo.loginAdmin(user,pass)){
-           vista.MostrarMonitor();
+              Administrador a=modelo.loginAdmin(user,pass);
+       if(a!=null){
+           vista.MostrarMonitor(a);
         }
 
         }catch(PokerException ex){

@@ -24,7 +24,7 @@ public class Fachada extends Observable{
     // El Evento ParticipanteSalio es por si el participante se retira antes de 
     // que el juego haya iniciado. El Participante se quita de Array de participantes
     public enum Evento{
-        ParticipanteIngresado, ListarPartidas, ParticipanteSalio, ParticipanteRetirado, IniciaJuego, ActualizarSaldo, ParticipanteSinSaldo;
+        ParticipanteIngresado, ListarPartidas, TerminoJuego,ParticipanteSalio, ParticipanteRetirado, IniciaJuego, ActualizarSaldo, ParticipanteSinSaldo, ActualizarDatos;
     }
     
     public Fachada() {
@@ -51,27 +51,28 @@ public class Fachada extends Observable{
         sj.crearJuego();
     }
     
-       public int Verluz() {
+    public int Verluz() {
        return sj.getLuz();
     }
-         public int VerMaximo() {
+    
+    public int VerMaximo() {
        return sj.getMaxJugadores();
     }
 
-    public void SetearMaximo(int max) throws PokerException  {
-      sj.setMaxJugadores(max);
+    public void actualizarMaximoJugadores(int max) throws PokerException  {
+        sj.actualziarMaxJugadores(max);
     }
 
-    public void setearLuz(int luz)  throws PokerException {
-        sj.setLuz(luz);
+    public void actualizarLuz(int luz)  throws PokerException {
+        sj.actualziarLuz(luz);
     }
+    
     public ArrayList<Juego> actualizarPartidas() {
-        
-       return  sj.JuegosActivos();
+        return  sj.JuegosActivos();
     }
     
     
-    public boolean loginAdmin(String user, String pass) throws PokerException {
+    public Administrador loginAdmin(String user, String pass) throws PokerException {
        return  su.loginAdmin(user,pass);
     }
     

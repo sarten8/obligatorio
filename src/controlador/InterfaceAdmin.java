@@ -19,8 +19,14 @@ public interface InterfaceAdmin {
     public void actualizarListaJuegos(ArrayList<Juego> juegos);
     public void actualizarLuz(int luz);
     public void actualizaMax(int max);
-     public void mostrarmensaje(String msg);
+    public void mostrarmensaje(String msg);
 
     public void listarParticipantes(ArrayList<Participante> participantes);
+
+    public void BorrarParticipantes();
+
+    public void mostrarNombre(String nombre);
+
+   
      
 }

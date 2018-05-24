@@ -282,12 +282,10 @@ public class VistaJuego extends javax.swing.JFrame implements InterfaceJuego{
     }// </editor-fold>//GEN-END:initComponents
 
     private void lblMinimizeMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblMinimizeMousePressed
-        // TODO add your handling code here:
         this.setExtendedState(ICONIFIED);
     }//GEN-LAST:event_lblMinimizeMousePressed
 
     private void lblCloseMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblCloseMousePressed
-        // TODO add your handling code here:
         confirmarSalida();
     }//GEN-LAST:event_lblCloseMousePressed
 
@@ -374,9 +372,6 @@ public class VistaJuego extends javax.swing.JFrame implements InterfaceJuego{
     private void confirmarSalida(){
         int valor = JOptionPane.showConfirmDialog(this, "Está seguro que desea salir?", "Advertencia!", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
         if(valor == JOptionPane.YES_OPTION){
-            // Como se tiene implementado, que cada mano obtiene la lista de
-            // participantes activos, podemos hacer que el participante se 
-            // cambia el estado y en la proxima mano ya no estará.
             controlador.salirDelJuego();
             controlador.incrementarRespuesta();
             dispose();
@@ -457,7 +452,7 @@ public class VistaJuego extends javax.swing.JFrame implements InterfaceJuego{
     
     @Override
     public void salirPorFaltaSaldo(String nombre, int luz) {
-        JOptionPane.showMessageDialog(rootPane, nombre + ", no tiene saldo para continuar en el juego. La apuesta base es de: $" + luz + " por cantidad de participantes activos", "Saldo", WIDTH, null);
+        JOptionPane.showMessageDialog(rootPane, nombre + ", no tiene saldo para continuar en el juego.", "Saldo", WIDTH, null);
         dispose();
     }
 
@@ -540,7 +535,8 @@ public class VistaJuego extends javax.swing.JFrame implements InterfaceJuego{
     }
 
     @Override
-    public void mostrarTerminoJuego(String msj) {
+    public void mostrarTerminoJuego(int pozo) {
+        String msj="Por falta de participantes el juego termina y ganaste $" + pozo;
         JOptionPane.showMessageDialog(rootPane, msj);
         dispose();
     }

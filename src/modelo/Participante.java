@@ -21,7 +21,7 @@ public class Participante {
     private boolean paso = false;
     private boolean aposto = false;
     private int apuesta = 0;
-    private Estado estado;
+    private Estado estado; 
     public enum Estado{
         Activo, Inactivo;
     }
@@ -159,10 +159,12 @@ public class Participante {
             this.juego.setCantidadRespuestasApuestas(juego.obtenerParticipantesActivos().size());
             this.juego.setCantidadRespuestasNuevaMano(juego.obtenerParticipantesActivos().size());
             if(juego.TeminoJuego()){
+               
             juego.avisar(Juego.Evento.TerminoJuego);
-            Fachada.getInstancia().avisar(Fachada.Evento.ListarPartidas);
-            }
             
+            Fachada.getInstancia().avisar(Fachada.Evento.ListarPartidas);
+            Fachada.getInstancia().avisar(Fachada.Evento.TerminoJuego);
+            }  
         }
     }
     
@@ -198,5 +200,9 @@ public class Participante {
             }
         }
         return aux;
+    }
+    
+    public String Detalle() {
+            return this.jugador.toString()+" -total apostado:"+this.saldoApostado+" saldo iniical:"+this.saldoInicial+" total ganado:"+this.saldoGanado;
     }
 }

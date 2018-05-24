@@ -5,6 +5,8 @@
  */
 package controlador;
 
+import modelo.Administrador;
+
 /**
  *
  * @author Usuario
@@ -12,5 +14,5 @@ package controlador;
 public interface InterfaceLoginAdmin {
     public void mostrarError(String mensaje); 
 
-    public void MostrarMonitor();
+    public void MostrarMonitor(Administrador a);
 }

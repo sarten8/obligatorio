@@ -38,17 +38,10 @@ public class SistemaJuego
         return maxJugadores;
     }
 
-    public void setMaxJugadores(int maxJugadores) {
-        this.maxJugadores = maxJugadores;
-    }
-
     public int getLuz() {
         return luz;
     }
 
-    public void setLuz(int luz) {
-        this.luz = luz;
-    }
     
     public SistemaJuego(Mazo mazo, int maxJugadores, int luz) {
         this.mazo = mazo;
@@ -57,29 +50,18 @@ public class SistemaJuego
     }
         
     public SistemaJuego(){}
-        
-    public void actualizarLuz(int luz) {
-        this.luz = luz;
-    }
 
+    
     public void crearJuego() {
         Juego j = new Juego(this.maxJugadores, this.luz, this.mazo);
         this.juegos.add(j);
-        System.out.println("Juegos: " + juegos.toString());
-        System.out.println("------------");
-        System.out.println("Cantidad: " + juegos.size());
-        int i = 0;
-        for (Juego ju: this.juegos){
-            i++;
-            System.out.println("Juego: " + i + "|||" + "Cantidad de jugadores: " + ju.getParticipantes().size());
-        }
     }
 
-    public static boolean validarLuz(int luz) {
+    private boolean validarLuz(int luz) {
         return (luz > 0);
     }
 
-    public static boolean validarMaxJuagadores(int max) {
+    private boolean validarMaxJuagadores(int max) {
         return (max >= 2 && max <= 5);
     }
 
@@ -90,19 +72,56 @@ public class SistemaJuego
         return p;
     }
 
-   public Juego obtenerJuegoEnEspera() {
+    public Juego obtenerJuegoEnEspera() {
         return juegos.get(juegos.size()-1);
     } 
    
-      public ArrayList<Juego> JuegosActivos() {
+    public ArrayList<Juego> JuegosActivos() {
         ArrayList<Juego> listajuegos=new ArrayList();
         for(Juego j: juegos){
             if(j.getEstado()==Juego.Estado.Activo)
             {
                 listajuegos.add(j);
             }
-        
         }
         return listajuegos;
+    }
+      
+      
+      
+      
+    // ----------------- ************************ ----------------- ************************ ----------------- ************************ 
+    // ----------------- ************************ ----------------- ************************ ----------------- ************************ 
+    // ----------------- ************************ ----------------- ************************ ----------------- ************************ 
+    // ----------------- ************************ ----------------- ************************ ----------------- ************************ 
+      
+    public void actualziarLuz(int luz) throws PokerException{
+        if( !validarLuz(luz) ) throw new PokerException("El valor debe ser entero mayor que 0");
+        this.luz = luz;
+        Juego juegoEnEspera = obtenerJuegoEnEspera();
+        if(juegoEnEspera.getParticipantes().isEmpty()) juegoEnEspera.setLuz(luz);
+        Fachada.getInstancia().avisar(Fachada.Evento.ActualizarDatos);
+    }
+    
+    // ------------------------------------------------------
+
+
+    public void actualziarMaxJugadores(int max) throws PokerException{
+        if( !validarMaxJuagadores(max) ) throw new PokerException("El valor debe ser entero y entre 2 y 5");
+        
+        this.maxJugadores = max;
+        
+        Juego juegoEnEspera = obtenerJuegoEnEspera();
+        
+        if(juegoEnEspera.getParticipantes().size() <= max) {
+            juegoEnEspera.setMaxJugadores(max);
+            Fachada.getInstancia().avisar(Fachada.Evento.ParticipanteIngresado);
+        }
+         
+        if(juegoEnEspera.getParticipantes().size() == max) {
+            juegoEnEspera.setMaxJugadores(max);
+            crearJuego();
+            juegoEnEspera.iniciar(); //Se avisa en Juego, acá no necesito avisar.
+        }
     }
 }

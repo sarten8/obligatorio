@@ -19,11 +19,11 @@ public class SistemaUsuarios {
         return jugadores;
     }
 
-     public boolean loginAdmin(String user, String pass)  throws PokerException {
+     public Administrador loginAdmin(String user, String pass)  throws PokerException {
        for(Administrador a:administradores){
             if(a.getUser().equals(user) && a.getPass().equals(pass)){
                     // aca pivoteo con SistemaJuego para traer al particiapante o no
-                    return true;
+                    return a;
                 }
             }
         throw new PokerException("Usuario y/o Password incorrectos");

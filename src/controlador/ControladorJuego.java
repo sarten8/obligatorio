@@ -68,7 +68,7 @@ public class ControladorJuego implements Observer{
         }
         if(evento.equals(Juego.Evento.TerminoJuego)){
             if(this.participante.getEstado()==Participante.Estado.Activo){
-            vista.mostrarTerminoJuego("El juego termina por falta de participantes");
+                vista.mostrarTerminoJuego(participante.getJuego().getPozoTotal());
             }
         }
         

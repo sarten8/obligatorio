@@ -51,8 +51,6 @@ public class Mano {
     public void acreditarGanador(){
         buscarGanador();
         this.participanteGanador.incrementarSaldo(this.juego.getPozoTotal());
-        //this.juego.avisar(Juego.Evento.HayGanador);
-        //this.juego.setPozoTotal(0);
     }
     
     private void buscarGanador(){

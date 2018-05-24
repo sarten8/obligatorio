@@ -31,5 +31,5 @@ public interface InterfaceJuego {
     public void mostrarMensajAlGanador(int pozo);
 
     public void comenzarNuevaMano();
-    public void mostrarTerminoJuego(String msj);
+    public void mostrarTerminoJuego(int pozo);
 }

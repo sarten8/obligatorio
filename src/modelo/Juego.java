@@ -52,6 +52,9 @@ public class Juego extends Observable{
     public boolean TeminoJuego(){
     
     if(this.obtenerParticipantesActivos().size()==1){
+        this.mano.setParticipanteGanador(this.UltimoParticipante());
+        this.UltimoParticipante().incrementarSaldo(this.pozoTotal);
+        
         this.estado=Estado.Finalizado;
         return true;
     }
@@ -294,9 +297,19 @@ public class Juego extends Observable{
         }
     }
     
+    public Participante UltimoParticipante(){
+        for(Participante p: participantes){
+            if(p.getEstado()==Participante.Estado.Activo){
+                return p;
+            }
+        }
+        return null;
+    
+    }
+    
+    
         @Override
-    public String toString() {
-        
+    public String toString() { 
         return "Inicio Juego: " + this.fechaInicio + ", jugadores: " + this.participantes.size()+" total apostado:"+this.pozoTotal+" cantidad de manos: "+this.cantidadManos;
     }
 }

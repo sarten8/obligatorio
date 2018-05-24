@@ -7,8 +7,10 @@ package controlador;
 
 import java.util.Observable;
 import java.util.Observer;
+import modelo.Administrador;
 import modelo.Fachada;
 import modelo.Juego;
+import modelo.Participante;
 import modelo.PokerException;
 
 /**
@@ -19,26 +21,27 @@ public class ControladorAdmin implements Observer{
     private Fachada modelo = Fachada.getInstancia();
     private InterfaceAdmin vista;
     
-    
-    public ControladorAdmin(InterfaceAdmin vista){
+    public ControladorAdmin(InterfaceAdmin vista,Administrador a){
         this.vista = vista;
-       
         modelo.addObserver(this);
-       
-       
+        vista.mostrarNombre(a.getNombre());
     }
 
     @Override
     public void update(Observable o, Object evento) {
-       
         
         if(evento.equals(Fachada.Evento.ListarPartidas)){
-           
             vista.actualizarListaJuegos(this.modelo.actualizarPartidas());
         }
       
-     
-     
+        if(evento.equals(Fachada.Evento.TerminoJuego)){
+            vista.BorrarParticipantes(); 
+        }
+         
+          if(evento.equals(Fachada.Evento.ActualizarDatos)){
+            vista.actualizaMax(modelo.VerMaximo());
+            vista.actualizarLuz(modelo.Verluz());
+          }
     }
 
     public void ActualizarDatos() {
@@ -47,32 +50,33 @@ public class ControladorAdmin implements Observer{
         vista.actualizarLuz(luz);
         vista.actualizaMax(maxjugadores);
         vista.actualizarListaJuegos(this.modelo.actualizarPartidas());
-        
     }
 
-    public void SetearMaximo(int max) {
+    public void actualizarMaximoJugadores(int max) {
         try{
-        modelo.SetearMaximo(max);
-        vista.actualizaMax(max);
-        vista.mostrarmensaje("El maximo jugadores se actualizo corectamente");
-        
-        }catch(PokerException ex){vista.mostrarmensaje(ex.getMessage());}
+            modelo.actualizarMaximoJugadores(max);
+            vista.actualizaMax(max);
+            vista.mostrarmensaje("El maximo jugadores se actualizo corectamente");
+        }catch(PokerException ex){
+            vista.mostrarmensaje(ex.getMessage());
+        }
     }
 
-    public void SetearLuz(int luz) {
+    public void actualizarLuz(int luz) {
         try{
-       modelo.setearLuz(luz);
-       vista.actualizarLuz(luz);
-        vista.mostrarmensaje("La luz se actualizo corectamente");
-       }catch(PokerException ex){vista.mostrarmensaje(ex.getMessage());
-    }
+            modelo.actualizarLuz(luz);
+            vista.actualizarLuz(luz);
+            vista.mostrarmensaje("La luz se actualizo corectamente");
+        }catch(PokerException ex){
+            vista.mostrarmensaje(ex.getMessage());
+        }
     }
 
     public void listarParticipantes(Juego j) {
         if (j!=null){
-        vista.listarParticipantes(j.getParticipantes());
-        }else
-        {
+            vista.listarParticipantes(j.getParticipantes());
+        }
+        else{
             vista.mostrarmensaje("Debe seleccionar un juego");
         }
     }

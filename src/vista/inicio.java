@@ -156,6 +156,7 @@ public class inicio {
         f.AgregarJugador(new Jugador("sarten", "sarten", "Filo de sarten", 299));
         
         f.AgregarAdministrador(new Administrador("z","z","zorro"));
+        f.AgregarAdministrador(new Administrador("x","x","pepe"));
 
         
         new InicioPantalla().setVisible(true);
