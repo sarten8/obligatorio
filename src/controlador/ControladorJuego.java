@@ -68,7 +68,7 @@ public class ControladorJuego implements Observer{
         }
         if(evento.equals(Juego.Evento.TerminoJuego)){
             if(this.participante.getEstado()==Participante.Estado.Activo){
-                vista.mostrarTerminoJuego(participante.getJuego().getPozoTotal());
+                vista.mostrarTerminoJuego(participante.getSaldoGanado());
             }
         }
         
@@ -134,7 +134,6 @@ public class ControladorJuego implements Observer{
         this.participante.salirDelJuego();
         modelo.deleteObserver(this);
         this.participante.getJuego().deleteObserver(this);
-        System.out.println( participante.getJugador().getSaldo() + ". Saldo de + " + participante.getJugador().getNombre());
     }
     
     private void salirPorFaltaSaldo() {

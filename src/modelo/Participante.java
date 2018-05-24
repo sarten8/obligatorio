@@ -128,7 +128,6 @@ public class Participante {
             aposto = true;
             apuesta = monto;
             this.juego.avisar(Juego.Evento.HayApuesta);
-            //Fachada.getInstancia().avisar(Fachada.Evento.ActualizarSaldo);
     }
     
     public void incrementarSaldo(int monto) {
@@ -176,12 +175,7 @@ public class Participante {
         this.paso = true;
         this.getJuego().pasarParticipanteDeLaMano(this);
     }
-    
-  @Override
-    public String toString() {
-        //return this.jugador.toString()+" -total apostado:"+this.saldoApostado+" saldo iniical:"+this.saldoInicial+" total ganado:"+this.saldoGanado;
-        return jugador.toString();
-    }
+
     
     public void limpiarCartas(){
         this.cartas.clear();
@@ -202,7 +196,8 @@ public class Participante {
         return aux;
     }
     
-    public String Detalle() {
-            return this.jugador.toString()+" -total apostado:"+this.saldoApostado+" saldo iniical:"+this.saldoInicial+" total ganado:"+this.saldoGanado;
+    @Override
+    public String toString(){
+        return jugador.toString();
     }
 }

@@ -306,12 +306,10 @@ public class VistaJuego extends javax.swing.JFrame implements InterfaceJuego{
     }//GEN-LAST:event_btnSalirActionPerformed
 
     private void btnPasarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPasarActionPerformed
-        // TODO add your handling code here:
         pasar();
     }//GEN-LAST:event_btnPasarActionPerformed
 
     private void btnApostarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnApostarActionPerformed
-        // TODO add your handling code here:
         apostar();
     }//GEN-LAST:event_btnApostarActionPerformed
 
@@ -345,10 +343,11 @@ public class VistaJuego extends javax.swing.JFrame implements InterfaceJuego{
     private javax.swing.JLabel lblSaldoValor;
     private javax.swing.JList lstParticipantes;
     // End of variables declaration//GEN-END:variables
+    
+    
     public void apostar(){
         try{
             int valor = Integer.parseInt(JOptionPane.showInputDialog(null, "Ingrese valor para apostar", "Apostar", JOptionPane.QUESTION_MESSAGE));
-            System.out.println("APOSTAR:  " + valor);
             if(valor > 0)controlador.apostar(valor);
             else mostrarError("Ingrese valor entero mayor a 0");
         }catch(NullPointerException ex){
@@ -535,8 +534,8 @@ public class VistaJuego extends javax.swing.JFrame implements InterfaceJuego{
     }
 
     @Override
-    public void mostrarTerminoJuego(int pozo) {
-        String msj="Por falta de participantes el juego termina y ganaste $" + pozo;
+    public void mostrarTerminoJuego(int monto) {
+        String msj="Por falta de participantes el juego termina y ganaste $" + monto;
         JOptionPane.showMessageDialog(rootPane, msj);
         dispose();
     }
@@ -548,8 +547,6 @@ public class VistaJuego extends javax.swing.JFrame implements InterfaceJuego{
         if(valor == JOptionPane.NO_OPTION || valor == JOptionPane.YES_NO_CANCEL_OPTION){
             controlador.salirDelJuego();
         }
-        
         controlador.incrementarRespuestaNuevaMano();
     }
-
 }

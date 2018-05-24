@@ -15,18 +15,12 @@ import modelo.Participante;
  */
 public interface InterfaceAdmin {
     
-   
-    public void actualizarListaJuegos(ArrayList<Juego> juegos);
-    public void actualizarLuz(int luz);
-    public void actualizaMax(int max);
     public void mostrarmensaje(String msg);
-
-    public void listarParticipantes(ArrayList<Participante> participantes);
-
-    public void BorrarParticipantes();
-
     public void mostrarNombre(String nombre);
-
-   
-     
+    public void mostrarLuz(int luz);
+    public void mostrarMaxJugadores(int max);
+    public void mostrarListaJuegos(ArrayList<Juego> juegos);
+    public void mostrarParticipantes(ArrayList<Participante> participantes);
+    public void BorrarParticipantes();
+    
 }

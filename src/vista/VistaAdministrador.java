@@ -32,10 +32,7 @@ public class VistaAdministrador extends javax.swing.JFrame implements InterfaceA
         initComponents();
         this.setLocationRelativeTo(this);
         this.setResizable(false);
-       
-        
-       
-       
+
         this.controlador = new ControladorAdmin(this,a);
         this.controlador.ActualizarDatos();
         btnDetalle.setVisible(true);
@@ -315,47 +312,7 @@ public class VistaAdministrador extends javax.swing.JFrame implements InterfaceA
         }
     }
     
-    
-    public void listarParticipantes(ArrayList<Participante> participantes){
-        lstParticipantes.removeAll();
-        lstParticipantes.setListData(participantes.toArray());
-        lstParticipantes.setVisible(true);
-        lblpart.setVisible(true);
-        contenedorParticipantes.setVisible(true);
-    }
-    
-   
-    public void actualizarListaJuegos(ArrayList<Juego> juegos) {
-        this.lstJuegos.setListData(juegos.toArray());
-    }
-
-    
-    public void actualizarLuz(int luz) {
-        this.txtluz.setText(""+luz);
-    }
-    
-    public void actualizaMax(int max){
-    
-        this.txtMax.setText(""+max);
-    }
-
-    public void mostrarmensaje(String msg){
-        JOptionPane.showMessageDialog(this, msg);
-    }
-
-    @Override
-    public void BorrarParticipantes() {
-       ArrayList<Participante> participantes=new ArrayList();
-       lstParticipantes.removeAll();
-       lstParticipantes.setListData(participantes.toArray());
-    }
-
-    @Override
-    public void mostrarNombre(String nombre) {
-        lblNombre.setText(nombre);
-    }
-
-    private void actualizarLuz() {
+        private void actualizarLuz() {
         try{
             controlador.actualizarLuz(Integer.parseInt(this.txtluz.getText()));
         }catch(NullPointerException ex){
@@ -373,5 +330,47 @@ public class VistaAdministrador extends javax.swing.JFrame implements InterfaceA
         }catch(NumberFormatException ex){
             mostrarmensaje("Solo se aceptan números enteros mayor a cero");
         }
+    }
+    
+    
+    @Override
+    public void mostrarmensaje(String msg){
+        JOptionPane.showMessageDialog(this, msg);
+    }
+    
+    @Override
+    public void mostrarNombre(String nombre) {
+        lblNombre.setText(nombre);
+    }
+
+    @Override
+    public void mostrarLuz(int luz) {
+        this.txtluz.setText(""+luz);
+    }
+
+    @Override
+    public void mostrarMaxJugadores(int max) {
+        this.txtMax.setText(""+max);
+    }
+
+    @Override
+    public void mostrarListaJuegos(ArrayList<Juego> juegos) {
+        this.lstJuegos.setListData(juegos.toArray());
+    }
+
+    @Override
+    public void mostrarParticipantes(ArrayList<Participante> participantes) {
+        lstParticipantes.removeAll();
+        lstParticipantes.setListData(participantes.toArray());
+        lstParticipantes.setVisible(true);
+        lblpart.setVisible(true);
+        contenedorParticipantes.setVisible(true);
+    }
+    
+    @Override
+    public void BorrarParticipantes() {
+       ArrayList<Participante> participantes=new ArrayList();
+       lstParticipantes.removeAll();
+       lstParticipantes.setListData(participantes.toArray());
     }
 }

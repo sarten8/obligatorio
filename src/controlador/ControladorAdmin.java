@@ -10,7 +10,6 @@ import java.util.Observer;
 import modelo.Administrador;
 import modelo.Fachada;
 import modelo.Juego;
-import modelo.Participante;
 import modelo.PokerException;
 
 /**
@@ -31,7 +30,7 @@ public class ControladorAdmin implements Observer{
     public void update(Observable o, Object evento) {
         
         if(evento.equals(Fachada.Evento.ListarPartidas)){
-            vista.actualizarListaJuegos(this.modelo.actualizarPartidas());
+            vista.mostrarListaJuegos(this.modelo.actualizarPartidas());
         }
       
         if(evento.equals(Fachada.Evento.TerminoJuego)){
@@ -39,23 +38,23 @@ public class ControladorAdmin implements Observer{
         }
          
           if(evento.equals(Fachada.Evento.ActualizarDatos)){
-            vista.actualizaMax(modelo.VerMaximo());
-            vista.actualizarLuz(modelo.Verluz());
+            vista.mostrarMaxJugadores(modelo.VerMaximo());
+            vista.mostrarLuz(modelo.Verluz());
           }
     }
 
     public void ActualizarDatos() {
-        int luz =modelo.Verluz();
-        int maxjugadores=modelo.VerMaximo();
-        vista.actualizarLuz(luz);
-        vista.actualizaMax(maxjugadores);
-        vista.actualizarListaJuegos(this.modelo.actualizarPartidas());
+        int luz = modelo.Verluz();
+        int maxjugadores = modelo.VerMaximo();
+        vista.mostrarLuz(luz);
+        vista.mostrarMaxJugadores(maxjugadores);
+        vista.mostrarListaJuegos(this.modelo.actualizarPartidas());
     }
 
     public void actualizarMaximoJugadores(int max) {
         try{
             modelo.actualizarMaximoJugadores(max);
-            vista.actualizaMax(max);
+            vista.mostrarMaxJugadores(max);
             vista.mostrarmensaje("El maximo jugadores se actualizo corectamente");
         }catch(PokerException ex){
             vista.mostrarmensaje(ex.getMessage());
@@ -65,7 +64,7 @@ public class ControladorAdmin implements Observer{
     public void actualizarLuz(int luz) {
         try{
             modelo.actualizarLuz(luz);
-            vista.actualizarLuz(luz);
+            vista.mostrarLuz(luz);
             vista.mostrarmensaje("La luz se actualizo corectamente");
         }catch(PokerException ex){
             vista.mostrarmensaje(ex.getMessage());
@@ -74,13 +73,10 @@ public class ControladorAdmin implements Observer{
 
     public void listarParticipantes(Juego j) {
         if (j!=null){
-            vista.listarParticipantes(j.getParticipantes());
+            vista.mostrarParticipantes(j.getParticipantes());
         }
         else{
             vista.mostrarmensaje("Debe seleccionar un juego");
         }
     }
-  
-    
-  
 }

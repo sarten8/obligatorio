@@ -186,7 +186,6 @@ public class Juego extends Observable{
     } 
     
     protected void iniciarMano() throws PokerException {
-        System.out.println("POZO TOTAL antes de iniciar mano: $"+pozoTotal);
         retirarCartas();
         this.cantidadManos++;
         this.resetParticipantes();
@@ -199,7 +198,6 @@ public class Juego extends Observable{
         this.mano = new Mano(this, this.mazo, participantesActivos);
         this.avisar(Evento.PozoActualizado);
         this.avisar(Evento.CartasRepartidas);
-        System.out.println("POZO TOTAL despues de iniciar mano: $"+pozoTotal);
     }
     
     
@@ -305,11 +303,5 @@ public class Juego extends Observable{
         }
         return null;
     
-    }
-    
-    
-        @Override
-    public String toString() { 
-        return "Inicio Juego: " + this.fechaInicio + ", jugadores: " + this.participantes.size()+" total apostado:"+this.pozoTotal+" cantidad de manos: "+this.cantidadManos;
     }
 }

@@ -164,6 +164,5 @@ public class inicio {
         System.out.println("");
         System.out.println("~ Prueba Git ~");
         System.out.println("______________");
-
     }
 }
