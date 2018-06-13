@@ -123,5 +123,6 @@ public class SistemaJuego
             crearJuego();
             juegoEnEspera.iniciar(); //Se avisa en Juego, acá no necesito avisar.
         }
+        Fachada.getInstancia().avisar(Fachada.Evento.ActualizarDatos);
     }
 }
