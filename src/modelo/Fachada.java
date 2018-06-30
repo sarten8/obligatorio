@@ -82,4 +82,8 @@ public class Fachada extends Observable{
     public Participante ingresarParticipante(Jugador j) throws PokerException{
         return sj.ingresarParticipante(j);
     }
+    
+    public Figura obtenerFigura(ArrayList<Carta> cartasParticipante){
+        return sj.obtenerFigura(cartasParticipante);
+    }
 }

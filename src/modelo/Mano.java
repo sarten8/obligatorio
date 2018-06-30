@@ -76,7 +76,7 @@ public class Mano {
     }
     
 
-
+    // Pre: Se tienen que limpiar las cartas del array cartas del participante
     private void repartirCartas(){
         ArrayList<Carta> cartas = mazo.repartir(participantes.size());
         int pos = 0;
@@ -86,6 +86,8 @@ public class Mano {
                 p.getCartas().add(cartas.get(i));
                 pos++;
             }
+            p.pedirFigura();
+            System.out.println("Participante: " + p.getJugador().getNombre() + " - Figura: " + p.getIFigura().obtenerGerarquia() + " - " + p.getIFigura().getClass());
         }
     }
     

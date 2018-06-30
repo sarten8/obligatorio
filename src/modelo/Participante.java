@@ -15,6 +15,7 @@ public class Participante {
     private Jugador jugador;
     private Juego juego;
     private ArrayList<Carta> cartas = new ArrayList<>();
+    private IFigura figura;
     private int saldoInicial;
     private int saldoApostado = 0;
     private int saldoGanado = 0;
@@ -57,6 +58,14 @@ public class Participante {
     public void setCartas(ArrayList<Carta> cartas) {
         this.cartas = cartas;
     }
+    
+    public IFigura getIFigura(){
+        return figura;
+    }
+    
+    public void setIFigura(IFigura iFigura){
+        this.figura = iFigura;
+    } 
 
     public int getSaldoInicial() {
         return saldoInicial;
@@ -202,4 +211,9 @@ public class Participante {
     public String toString(){
         return jugador.toString();
     }
+    
+    public void pedirFigura() {
+        this.figura = Fachada.getInstancia().obtenerFigura(cartas);
+    }
+    
 }

@@ -90,10 +90,10 @@ public class SistemaJuego
       
       
       
-    // ----------------- ************************ ----------------- ************************ ----------------- ************************ 
-    // ----------------- ************************ ----------------- ************************ ----------------- ************************ 
-    // ----------------- ************************ ----------------- ************************ ----------------- ************************ 
-    // ----------------- ************************ ----------------- ************************ ----------------- ************************ 
+// ----------------- ************************ ----------------- ************************ ----------------- ************************ 
+// ----------------- ************************ ----------------- ************************ ----------------- ************************ 
+// ----------------- ************************ ----------------- ************************ ----------------- ************************ 
+// ----------------- ************************ ----------------- ************************ ----------------- ************************ 
       
     public void actualziarLuz(int luz) throws PokerException{
         if( !validarLuz(luz) ) throw new PokerException("El valor debe ser entero mayor que 0");
@@ -124,5 +124,54 @@ public class SistemaJuego
             juegoEnEspera.iniciar(); //Se avisa en Juego, acá no necesito avisar.
         }
         Fachada.getInstancia().avisar(Fachada.Evento.ActualizarDatos);
+    }
+
+    // ----------------- ************************ ----------------- ************************ ----------------- ************************ 
+    // ----------------- ************************ ----------------- ************************ ----------------- ************************ 
+    // ----------------- ************************ ----------------- ************************ ----------------- ************************ 
+    // ----------------- ************************ ----------------- ************************ ----------------- ************************ 
+   
+    public Figura obtenerFigura(ArrayList<Carta> cartas){       
+        int cont = obtenerPares(cartas);
+        boolean par = par(cont);
+        boolean doblePar = doblePar(cont);
+        boolean color = color(cartas);
+        
+        if(color) return new Color(cartas);
+        if(doblePar) return new DoblePar(cartas);
+        if(par) return new Par(cartas);
+        return new SinFigura(cartas);
+    }    
+
+    private boolean color(ArrayList<Carta> cartas) {
+        boolean color=true;
+        for (int i=0; i<(cartas.size()-1); i++) {
+            if (!(cartas.get(i).getPalo().equals(cartas.get(i+1).getPalo()))) {
+                color=false;
+            }
+        }
+        return color;
+    }
+    
+    private int obtenerPares(ArrayList<Carta> cartas) {
+        int cont=0;
+        for (int s=0; s<cartas.size(); s++) {
+            for (int j=0; j<cartas.size(); j++) {
+                if (s!=j) {
+                    if (cartas.get(s).getNumero() == cartas.get(j).getNumero()) {
+                        cont++;
+                    }
+                }
+            }
+        }  
+        return (cont/2);
+    }
+    
+    private boolean doblePar(int cont){
+        return (cont == 2);
+    }
+    
+    private boolean par(int cont){
+        return (cont == 1);
     }
 }
