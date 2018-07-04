@@ -14,9 +14,14 @@ import java.util.ArrayList;
 public class SistemaJuego
 {
     private ArrayList<Juego> juegos = new ArrayList<>();
+    private ArrayList<Figura> figuras = new ArrayList<>();
     private Mazo mazo;
     private int maxJugadores;
     private int luz;
+
+    public ArrayList<Figura> getFiguras() {
+        return figuras;
+    }
 
     public ArrayList<Juego> getJuegos() {
         return juegos;
@@ -130,48 +135,18 @@ public class SistemaJuego
     // ----------------- ************************ ----------------- ************************ ----------------- ************************ 
     // ----------------- ************************ ----------------- ************************ ----------------- ************************ 
     // ----------------- ************************ ----------------- ************************ ----------------- ************************ 
-   
-    public Figura obtenerFigura(ArrayList<Carta> cartas){       
-        int cont = obtenerPares(cartas);
-        boolean par = par(cont);
-        boolean doblePar = doblePar(cont);
-        boolean color = color(cartas);
-        
-        if(color) return new Color(cartas);
-        if(doblePar) return new DoblePar(cartas);
-        if(par) return new Par(cartas);
-        return new SinFigura(cartas);
-    }    
+  
 
-    private boolean color(ArrayList<Carta> cartas) {
-        boolean color=true;
-        for (int i=0; i<(cartas.size()-1); i++) {
-            if (!(cartas.get(i).getPalo().equals(cartas.get(i+1).getPalo()))) {
-                color=false;
+    protected void agregarFigura(Figura f) {
+        figuras.add(f);
+    }
+    
+    public Figura obtenerFigura(ArrayList<Carta> cartas){
+        for (Figura f:figuras){
+            if (f.soyFigura(cartas)){
+                return f;
             }
         }
-        return color;
-    }
-    
-    private int obtenerPares(ArrayList<Carta> cartas) {
-        int cont=0;
-        for (int s=0; s<cartas.size(); s++) {
-            for (int j=0; j<cartas.size(); j++) {
-                if (s!=j) {
-                    if (cartas.get(s).getNumero() == cartas.get(j).getNumero()) {
-                        cont++;
-                    }
-                }
-            }
-        }  
-        return (cont/2);
-    }
-    
-    private boolean doblePar(int cont){
-        return (cont == 2);
-    }
-    
-    private boolean par(int cont){
-        return (cont == 1);
+        return null;
     }
 }

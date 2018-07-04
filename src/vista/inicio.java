@@ -157,7 +157,13 @@ public class inicio {
         
         f.AgregarAdministrador(new Administrador("z","z","zorro"));
         f.AgregarAdministrador(new Administrador("x","x","pepe"));
-
+        
+        Figura color = new Color();
+        Figura doblePar = new DoblePar();
+        Figura par = new Par();        
+        f.agregarFigura(color);
+        f.agregarFigura(doblePar);
+        f.agregarFigura(par);
         
         new InicioPantalla().setVisible(true);
         

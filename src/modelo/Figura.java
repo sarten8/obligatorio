@@ -11,10 +11,33 @@ import java.util.ArrayList;
  *
  * @author sartre
  */
-public abstract class Figura implements IFigura{
-    private ArrayList<Carta> cartas = new ArrayList<>();
+public abstract class Figura{
+    
+    private String nombre;
+    private int valor;
 
-    public Figura(ArrayList<Carta> cartas){
-        this.cartas = cartas;
-    }   
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public int getValor() {
+        return valor;
+    }
+
+    public void setValor(int valor) {
+        this.valor = valor;
+    }
+
+    public Figura(String nombre, int valor) {
+        this.nombre = nombre;
+        this.valor = valor;
+    }
+
+    public abstract boolean soyFigura(ArrayList<Carta> cartas);
+    public abstract boolean soyGanador(ArrayList<Carta> cartas1, ArrayList<Carta> cartas2);
+    
 }

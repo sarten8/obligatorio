@@ -83,6 +83,10 @@ public class Fachada extends Observable{
         return sj.ingresarParticipante(j);
     }
     
+    public void agregarFigura(Figura f){
+        sj.agregarFigura(f);
+    }
+    
     public Figura obtenerFigura(ArrayList<Carta> cartasParticipante){
         return sj.obtenerFigura(cartasParticipante);
     }

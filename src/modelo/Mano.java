@@ -53,19 +53,28 @@ public class Mano {
         this.participanteGanador.incrementarSaldo(this.juego.getPozoTotal());
     }
     
-    private void buscarGanador(){
-        if(participantes.size() == 1) this.participanteGanador = participantes.get(0);
-        else{
+    private void buscarGanador() {
+        if (participantes.size() == 1) {
+            this.participanteGanador = participantes.get(0);
+        } else {
             Participante p_aux = participantes.get(0);
-            for(Participante p: participantes){
-                if(p.mejorCarta().getNumero() > p_aux.mejorCarta().getNumero()){
+            for (Participante p : participantes) {
+                if (p.valorFigura() > p_aux.valorFigura()) {
                     p_aux = p;
-                }
-                else if(p.mejorCarta().getNumero() == p_aux.mejorCarta().getNumero()){
-                    if(p.mejorCarta().getPalo().getValor() > p_aux.mejorCarta().getPalo().getValor()){
+                } else if (p.valorFigura() == p_aux.valorFigura() && p.valorFigura() != 0) {
+                    if (p.soyGanador(p.getCartas(), p_aux.getCartas())) {
                         p_aux = p;
                     }
+                } else if ((p.valorFigura() == p_aux.valorFigura() && p.valorFigura() == 0)) {
+                    if (p.mejorCarta().getNumero() > p_aux.mejorCarta().getNumero()) {
+                        p_aux = p;
+                    } else if (p.mejorCarta().getNumero() == p_aux.mejorCarta().getNumero()) {
+                        if (p.mejorCarta().getPalo().getValor() > p_aux.mejorCarta().getPalo().getValor()) {
+                            p_aux = p;
+                        }
+                    }
                 }
+
             }
             this.participanteGanador = p_aux;
         }
@@ -87,7 +96,6 @@ public class Mano {
                 pos++;
             }
             p.pedirFigura();
-            System.out.println("Participante: " + p.getJugador().getNombre() + " - Figura: " + p.getIFigura().obtenerGerarquia() + " - " + p.getIFigura().getClass());
         }
     }
     

@@ -13,13 +13,23 @@ import java.util.ArrayList;
  */
 public class Color extends Figura{
 
-    public Color(ArrayList<Carta> cartas) {
-        super(cartas);
+    public Color(){
+        super("Color", 3);
+    }
+    
+    @Override
+    public boolean soyFigura(ArrayList<Carta> cartas) {
+        boolean color=true;
+        for (int i=0; i<(cartas.size()-1); i++) {
+            if (!(cartas.get(i).getPalo().getValor() == cartas.get(i+1).getPalo().getValor())) {
+                color=false;
+            }
+        }
+        return color;
     }
 
     @Override
-    public int obtenerGerarquia() {
-        return 3;
+    public boolean soyGanador(ArrayList<Carta> cartas1, ArrayList<Carta> cartas2) {
+        return  cartas1.get(1).getPalo().getValor() > cartas2.get(1).getPalo().getValor();
     }
-    
 }
