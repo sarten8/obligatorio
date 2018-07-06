@@ -48,6 +48,7 @@ public class ControladorJuego implements Observer{
             vista.actualizarPozo(this.participante.getJuego().getPozoTotal());
             vista.actualizarSaldo(this.participante.getJugador().getSaldo());
             vista.mostrarCartas(participante.getCartas());
+            vista.mostrarFigura(this.participante.mostrarFigura());
         }
     }
 
@@ -99,6 +100,7 @@ public class ControladorJuego implements Observer{
         
         if(evento.equals(Juego.Evento.CartasRepartidas)){
             vista.mostrarCartas(participante.getCartas());
+            vista.mostrarFigura(this.participante.mostrarFigura());
             vista.iniciarJuego();
         }
         
@@ -115,9 +117,9 @@ public class ControladorJuego implements Observer{
         
         if(evento.equals(Juego.Evento.HayGanador)){
             if(participante.equals(participante.getJuego().getMano().getParticipanteGanador())){
-                vista.mostrarMensajAlGanador(participante.getJuego().getPozoTotal());
+                vista.mostrarMensajAlGanador(participante.getJuego().getPozoTotal(), participante.getJuego().getMano().getParticipanteGanador().getFigura().getNombre());
             }else{
-                vista.mostrarGanador(participante.getJuego().getMano().getParticipanteGanador().getJugador().getNombre(), participante.getJuego().getMano().getParticipanteGanador().mejorCarta(), participante.getJuego().getPozoTotal());
+                vista.mostrarGanador(participante.getJuego().getMano().getParticipanteGanador().getJugador().getNombre(), participante.getJuego().getPozoTotal(), participante.getJuego().getMano().getParticipanteGanador().getFigura().getNombre());
             }
             vista.comenzarNuevaMano();
         }

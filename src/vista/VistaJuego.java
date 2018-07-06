@@ -39,7 +39,7 @@ public class VistaJuego extends javax.swing.JFrame implements InterfaceJuego{
         
         // Aca tengo que tener un metodo de interfaz que lo llame el controlador en su constructor 
         //this.lblNombre.setText(p.getJugador().getNombre());
-        
+        this.lblFigura.setVisible(false);
         this.lblEspera1.setVisible(true);
         this.lblEspera2.setVisible(true);
         this.lblSaldo.setVisible(false);
@@ -53,12 +53,8 @@ public class VistaJuego extends javax.swing.JFrame implements InterfaceJuego{
         this.lblCarta5.setVisible(false);
         this.btnApostar.setVisible(false);
         this.btnPasar.setVisible(false);
-        this.lblEsperaRespuesta.setVisible(false);
-        this.lblEsperarNuevaMano.setVisible(false);
-        this.lblMostrarFondoMensajes.setVisible(false);
-        this.lblMostrarGanadorTexto.setVisible(false);
-        this.lblMostrarGanadorCarta.setVisible(false);
-        
+        this.lblMostrarMensaje.setVisible(false);
+        this.txtApostar.setVisible(false);
         this.controlador = new ControladorJuego(this, p);
     }
 
@@ -76,12 +72,9 @@ public class VistaJuego extends javax.swing.JFrame implements InterfaceJuego{
         lblMinimize = new javax.swing.JLabel();
         lblClose = new javax.swing.JLabel();
         lblNombre = new javax.swing.JLabel();
+        lblFigura = new javax.swing.JLabel();
         lblBarra = new javax.swing.JLabel();
-        lblMostrarGanadorCarta = new javax.swing.JLabel();
-        lblMostrarGanadorTexto = new javax.swing.JLabel();
-        lblEsperarNuevaMano = new javax.swing.JLabel();
-        lblEsperaRespuesta = new javax.swing.JLabel();
-        lblMostrarFondoMensajes = new javax.swing.JLabel();
+        lblMostrarMensaje = new javax.swing.JLabel();
         lblParticipantes = new javax.swing.JLabel();
         lblEspera1 = new javax.swing.JLabel();
         lblEspera2 = new javax.swing.JLabel();
@@ -92,11 +85,13 @@ public class VistaJuego extends javax.swing.JFrame implements InterfaceJuego{
         lblCarta5 = new javax.swing.JLabel();
         lblSaldo = new javax.swing.JLabel();
         lblSaldoValor = new javax.swing.JLabel();
-        btnApostar = new javax.swing.JButton();
-        btnPasar = new javax.swing.JButton();
-        btnSalir = new javax.swing.JButton();
         contenedorParticipantes = new javax.swing.JScrollPane();
         lstParticipantes = new javax.swing.JList();
+        txtApostar = new javax.swing.JTextField();
+        btnApostar = new javax.swing.JButton();
+        btnPasar = new javax.swing.JButton();
+        btnPagar = new javax.swing.JButton();
+        btnSalir = new javax.swing.JButton();
         lblPozo = new javax.swing.JLabel();
         lblPozoValor = new javax.swing.JLabel();
         lblBackground = new javax.swing.JLabel();
@@ -130,6 +125,11 @@ public class VistaJuego extends javax.swing.JFrame implements InterfaceJuego{
         getContentPane().add(lblNombre);
         lblNombre.setBounds(60, 0, 280, 30);
 
+        lblFigura.setFont(new java.awt.Font("Menlo for Powerline", 0, 14)); // NOI18N
+        lblFigura.setForeground(new java.awt.Color(204, 255, 204));
+        getContentPane().add(lblFigura);
+        lblFigura.setBounds(20, 140, 80, 80);
+
         lblBarra.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
             public void mouseDragged(java.awt.event.MouseEvent evt) {
                 lblBarraMouseDragged(evt);
@@ -143,38 +143,17 @@ public class VistaJuego extends javax.swing.JFrame implements InterfaceJuego{
         getContentPane().add(lblBarra);
         lblBarra.setBounds(0, 0, 340, 40);
 
-        lblMostrarGanadorCarta.setFont(new java.awt.Font("Monaco", 1, 12)); // NOI18N
-        lblMostrarGanadorCarta.setForeground(new java.awt.Color(255, 255, 204));
-        getContentPane().add(lblMostrarGanadorCarta);
-        lblMostrarGanadorCarta.setBounds(250, 140, 80, 110);
-
-        lblMostrarGanadorTexto.setFont(new java.awt.Font("Monaco", 1, 12)); // NOI18N
-        lblMostrarGanadorTexto.setForeground(new java.awt.Color(255, 255, 204));
-        getContentPane().add(lblMostrarGanadorTexto);
-        lblMostrarGanadorTexto.setBounds(10, 80, 320, 80);
-
-        lblEsperarNuevaMano.setFont(new java.awt.Font("Monaco", 1, 12)); // NOI18N
-        lblEsperarNuevaMano.setForeground(new java.awt.Color(255, 255, 204));
-        getContentPane().add(lblEsperarNuevaMano);
-        lblEsperarNuevaMano.setBounds(10, 80, 320, 170);
-
-        lblEsperaRespuesta.setFont(new java.awt.Font("Menlo", 1, 12)); // NOI18N
-        lblEsperaRespuesta.setForeground(new java.awt.Color(255, 255, 204));
-        getContentPane().add(lblEsperaRespuesta);
-        lblEsperaRespuesta.setBounds(10, 80, 320, 170);
-
-        lblMostrarFondoMensajes.setFont(new java.awt.Font("Monaco", 1, 12)); // NOI18N
-        lblMostrarFondoMensajes.setForeground(new java.awt.Color(255, 255, 204));
-        lblMostrarFondoMensajes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/utilidades/background/background_table.jpg"))); // NOI18N
-        getContentPane().add(lblMostrarFondoMensajes);
-        lblMostrarFondoMensajes.setBounds(10, 80, 320, 170);
+        lblMostrarMensaje.setFont(new java.awt.Font("Monaco", 1, 12)); // NOI18N
+        lblMostrarMensaje.setForeground(new java.awt.Color(255, 255, 204));
+        getContentPane().add(lblMostrarMensaje);
+        lblMostrarMensaje.setBounds(10, 280, 720, 30);
 
         lblParticipantes.setFont(new java.awt.Font("Fira Code", 1, 12)); // NOI18N
         lblParticipantes.setForeground(new java.awt.Color(255, 255, 204));
         lblParticipantes.setText("~ Participantes ~");
         lblParticipantes.setToolTipText("");
         getContentPane().add(lblParticipantes);
-        lblParticipantes.setBounds(210, 30, 120, 40);
+        lblParticipantes.setBounds(580, 40, 120, 40);
 
         lblEspera1.setForeground(new java.awt.Color(255, 255, 204));
         getContentPane().add(lblEspera1);
@@ -184,15 +163,15 @@ public class VistaJuego extends javax.swing.JFrame implements InterfaceJuego{
         getContentPane().add(lblEspera2);
         lblEspera2.setBounds(30, 110, 170, 30);
         getContentPane().add(lblCarta1);
-        lblCarta1.setBounds(10, 80, 55, 80);
+        lblCarta1.setBounds(130, 80, 55, 80);
         getContentPane().add(lblCarta2);
-        lblCarta2.setBounds(70, 80, 55, 80);
+        lblCarta2.setBounds(190, 80, 55, 80);
         getContentPane().add(lblCarta3);
-        lblCarta3.setBounds(130, 80, 55, 80);
+        lblCarta3.setBounds(250, 80, 55, 80);
         getContentPane().add(lblCarta4);
-        lblCarta4.setBounds(100, 170, 55, 80);
+        lblCarta4.setBounds(220, 170, 55, 80);
         getContentPane().add(lblCarta5);
-        lblCarta5.setBounds(40, 170, 55, 80);
+        lblCarta5.setBounds(160, 170, 55, 80);
 
         lblSaldo.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         lblSaldo.setForeground(new java.awt.Color(255, 255, 255));
@@ -206,6 +185,20 @@ public class VistaJuego extends javax.swing.JFrame implements InterfaceJuego{
         getContentPane().add(lblSaldoValor);
         lblSaldoValor.setBounds(70, 50, 120, 20);
 
+        contenedorParticipantes.setBackground(new java.awt.Color(51, 51, 51));
+
+        lstParticipantes.setBackground(new java.awt.Color(89, 89, 104));
+        lstParticipantes.setFont(new java.awt.Font("Dialog", 1, 10)); // NOI18N
+        lstParticipantes.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        lstParticipantes.setSelectionBackground(new java.awt.Color(215, 215, 89));
+        lstParticipantes.setSelectionForeground(new java.awt.Color(0, 0, 0));
+        contenedorParticipantes.setViewportView(lstParticipantes);
+
+        getContentPane().add(contenedorParticipantes);
+        contenedorParticipantes.setBounds(570, 80, 140, 170);
+        getContentPane().add(txtApostar);
+        txtApostar.setBounds(20, 330, 130, 30);
+
         btnApostar.setBackground(new java.awt.Color(71, 128, 51));
         btnApostar.setFont(new java.awt.Font("Menlo", 0, 14)); // NOI18N
         btnApostar.setForeground(new java.awt.Color(204, 204, 204));
@@ -218,11 +211,11 @@ public class VistaJuego extends javax.swing.JFrame implements InterfaceJuego{
             }
         });
         getContentPane().add(btnApostar);
-        btnApostar.setBounds(10, 290, 90, 30);
+        btnApostar.setBounds(170, 330, 90, 30);
 
-        btnPasar.setBackground(new java.awt.Color(158, 158, 15));
+        btnPasar.setBackground(new java.awt.Color(255, 255, 102));
         btnPasar.setFont(new java.awt.Font("Menlo", 0, 14)); // NOI18N
-        btnPasar.setForeground(new java.awt.Color(204, 204, 204));
+        btnPasar.setForeground(new java.awt.Color(204, 255, 204));
         btnPasar.setText("Pasar");
         btnPasar.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         btnPasar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -232,7 +225,21 @@ public class VistaJuego extends javax.swing.JFrame implements InterfaceJuego{
             }
         });
         getContentPane().add(btnPasar);
-        btnPasar.setBounds(120, 290, 90, 30);
+        btnPasar.setBounds(280, 330, 90, 30);
+
+        btnPagar.setBackground(new java.awt.Color(0, 51, 255));
+        btnPagar.setFont(new java.awt.Font("Menlo", 0, 14)); // NOI18N
+        btnPagar.setForeground(new java.awt.Color(204, 204, 204));
+        btnPagar.setText("Pagar");
+        btnPagar.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        btnPagar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        btnPagar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPagarActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnPagar);
+        btnPagar.setBounds(380, 330, 90, 30);
 
         btnSalir.setBackground(new java.awt.Color(162, 43, 34));
         btnSalir.setFont(new java.awt.Font("Menlo", 0, 14)); // NOI18N
@@ -246,39 +253,27 @@ public class VistaJuego extends javax.swing.JFrame implements InterfaceJuego{
             }
         });
         getContentPane().add(btnSalir);
-        btnSalir.setBounds(230, 290, 90, 30);
-
-        contenedorParticipantes.setBackground(new java.awt.Color(51, 51, 51));
-
-        lstParticipantes.setBackground(new java.awt.Color(89, 89, 104));
-        lstParticipantes.setFont(new java.awt.Font("Dialog", 1, 10)); // NOI18N
-        lstParticipantes.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        lstParticipantes.setSelectionBackground(new java.awt.Color(215, 215, 89));
-        lstParticipantes.setSelectionForeground(new java.awt.Color(0, 0, 0));
-        contenedorParticipantes.setViewportView(lstParticipantes);
-
-        getContentPane().add(contenedorParticipantes);
-        contenedorParticipantes.setBounds(200, 80, 130, 170);
+        btnSalir.setBounds(640, 330, 90, 30);
 
         lblPozo.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         lblPozo.setForeground(new java.awt.Color(255, 255, 255));
         lblPozo.setText("Pozo: ");
         getContentPane().add(lblPozo);
-        lblPozo.setBounds(200, 260, 50, 20);
+        lblPozo.setBounds(560, 260, 50, 20);
 
         lblPozoValor.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         lblPozoValor.setForeground(new java.awt.Color(255, 255, 255));
         lblPozoValor.setText("$$$$$");
         getContentPane().add(lblPozoValor);
-        lblPozoValor.setBounds(250, 260, 110, 20);
+        lblPozoValor.setBounds(610, 260, 110, 20);
 
         lblBackground.setBackground(new java.awt.Color(0, 51, 255));
         lblBackground.setForeground(new java.awt.Color(255, 255, 255));
         lblBackground.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/utilidades/background/background_table.jpg"))); // NOI18N
         getContentPane().add(lblBackground);
-        lblBackground.setBounds(-570, -140, 1400, 660);
+        lblBackground.setBounds(-550, -130, 1400, 660);
 
-        setBounds(0, 0, 336, 333);
+        setBounds(0, 0, 734, 366);
     }// </editor-fold>//GEN-END:initComponents
 
     private void lblMinimizeMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblMinimizeMousePressed
@@ -313,9 +308,14 @@ public class VistaJuego extends javax.swing.JFrame implements InterfaceJuego{
         apostar();
     }//GEN-LAST:event_btnApostarActionPerformed
 
+    private void btnPagarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPagarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnPagarActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnApostar;
+    private javax.swing.JButton btnPagar;
     private javax.swing.JButton btnPasar;
     private javax.swing.JButton btnSalir;
     private javax.swing.JScrollPane contenedorParticipantes;
@@ -329,12 +329,9 @@ public class VistaJuego extends javax.swing.JFrame implements InterfaceJuego{
     private javax.swing.JLabel lblClose;
     private javax.swing.JLabel lblEspera1;
     private javax.swing.JLabel lblEspera2;
-    private javax.swing.JLabel lblEsperaRespuesta;
-    private javax.swing.JLabel lblEsperarNuevaMano;
+    private javax.swing.JLabel lblFigura;
     private javax.swing.JLabel lblMinimize;
-    private javax.swing.JLabel lblMostrarFondoMensajes;
-    private javax.swing.JLabel lblMostrarGanadorCarta;
-    private javax.swing.JLabel lblMostrarGanadorTexto;
+    private javax.swing.JLabel lblMostrarMensaje;
     private javax.swing.JLabel lblNombre;
     private javax.swing.JLabel lblParticipantes;
     private javax.swing.JLabel lblPozo;
@@ -342,6 +339,7 @@ public class VistaJuego extends javax.swing.JFrame implements InterfaceJuego{
     private javax.swing.JLabel lblSaldo;
     private javax.swing.JLabel lblSaldoValor;
     private javax.swing.JList lstParticipantes;
+    private javax.swing.JTextField txtApostar;
     // End of variables declaration//GEN-END:variables
     
     
@@ -360,9 +358,9 @@ public class VistaJuego extends javax.swing.JFrame implements InterfaceJuego{
     }
     
     private void pasar() {
-        this.lblEsperarNuevaMano.setText("Esperando nueva mano...");
-        this.lblEsperarNuevaMano.setVisible(true);
-        this.lblMostrarFondoMensajes.setVisible(true);
+        this.lblMostrarMensaje.setText("Esperando nueva mano...");
+        this.lblMostrarMensaje.setVisible(true);
+        this.txtApostar.setVisible(false);
         this.btnApostar.setVisible(false);
         this.btnPasar.setVisible(false);
         controlador.pasar();
@@ -379,7 +377,8 @@ public class VistaJuego extends javax.swing.JFrame implements InterfaceJuego{
     
     @Override
     public void mostrarError(String mensaje) {
-        JOptionPane.showMessageDialog(this, mensaje);
+        this.lblMostrarMensaje.setText(mensaje);
+        this.lblMostrarMensaje.setVisible(true);
     }
     
 
@@ -393,13 +392,11 @@ public class VistaJuego extends javax.swing.JFrame implements InterfaceJuego{
 
     @Override
     public void iniciarJuego() {
+        this.lblFigura.setVisible(true);
         this.lblEspera1.setVisible(false);
         this.lblEspera2.setVisible(false);
-        this.lblMostrarFondoMensajes.setVisible(false);
-        this.lblMostrarGanadorTexto.setVisible(false);
-        this.lblMostrarGanadorCarta.setVisible(false);
-        this.lblEsperarNuevaMano.setVisible(false);
-        this.lblEsperaRespuesta.setVisible(false);
+        this.lblMostrarMensaje.setVisible(false);
+        this.txtApostar.setVisible(true);
         this.lblCarta1.setVisible(true);
         this.lblCarta2.setVisible(true);
         this.lblCarta3.setVisible(true);
@@ -487,10 +484,8 @@ public class VistaJuego extends javax.swing.JFrame implements InterfaceJuego{
             int valor = JOptionPane.showConfirmDialog(this, nombre + " apostó: $ " + monto + ". Acepta pagar?", "  ·  Apuesta!", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
 
             if(valor == JOptionPane.NO_OPTION || valor == JOptionPane.YES_NO_CANCEL_OPTION){  
-                this.lblEsperarNuevaMano.setText("Esperando nueva mano...");
-                this.lblEsperarNuevaMano.setVisible(true);
-                this.lblMostrarFondoMensajes.setVisible(true);
-                this.contenedorParticipantes.setVisible(false);
+                this.lblMostrarMensaje.setText("Esperando nueva mano...");
+                this.lblMostrarMensaje.setVisible(true);
                 controlador.quitarParticipanteDeLaMano();
             }
             if(valor == JOptionPane.YES_OPTION) {
@@ -506,31 +501,21 @@ public class VistaJuego extends javax.swing.JFrame implements InterfaceJuego{
 
     @Override
     public void esperarRespuesta() {
-        this.lblEsperaRespuesta.setText("Esperando respuesta...");
-        this.lblEsperaRespuesta.setVisible(true);
-        this.lblMostrarFondoMensajes.setVisible(true);
-        this.contenedorParticipantes.setVisible(false);
+        this.lblMostrarMensaje.setText("Esperando respuesta...");
+        this.lblMostrarMensaje.setVisible(true);
+        this.txtApostar.setVisible(false);
         this.btnApostar.setVisible(false);
         this.btnPasar.setVisible(false);
     }
 
     @Override
-    public void mostrarGanador(String ganador, Carta carta, int pozo) {
-        this.lblMostrarGanadorTexto.setText("Ganador "+ ganador + ", se lleva el pozo $" + pozo + ". Carta:");
-        ImageIcon ico = new ImageIcon(getClass().getResource(carta.getImagen()));
-        this.lblMostrarGanadorCarta.setIcon(ico);
-        this.lblMostrarFondoMensajes.setVisible(true);
-        this.lblMostrarGanadorTexto.setVisible(true);
-        this.lblMostrarGanadorCarta.setVisible(true);
-        this.contenedorParticipantes.setVisible(false);
+    public void mostrarGanador(String ganador, int pozo, String figura) {
+        this.lblMostrarMensaje.setText("Ganador "+ ganador + ", Pozo $" + pozo + ". Figura: " + figura);
     }
 
     @Override
-    public void mostrarMensajAlGanador(int pozo) {
-        this.lblMostrarGanadorTexto.setText("Ganaste!!! Te llevaste el pozo $" + pozo);
-        this.lblMostrarFondoMensajes.setVisible(true);
-        this.lblMostrarGanadorTexto.setVisible(true);
-        this.contenedorParticipantes.setVisible(false);
+    public void mostrarMensajAlGanador(int pozo, String figura) {
+        this.lblMostrarMensaje.setText("Ganaste!!! Pozo $" + pozo + " con Figura: " + figura) ;
     }
 
     @Override
@@ -548,5 +533,11 @@ public class VistaJuego extends javax.swing.JFrame implements InterfaceJuego{
             controlador.salirDelJuego();
         }
         controlador.incrementarRespuestaNuevaMano();
+    }
+
+    @Override
+    public void mostrarFigura(String Figura) {
+        this.lblFigura.setText(Figura);
+        this.lblFigura.setVisible(true);
     }
 }

@@ -65,7 +65,16 @@ public class Participante {
     
     public void setFigura(Figura iFigura){
         this.figura = iFigura;
-    } 
+    }
+    
+    //Auxiliar
+    public String mostrarFigura(){
+        if(figura == null){
+            return "Sin figura";
+        }else{
+            return figura.getNombre();
+        }
+    }
 
     public int getSaldoInicial() {
         return saldoInicial;
