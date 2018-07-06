@@ -29,7 +29,7 @@ public interface InterfaceJuego {
     public void salirPorFaltaSaldo(String nombre, int luz);
     public void mostrarApuesta(String nombre, int monto);
     public void esperarRespuesta();
-    public void mostrarGanador(String ganador, int pozo, String figura);
+    public void mostrarGanador(String ganador, int pozo, String figura, ArrayList<Carta> cartas);
     public void mostrarMensajAlGanador(int pozo, String figura);
     public void comenzarNuevaMano();
     public void mostrarTerminoJuego(int monto);

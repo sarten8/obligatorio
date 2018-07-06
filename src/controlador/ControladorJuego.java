@@ -8,6 +8,7 @@ package controlador;
 import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
+import modelo.Carta;
 import modelo.Fachada;
 import modelo.Juego;
 import modelo.Participante;
@@ -119,7 +120,8 @@ public class ControladorJuego implements Observer{
             if(participante.equals(participante.getJuego().getMano().getParticipanteGanador())){
                 vista.mostrarMensajAlGanador(participante.getJuego().getPozoTotal(), participante.getJuego().getMano().getParticipanteGanador().getFigura().getNombre());
             }else{
-                vista.mostrarGanador(participante.getJuego().getMano().getParticipanteGanador().getJugador().getNombre(), participante.getJuego().getPozoTotal(), participante.getJuego().getMano().getParticipanteGanador().getFigura().getNombre());
+                ArrayList<Carta> aux = participante.getJuego().getMano().getParticipanteGanador().getCartas();
+                vista.mostrarGanador(participante.getJuego().getMano().getParticipanteGanador().getJugador().getNombre(), participante.getJuego().getPozoTotal(), participante.getJuego().getMano().getParticipanteGanador().getFigura().getNombre(), aux);
             }
             vista.comenzarNuevaMano();
         }

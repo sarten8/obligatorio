@@ -509,7 +509,9 @@ public class VistaJuego extends javax.swing.JFrame implements InterfaceJuego{
     }
 
     @Override
-    public void mostrarGanador(String ganador, int pozo, String figura) {
+    public void mostrarGanador(String ganador, int pozo, String figura, ArrayList<Carta> cartas) {
+        this.lblFigura.setText(figura);
+        mostrarCartas(cartas);
         this.lblMostrarMensaje.setText("Ganador "+ ganador + ", Pozo $" + pozo + ". Figura: " + figura);
     }
 
