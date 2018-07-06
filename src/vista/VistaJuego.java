@@ -52,6 +52,7 @@ public class VistaJuego extends javax.swing.JFrame implements InterfaceJuego{
         this.lblCarta4.setVisible(false);
         this.lblCarta5.setVisible(false);
         this.btnApostar.setVisible(false);
+        this.btnPagar.setVisible(false);
         this.btnPasar.setVisible(false);
         this.lblMostrarMensaje.setVisible(false);
         this.txtApostar.setVisible(false);
@@ -141,7 +142,7 @@ public class VistaJuego extends javax.swing.JFrame implements InterfaceJuego{
             }
         });
         getContentPane().add(lblBarra);
-        lblBarra.setBounds(0, 0, 340, 40);
+        lblBarra.setBounds(0, 0, 740, 40);
 
         lblMostrarMensaje.setFont(new java.awt.Font("Monaco", 1, 12)); // NOI18N
         lblMostrarMensaje.setForeground(new java.awt.Color(255, 255, 204));
@@ -196,6 +197,9 @@ public class VistaJuego extends javax.swing.JFrame implements InterfaceJuego{
 
         getContentPane().add(contenedorParticipantes);
         contenedorParticipantes.setBounds(570, 80, 140, 170);
+
+        txtApostar.setToolTipText("Ingrese monto");
+        txtApostar.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
         getContentPane().add(txtApostar);
         txtApostar.setBounds(20, 330, 130, 30);
 
