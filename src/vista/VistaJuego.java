@@ -349,7 +349,7 @@ public class VistaJuego extends javax.swing.JFrame implements InterfaceJuego{
     
     public void apostar(){
         try{
-            int valor = Integer.parseInt(JOptionPane.showInputDialog(null, "Ingrese valor para apostar", "Apostar", JOptionPane.QUESTION_MESSAGE));
+            int valor = Integer.parseInt(this.txtApostar.getText());
             if(valor > 0)controlador.apostar(valor);
             else mostrarError("Ingrese valor entero mayor a 0");
         }catch(NullPointerException ex){
@@ -358,6 +358,8 @@ public class VistaJuego extends javax.swing.JFrame implements InterfaceJuego{
             mostrarError("Solo se aceptan números enteros mayor a cero");
         }catch(Exception ex){
             mostrarError("Exception no controlada");
+        }finally{
+            this.txtApostar.setText("");
         }
     }
     

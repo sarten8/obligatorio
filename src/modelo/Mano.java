@@ -74,7 +74,6 @@ public class Mano {
                         }
                     }
                 }
-
             }
             this.participanteGanador = p_aux;
         }

@@ -118,10 +118,13 @@ public class ControladorJuego implements Observer{
         
         if(evento.equals(Juego.Evento.HayGanador)){
             if(participante.equals(participante.getJuego().getMano().getParticipanteGanador())){
-                vista.mostrarMensajAlGanador(participante.getJuego().getPozoTotal(), participante.getJuego().getMano().getParticipanteGanador().getFigura().getNombre());
+                vista.mostrarMensajAlGanador(participante.getJuego().getPozoTotal(), participante.getJuego().getMano().getParticipanteGanador().mostrarFigura());
             }else{
-                ArrayList<Carta> aux = participante.getJuego().getMano().getParticipanteGanador().getCartas();
-                vista.mostrarGanador(participante.getJuego().getMano().getParticipanteGanador().getJugador().getNombre(), participante.getJuego().getPozoTotal(), participante.getJuego().getMano().getParticipanteGanador().getFigura().getNombre(), aux);
+                ArrayList<Carta> cartasGanadoras = participante.getJuego().getMano().getParticipanteGanador().getCartas();
+                String ganador = participante.getJuego().getMano().getParticipanteGanador().getJugador().getNombre();
+                int ganado = participante.getJuego().getPozoTotal();
+                String figura = participante.getJuego().getMano().getParticipanteGanador().mostrarFigura();
+                vista.mostrarGanador(ganador, ganado, figura, cartasGanadoras);
             }
             vista.comenzarNuevaMano();
         }
