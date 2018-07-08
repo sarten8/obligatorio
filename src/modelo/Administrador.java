@@ -15,4 +15,8 @@ public class Administrador extends Usuario{
         super(user, pass, nombre);
     }
     
+    public Administrador(){
+        super();
+    }
+    
 }

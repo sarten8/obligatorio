@@ -6,6 +6,8 @@
 package modelo;
 
 import java.util.ArrayList;
+import persistencia.MapeadorPartida;
+import persistencia.Persistencia;
 
 /**
  *
@@ -81,10 +83,10 @@ public class SistemaJuego
         return juegos.get(juegos.size()-1);
     } 
    
-    public ArrayList<Juego> JuegosActivos() {
+    public ArrayList<Juego> JuegosActivosYFinalizados() {
         ArrayList<Juego> listajuegos=new ArrayList();
         for(Juego j: juegos){
-            if(j.getEstado()==Juego.Estado.Activo)
+            if(j.getEstado() != Juego.Estado.EnEspera)
             {
                 listajuegos.add(j);
             }
@@ -149,4 +151,8 @@ public class SistemaJuego
         }
         return null;
     }
+
+    public void cargarPartidas() {
+        this.juegos = Persistencia.getInstancia().obtenerTodos(new MapeadorPartida());
+    } 
 }

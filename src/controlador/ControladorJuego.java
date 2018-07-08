@@ -106,7 +106,6 @@ public class ControladorJuego implements Observer{
         }
         
         if(evento.equals(Juego.Evento.HayApuesta)){
-
             if(participante.isAposto()) {
                 vista.esperarRespuesta();
                 vista.mostrarError("Esperando respuestas");
@@ -128,6 +127,28 @@ public class ControladorJuego implements Observer{
                 vista.mostrarGanador(ganador, ganado, figura, cartasGanadoras);
             }
             vista.comenzarNuevaMano();
+        }
+        
+        if(evento.equals(Juego.Evento.Contar)){
+            if(!participante.isAposto() && !participante.isRespondio()){
+                Participante apostador = participante.getJuego().getMano().quienAposto();
+                String nom = apostador.getJugador().getNombre();
+                int mon = apostador.getApuesta();
+                vista.mostrarError(nom + " apostó $ " + mon + " ||| Tiempo de respesta en segundos: " + participante.getJuego().getApuesta().getTiempoMax());
+            }
+            if(participante.isAposto()){
+                vista.mostrarError("Esperando respuesta - faltan: " + participante.getJuego().getApuesta().getTiempoMax() + " segundos");
+            }
+        }
+        
+        if(evento.equals(Juego.Evento.FinalizoTiempo)) {
+            if(!participante.isAposto() && !participante.isRespondio()){
+                try{
+                    quitarParticipanteDeLaMano();
+                }catch(Exception ex){
+                    vista.mostrarError(ex.getMessage());
+                }
+            }
         }
     }
     
@@ -183,6 +204,7 @@ public class ControladorJuego implements Observer{
     }
     
     public void descontarApuesta(int monto){
+        this.participante.setRespondio(true);
         incrementarRespuestaApuestas();
         this.participante.descontar(monto);
     }
@@ -197,6 +219,7 @@ public class ControladorJuego implements Observer{
     }
     
     public void quitarParticipanteDeLaMano() throws PokerException{
+        this.participante.setRespondio(true);
         participante.getJuego().quitarParticipanteDeLaMano(participante);
     }
 

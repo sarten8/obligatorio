@@ -68,7 +68,7 @@ public class Fachada extends Observable{
     }
     
     public ArrayList<Juego> actualizarPartidas() {
-        return  sj.JuegosActivos();
+        return  sj.JuegosActivosYFinalizados();
     }
        
     public Administrador loginAdmin(String user, String pass) throws PokerException {
@@ -89,5 +89,17 @@ public class Fachada extends Observable{
     
     public Figura obtenerFigura(ArrayList<Carta> cartasParticipante){
         return sj.obtenerFigura(cartasParticipante);
+    }
+    
+    public Jugador buscarJugador(int oid) {
+        return su.buscarJugador(oid);
+    }
+    
+    public void cargarUsuarios() {
+        su.cargarUsuarios();
+    }
+
+    public void cargarPartidas() {
+        sj.cargarPartidas();
     }
 }

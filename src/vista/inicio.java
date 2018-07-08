@@ -146,8 +146,12 @@ public class inicio {
         SistemaJuego sj = new SistemaJuego(mazo, 3, 100);
         
         f.AgregarSistemaJuego(sj);
+        f.cargarUsuarios();
+        f.cargarPartidas();
         f.CrearJuego();
 
+        /*
+        
         f.AgregarJugador(new Jugador("a", "a", "Sultano", 600));
         f.AgregarJugador(new Jugador("s", "s", "Señor de la S", 15000));
         f.AgregarJugador(new Jugador("b", "b", "Fulano", 600));
@@ -155,8 +159,11 @@ public class inicio {
         f.AgregarJugador(new Jugador("prueba", "prueba", "Sr. Prueba", 1000));
         f.AgregarJugador(new Jugador("sarten", "sarten", "Filo de sarten", 299));
         
+        
         f.AgregarAdministrador(new Administrador("z","z","zorro"));
         f.AgregarAdministrador(new Administrador("x","x","pepe"));
+        
+        */
         
         Figura color = new Color();
         Figura doblePar = new DoblePar();

@@ -6,6 +6,8 @@
 package modelo;
 
 import java.util.ArrayList;
+import persistencia.MapeadorJugador;
+import persistencia.Persistencia;
 
 /**
  *
@@ -21,10 +23,19 @@ public class Participante {
     private int saldoGanado = 0;
     private boolean paso = false;
     private boolean aposto = false;
+    private boolean respondio = false;
     private int apuesta = 0;
     private Estado estado; 
     public enum Estado{
         Activo, Inactivo;
+    }
+
+    public boolean isRespondio() {
+        return respondio;
+    }
+
+    public void setRespondio(boolean respondio) {
+        this.respondio = respondio;
     }
 
     public void setPaso(boolean paso) {
@@ -124,6 +135,7 @@ public class Participante {
         this.apuesta = apuesta;
     }
     
+    public Participante(){}
 
     public Participante(Jugador jugador, Juego juego, int saldoInicial) {
         this.jugador = jugador;
@@ -134,6 +146,7 @@ public class Participante {
     
     public void descontar(int monto){
         this.jugador.descontarSaldo(monto);
+        this.actualizaSaldoPersistencia();
         this.saldoApostado += monto;
         this.juego.incrementarPozo(monto);
         this.juego.setTotalApostado(monto);
@@ -144,6 +157,7 @@ public class Participante {
     public void apostar(int monto) throws PokerException{
         this.validarApuesta(monto);
         descontar(monto);
+        this.juego.crearApuesta();
         aposto = true;
         apuesta = monto;
         this.juego.avisar(Juego.Evento.HayApuesta);
@@ -152,6 +166,7 @@ public class Participante {
     
     public void incrementarSaldo(int monto) {
         this.jugador.incrementarSaldo(monto);
+        this.actualizaSaldoPersistencia();
         this.saldoGanado += monto;
         Fachada.getInstancia().avisar(Fachada.Evento.ActualizarSaldo);
     }
@@ -234,5 +249,9 @@ public class Participante {
     
     public boolean soyGanador(ArrayList<Carta> cartas1, ArrayList<Carta> cartas2){
         return figura.soyGanador(cartas1, cartas2);
+    }
+    
+    public void actualizaSaldoPersistencia(){
+        Persistencia.getInstancia().guardar(new MapeadorJugador(this.jugador));
     }
 }

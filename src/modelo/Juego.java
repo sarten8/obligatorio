@@ -5,15 +5,19 @@
  */
 package modelo;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Observable;
+import persistencia.MapeadorPartida;
+import persistencia.Persistencia;
 
 /**
  *
  * @author sartre
  */
 public class Juego extends Observable{
+    private int oid;
     private int maxJugadores;
     private int cantidadRespuestas;
     private int cantidadRespuestasApuestas;
@@ -23,16 +27,33 @@ public class Juego extends Observable{
     private Mazo mazo;
     private Mano mano;
     private ArrayList<Participante> participantes = new ArrayList<>();
-    private Date fechaInicio;
+    private String fechaInicio;
     private int pozoTotal = 0;
     private int totalApostado = 0;
+    private Apuesta apuesta;
     private Estado estado = Estado.EnEspera;
     public enum Estado{
                     EnEspera, Activo, Finalizado;
     }
     
     public enum Evento{
-        CartasRepartidas, TerminoJuego, HayGanador, HayApuesta, PozoActualizado, PasaronTodos;
+        CartasRepartidas, TerminoJuego, HayGanador, HayApuesta, PozoActualizado, PasaronTodos, Contar, FinalizoTiempo;
+    }
+
+    public int getOid() {
+        return oid;
+    }
+
+    public void setOid(int oid) {
+        this.oid = oid;
+    }
+
+    public Apuesta getApuesta() {
+        return apuesta;
+    }
+
+    public void setApuesta(Apuesta apuesta) {
+        this.apuesta = apuesta;
     }
 
     public void setCantidadRespuestas(int cantidadRespuestas) {
@@ -52,12 +73,14 @@ public class Juego extends Observable{
     if(this.obtenerParticipantesActivos().size()==1){
         this.mano.setParticipanteGanador(this.UltimoParticipante());
         this.UltimoParticipante().incrementarSaldo(this.pozoTotal);
-        
+        Persistencia.getInstancia().guardar(new MapeadorPartida(this));
         this.estado=Estado.Finalizado;
         return true;
     }
     return false;
     }
+    
+    public Juego(){}
     
     public Juego(int maxJugadores, int luz, Mazo mazo){
         this.maxJugadores = maxJugadores;
@@ -67,6 +90,10 @@ public class Juego extends Observable{
 
     public int getCantidadManos() {
         return cantidadManos;
+    }
+    
+    public void setCantidadManos(int cant){
+        cantidadManos = cant;
     }
 
     public int getTotalApostado() {
@@ -107,6 +134,7 @@ public class Juego extends Observable{
         this.cantidadRespuestasApuestas --;
         if (this.cantidadRespuestasApuestas == 0) {
             this.getMano().acreditarGanador();
+            apuesta.finalizar();
             this.avisar(Juego.Evento.HayGanador);
         }
     }
@@ -155,11 +183,11 @@ public class Juego extends Observable{
         return participantes;
     }
 
-    public Date getFechaInicio() {
+    public String getFechaInicio() {
         return fechaInicio;
     }
 
-    public void setFechaInicio(Date fechaInicio) {
+    public void setFechaInicio(String fechaInicio) {
         this.fechaInicio = fechaInicio;
     }
 
@@ -188,7 +216,7 @@ public class Juego extends Observable{
 
     public void iniciar() throws PokerException {
         this.estado = Estado.Activo;
-        this.fechaInicio = new Date();
+        this.fechaInicio = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").format(new Date());
         Fachada.getInstancia().avisar(Fachada.Evento.IniciaJuego);
         Fachada.getInstancia().avisar(Fachada.Evento.ListarPartidas);
         this.iniciarMano();
@@ -221,7 +249,8 @@ public class Juego extends Observable{
     public ArrayList<Participante> obtenerParticipantesActivos(){
         ArrayList<Participante> aux = new ArrayList<>();
         for(Participante p: participantes){
-            if(p.getEstado().equals(Participante.Estado.Activo)) aux.add(p);
+            //if(p.getEstado().equals(Participante.Estado.Activo)) aux.add(p);
+            aux.add(p);
         }
         return aux;
     }
@@ -290,6 +319,7 @@ public class Juego extends Observable{
         for(Participante p: participantes){
             p.setPaso(false);
             p.setAposto(false);
+            p.setRespondio(false);
             p.setApuesta(0);
         }
     }
@@ -312,6 +342,13 @@ public class Juego extends Observable{
             }
         }
         return null;
+    }
     
+     public void AgregarParticipante(Participante p){
+        participantes.add(p);
+    }
+     
+    public void crearApuesta(){
+        apuesta = new Apuesta();
     }
 }

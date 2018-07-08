@@ -6,6 +6,9 @@
 package modelo;
 
 import java.util.ArrayList;
+import persistencia.MapeadorAdministrador;
+import persistencia.MapeadorJugador;
+import persistencia.Persistencia;
 
 /**
  *
@@ -49,5 +52,17 @@ public class SistemaUsuarios {
                 }
             }
         throw new PokerException("Usuario y/o Password incorrectos");
+    }
+    
+    public  Jugador buscarJugador(int oid) {
+        for(Jugador j:jugadores){
+            if (j.getOid() == oid) { return j; }
+        }
+        return null;
+    }
+
+    public void cargarUsuarios() {
+        this.jugadores=Persistencia.getInstancia().obtenerTodos(new MapeadorJugador());
+        this.administradores=Persistencia.getInstancia().obtenerTodos(new MapeadorAdministrador());
     }
 }

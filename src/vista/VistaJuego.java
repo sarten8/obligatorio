@@ -581,6 +581,7 @@ public class VistaJuego extends javax.swing.JFrame implements InterfaceJuego{
 
     private void pagar() {
         try{
+            mostrarError("Esperando...");
             controlador.descontarApuesta(this.auxMonto);
         }catch(Exception ex){
             mostrarError(ex.getMessage());
@@ -592,6 +593,7 @@ public class VistaJuego extends javax.swing.JFrame implements InterfaceJuego{
 
     private void noPagar() {
         try{
+            mostrarError("Esperando...");
             controlador.quitarParticipanteDeLaMano();
         }catch(Exception ex){
             mostrarError(ex.getMessage());

@@ -19,6 +19,10 @@ public class Jugador extends Usuario{
     public void setSaldo(int saldo) {
         this.saldo = saldo;
     }
+    
+    public Jugador(){
+        super();
+    }
 
     public Jugador(String user, String pass, String nombre, int saldo) {
         super(user, pass, nombre);

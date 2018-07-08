@@ -12,9 +12,18 @@ import java.util.Objects;
  * @author sartre
  */
 public class Usuario {
+    private int oid;
     private String user;
     private String pass;
     private String nombre;
+
+    public int getOid() {
+        return oid;
+    }
+
+    public void setOid(int oid) {
+        this.oid = oid;
+    }
     
     public String getUser() {
         return user;
@@ -39,6 +48,8 @@ public class Usuario {
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
+    
+    public Usuario(){}
     
     public Usuario(String user, String pass, String nombre) {
         this.user = user;
