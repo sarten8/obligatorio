@@ -24,7 +24,7 @@ public class VistaJuego extends javax.swing.JFrame implements InterfaceJuego{
      */
     
     private ControladorJuego controlador;
-    
+    private int auxMonto = 0;
     
     //public VistaJuego(){}
     
@@ -54,6 +54,8 @@ public class VistaJuego extends javax.swing.JFrame implements InterfaceJuego{
         this.btnApostar.setVisible(false);
         this.btnPagar.setVisible(false);
         this.btnPasar.setVisible(false);
+        this.btnNoPagar.setVisible(false);
+        this.btnJugar.setVisible(false);
         this.lblMostrarMensaje.setVisible(false);
         this.txtApostar.setVisible(false);
         this.controlador = new ControladorJuego(this, p);
@@ -92,6 +94,8 @@ public class VistaJuego extends javax.swing.JFrame implements InterfaceJuego{
         btnApostar = new javax.swing.JButton();
         btnPasar = new javax.swing.JButton();
         btnPagar = new javax.swing.JButton();
+        btnNoPagar = new javax.swing.JButton();
+        btnJugar = new javax.swing.JButton();
         btnSalir = new javax.swing.JButton();
         lblPozo = new javax.swing.JLabel();
         lblPozoValor = new javax.swing.JLabel();
@@ -245,6 +249,34 @@ public class VistaJuego extends javax.swing.JFrame implements InterfaceJuego{
         getContentPane().add(btnPagar);
         btnPagar.setBounds(380, 330, 90, 30);
 
+        btnNoPagar.setBackground(new java.awt.Color(255, 255, 102));
+        btnNoPagar.setFont(new java.awt.Font("Menlo", 0, 14)); // NOI18N
+        btnNoPagar.setForeground(new java.awt.Color(204, 255, 204));
+        btnNoPagar.setText("No pagar");
+        btnNoPagar.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        btnNoPagar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        btnNoPagar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNoPagarActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnNoPagar);
+        btnNoPagar.setBounds(280, 330, 90, 30);
+
+        btnJugar.setBackground(new java.awt.Color(0, 51, 255));
+        btnJugar.setFont(new java.awt.Font("Menlo", 0, 14)); // NOI18N
+        btnJugar.setForeground(new java.awt.Color(204, 204, 204));
+        btnJugar.setText("Jugar");
+        btnJugar.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        btnJugar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        btnJugar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnJugarActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnJugar);
+        btnJugar.setBounds(540, 330, 90, 30);
+
         btnSalir.setBackground(new java.awt.Color(162, 43, 34));
         btnSalir.setFont(new java.awt.Font("Menlo", 0, 14)); // NOI18N
         btnSalir.setForeground(new java.awt.Color(204, 204, 204));
@@ -313,12 +345,22 @@ public class VistaJuego extends javax.swing.JFrame implements InterfaceJuego{
     }//GEN-LAST:event_btnApostarActionPerformed
 
     private void btnPagarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPagarActionPerformed
-        // TODO add your handling code here:
+        pagar();
     }//GEN-LAST:event_btnPagarActionPerformed
+
+    private void btnNoPagarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNoPagarActionPerformed
+        noPagar();
+    }//GEN-LAST:event_btnNoPagarActionPerformed
+
+    private void btnJugarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnJugarActionPerformed
+        jugar();
+    }//GEN-LAST:event_btnJugarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnApostar;
+    private javax.swing.JButton btnJugar;
+    private javax.swing.JButton btnNoPagar;
     private javax.swing.JButton btnPagar;
     private javax.swing.JButton btnPasar;
     private javax.swing.JButton btnSalir;
@@ -373,12 +415,9 @@ public class VistaJuego extends javax.swing.JFrame implements InterfaceJuego{
     }
 
     private void confirmarSalida(){
-        int valor = JOptionPane.showConfirmDialog(this, "Está seguro que desea salir?", "Advertencia!", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
-        if(valor == JOptionPane.YES_OPTION){
             controlador.salirDelJuego();
             controlador.incrementarRespuesta();
             dispose();
-        }
     }
     
     @Override
@@ -414,6 +453,9 @@ public class VistaJuego extends javax.swing.JFrame implements InterfaceJuego{
         this.lblPozoValor.setVisible(true);
         this.btnApostar.setVisible(true);
         this.btnPasar.setVisible(true);
+        this.btnPagar.setVisible(false);
+        this.btnNoPagar.setVisible(false);
+        this.btnJugar.setVisible(false);
         this.contenedorParticipantes.setVisible(true);
     }
     
@@ -486,29 +528,19 @@ public class VistaJuego extends javax.swing.JFrame implements InterfaceJuego{
     @Override
     public void mostrarApuesta(String nombre, int monto) {
         try{
+            this.auxMonto = monto;
             esperarRespuesta();
-            int valor = JOptionPane.showConfirmDialog(this, nombre + " apostó: $ " + monto + ". Acepta pagar?", "  ·  Apuesta!", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
-
-            if(valor == JOptionPane.NO_OPTION || valor == JOptionPane.YES_NO_CANCEL_OPTION){  
-                this.lblMostrarMensaje.setText("Esperando nueva mano...");
-                this.lblMostrarMensaje.setVisible(true);
-                controlador.quitarParticipanteDeLaMano();
-            }
-            if(valor == JOptionPane.YES_OPTION) {
-                this.btnApostar.setVisible(false);
-                this.btnPasar.setVisible(false);
-                controlador.descontarApuesta(monto);
-            }
+            this.lblMostrarMensaje.setText(nombre + " apostó: $ " + monto + ". Acepta pagar?");
+            this.lblMostrarMensaje.setVisible(true);
+            this.btnPagar.setVisible(true);
+            this.btnNoPagar.setVisible(true);
         }catch(Exception ex){
             mostrarError(ex.getMessage());
         }
-        //controlador.incrementarRespuestaApuestas();
     }
 
     @Override
     public void esperarRespuesta() {
-        this.lblMostrarMensaje.setText("Esperando respuesta...");
-        this.lblMostrarMensaje.setVisible(true);
         this.txtApostar.setVisible(false);
         this.btnApostar.setVisible(false);
         this.btnPasar.setVisible(false);
@@ -518,12 +550,13 @@ public class VistaJuego extends javax.swing.JFrame implements InterfaceJuego{
     public void mostrarGanador(String ganador, int pozo, String figura, ArrayList<Carta> cartas) {
         this.lblFigura.setText(figura);
         mostrarCartas(cartas);
-        this.lblMostrarMensaje.setText("Ganador "+ ganador + ", Pozo $" + pozo + ". Figura: " + figura);
+        this.lblMostrarMensaje.setText("Ganador "+ ganador + ", Pozo $" + pozo + ". Figura: " + figura + ".  Próxima mano! Desea continuar jugando?");
+        this.lblMostrarMensaje.setVisible(true);
     }
 
     @Override
     public void mostrarMensajAlGanador(int pozo, String figura) {
-        this.lblMostrarMensaje.setText("Ganaste!!! Pozo $" + pozo + " con Figura: " + figura) ;
+        this.lblMostrarMensaje.setText("Ganaste!!! Pozo $" + pozo + " con Figura: " + figura + "Próxima mano! Desea continuar jugando?") ;
     }
 
     @Override
@@ -535,17 +568,43 @@ public class VistaJuego extends javax.swing.JFrame implements InterfaceJuego{
 
     @Override
     public void comenzarNuevaMano() {
-        int valor = JOptionPane.showConfirmDialog(this, "Desea continuar jugando?", "  ·  Próxima mano!", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
-
-        if(valor == JOptionPane.NO_OPTION || valor == JOptionPane.YES_NO_CANCEL_OPTION){
-            controlador.salirDelJuego();
-        }
-        controlador.incrementarRespuestaNuevaMano();
+        this.btnNoPagar.setVisible(false);
+        this.btnPagar.setVisible(false);
+        this.btnJugar.setVisible(true);
     }
 
     @Override
     public void mostrarFigura(String Figura) {
         this.lblFigura.setText(Figura);
         this.lblFigura.setVisible(true);
+    }
+
+    private void pagar() {
+        try{
+            controlador.descontarApuesta(this.auxMonto);
+        }catch(Exception ex){
+            mostrarError(ex.getMessage());
+        }finally{
+            this.btnPagar.setVisible(false);
+            this.btnNoPagar.setVisible(false);
+        }
+    }
+
+    private void noPagar() {
+        try{
+            controlador.quitarParticipanteDeLaMano();
+        }catch(Exception ex){
+            mostrarError(ex.getMessage());
+        }finally{
+            this.btnPagar.setVisible(false);
+            this.btnNoPagar.setVisible(false);
+        }
+    }
+    
+    private void jugar(){
+        this.lblMostrarMensaje.setText("Esperando nueva mano");
+        this.lblMostrarMensaje.setVisible(true);
+        this.btnJugar.setVisible(false);
+        controlador.incrementarRespuestaNuevaMano();
     }
 }

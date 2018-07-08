@@ -109,6 +109,7 @@ public class ControladorJuego implements Observer{
 
             if(participante.isAposto()) {
                 vista.esperarRespuesta();
+                vista.mostrarError("Esperando respuestas");
             }
             else {
                 Participante apostador = participante.getJuego().getMano().quienAposto();
