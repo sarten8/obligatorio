@@ -135,6 +135,7 @@ public class Juego extends Observable{
         if (this.cantidadRespuestasApuestas == 0) {
             this.getMano().acreditarGanador();
             apuesta.finalizar();
+            apuesta = null;
             this.avisar(Juego.Evento.HayGanador);
         }
     }
@@ -249,8 +250,7 @@ public class Juego extends Observable{
     public ArrayList<Participante> obtenerParticipantesActivos(){
         ArrayList<Participante> aux = new ArrayList<>();
         for(Participante p: participantes){
-            //if(p.getEstado().equals(Participante.Estado.Activo)) aux.add(p);
-            aux.add(p);
+            if(p.getEstado().equals(Participante.Estado.Activo)) aux.add(p);
         }
         return aux;
     }
@@ -288,11 +288,11 @@ public class Juego extends Observable{
         restarCantidadRespuestasApuestas();
     }
     
-    public void pasarParticipanteDeLaMano(Participante aThis) {
+    public void pasarParticipanteDeLaMano() {
         if(verificarPasaronTodos()) this.avisar(Evento.PasaronTodos);
     }
     
-    private boolean verificarPasaronTodos(){
+    public boolean verificarPasaronTodos(){
         ArrayList<Participante> aux = this.obtenerParticipantesActivos();
         for(Participante p: aux){
             if(!p.isPaso()){

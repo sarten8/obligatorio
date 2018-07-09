@@ -74,8 +74,9 @@ public class ControladorJuego implements Observer{
             }
         }
         
-        if(evento.equals(Fachada.Evento.ParticipanteRetirado)) 
+        if(evento.equals(Fachada.Evento.ParticipanteRetirado)) {
             vista.actualizarListaParticipantes(obtenerContrincantes());
+        }
         
         if(evento.equals(Fachada.Evento.IniciaJuego)){
             vista.iniciarJuego();
@@ -160,9 +161,9 @@ public class ControladorJuego implements Observer{
     }
     
     private void salir() throws PokerException{
-        this.participante.salirDelJuego();
         modelo.deleteObserver(this);
         this.participante.getJuego().deleteObserver(this);
+        this.participante.salirDelJuego();
     }
     
     private void salirPorFaltaSaldo() {

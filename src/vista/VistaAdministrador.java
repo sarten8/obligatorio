@@ -363,7 +363,7 @@ public class VistaAdministrador extends javax.swing.JFrame implements InterfaceA
     }
         
     private String formatoJuegos(Juego j) {
-        return "Iniciado: " + j.getFechaInicio() + " | " + "Jugadores: " + j.obtenerParticipantesActivos().size() + " | " + "Total apostado: " + j.getTotalApostado() + " | " + "Manos: " + j.getCantidadManos();
+        return "Iniciado: " + j.getFechaInicio() + " | " + "Jugadores: " + j.getParticipantes().size() + " | " + "Total apostado: " + j.getTotalApostado() + " | " + "Manos: " + j.getCantidadManos();
     }
 
     @Override

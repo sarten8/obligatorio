@@ -56,6 +56,7 @@ public class VistaJuego extends javax.swing.JFrame implements InterfaceJuego{
         this.btnPasar.setVisible(false);
         this.btnNoPagar.setVisible(false);
         this.btnJugar.setVisible(false);
+        this.btnSeguirJugando.setVisible(false);
         this.lblMostrarMensaje.setVisible(false);
         this.txtApostar.setVisible(false);
         this.controlador = new ControladorJuego(this, p);
@@ -97,6 +98,7 @@ public class VistaJuego extends javax.swing.JFrame implements InterfaceJuego{
         btnNoPagar = new javax.swing.JButton();
         btnJugar = new javax.swing.JButton();
         btnSalir = new javax.swing.JButton();
+        btnSeguirJugando = new javax.swing.JButton();
         lblPozo = new javax.swing.JLabel();
         lblPozoValor = new javax.swing.JLabel();
         lblBackground = new javax.swing.JLabel();
@@ -291,6 +293,20 @@ public class VistaJuego extends javax.swing.JFrame implements InterfaceJuego{
         getContentPane().add(btnSalir);
         btnSalir.setBounds(640, 330, 90, 30);
 
+        btnSeguirJugando.setBackground(new java.awt.Color(255, 255, 102));
+        btnSeguirJugando.setFont(new java.awt.Font("Menlo", 0, 14)); // NOI18N
+        btnSeguirJugando.setForeground(new java.awt.Color(204, 255, 204));
+        btnSeguirJugando.setText("Continuar");
+        btnSeguirJugando.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        btnSeguirJugando.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        btnSeguirJugando.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSeguirJugandoActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnSeguirJugando);
+        btnSeguirJugando.setBounds(280, 330, 90, 30);
+
         lblPozo.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         lblPozo.setForeground(new java.awt.Color(255, 255, 255));
         lblPozo.setText("Pozo: ");
@@ -356,6 +372,10 @@ public class VistaJuego extends javax.swing.JFrame implements InterfaceJuego{
         jugar();
     }//GEN-LAST:event_btnJugarActionPerformed
 
+    private void btnSeguirJugandoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeguirJugandoActionPerformed
+        seguir();
+    }//GEN-LAST:event_btnSeguirJugandoActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnApostar;
@@ -364,6 +384,7 @@ public class VistaJuego extends javax.swing.JFrame implements InterfaceJuego{
     private javax.swing.JButton btnPagar;
     private javax.swing.JButton btnPasar;
     private javax.swing.JButton btnSalir;
+    private javax.swing.JButton btnSeguirJugando;
     private javax.swing.JScrollPane contenedorParticipantes;
     private javax.swing.JLabel lblBackground;
     private javax.swing.JLabel lblBarra;
@@ -420,6 +441,7 @@ public class VistaJuego extends javax.swing.JFrame implements InterfaceJuego{
             dispose();
     }
     
+    
     @Override
     public void mostrarError(String mensaje) {
         this.lblMostrarMensaje.setText(mensaje);
@@ -456,6 +478,7 @@ public class VistaJuego extends javax.swing.JFrame implements InterfaceJuego{
         this.btnPagar.setVisible(false);
         this.btnNoPagar.setVisible(false);
         this.btnJugar.setVisible(false);
+        this.btnSeguirJugando.setVisible(false);
         this.contenedorParticipantes.setVisible(true);
     }
     
@@ -476,12 +499,8 @@ public class VistaJuego extends javax.swing.JFrame implements InterfaceJuego{
 
     @Override
     public void pasaronTodos(String nombreJugador) {
-        int valor = JOptionPane.showConfirmDialog(this, "Pasaron todos los participantes. La mano finaliza sin ganador. Jugar la siguiente mano con pozo acumulado?", nombreJugador + "  ·  Advertencia!", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
-
-        if(valor == JOptionPane.NO_OPTION || valor == JOptionPane.YES_NO_CANCEL_OPTION){
-            controlador.salirDelJuego();
-        }
-        controlador.incrementarRespuesta();
+        this.btnSeguirJugando.setVisible(true);
+        mostrarError("Pasaron todos los participantes. Continuar Jugando?");
     }
 
     @Override
@@ -608,5 +627,11 @@ public class VistaJuego extends javax.swing.JFrame implements InterfaceJuego{
         this.lblMostrarMensaje.setVisible(true);
         this.btnJugar.setVisible(false);
         controlador.incrementarRespuestaNuevaMano();
+    }
+
+    private void seguir() {
+        controlador.incrementarRespuesta();
+        this.btnSeguirJugando.setVisible(false);
+        mostrarError("Esperando...");
     }
 }

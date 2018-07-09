@@ -185,13 +185,25 @@ public class Participante {
             this.juego.getParticipantes().remove(this);
             Fachada.getInstancia().avisar(Fachada.Evento.ParticipanteSalio);
         }
-        else{
-            
+        else{           
             this.estado = Estado.Inactivo;          
             Fachada.getInstancia().avisar(Fachada.Evento.ParticipanteRetirado);
-            this.juego.setCantidadRespuestas(juego.obtenerParticipantesActivos().size());
-            this.juego.setCantidadRespuestasApuestas(juego.obtenerParticipantesActivos().size());
-            this.juego.setCantidadRespuestasNuevaMano(juego.obtenerParticipantesActivos().size());
+            
+            if(juego.getApuesta() == null){
+                this.juego.setCantidadRespuestasApuestas(juego.obtenerParticipantesActivos().size());
+                //this.juego.setCantidadRespuestas(juego.obtenerParticipantesActivos().size());
+                //this.juego.setCantidadRespuestasNuevaMano(juego.obtenerParticipantesActivos().size());
+            }else{
+                this.juego.restarCantidadRespuestasApuestas();
+            }
+            
+            if(this.juego.getMano().getParticipanteGanador() != null){
+                this.juego.restarCantidadRespuestasNuevaMano();
+            }
+            
+            this.juego.pasarParticipanteDeLaMano();
+            
+            
             if(juego.TeminoJuego()){
                
             juego.avisar(Juego.Evento.TerminoJuego);
@@ -208,7 +220,7 @@ public class Participante {
     
     public void pasar(){
         this.paso = true;
-        this.getJuego().pasarParticipanteDeLaMano(this);
+        this.juego.pasarParticipanteDeLaMano();
     }
 
     
