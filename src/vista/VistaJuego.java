@@ -589,7 +589,7 @@ public class VistaJuego extends javax.swing.JFrame implements InterfaceJuego{
     public void comenzarNuevaMano() {
         this.btnNoPagar.setVisible(false);
         this.btnPagar.setVisible(false);
-        this.btnJugar.setVisible(true);
+        this.btnJugar.setVisible(true); 
     }
 
     @Override
